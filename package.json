@@ -1,0 +1,30 @@
+{
+  "name": "onem-nodejs-api",
+  "version": "1.0.0",
+  "description": "onem developer library for node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "chris horn",
+  "license": "ISC",
+  "dependencies": {
+    "node-html-parser": "^1.1.12",
+    "pug": "^2.0.3"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcoin-project/onem-nodejs-api.git"
+  },
+  "keywords": [
+    "onem",
+    "developer",
+    "api",
+    "node"
+  ],
+  "bugs": {
+    "url": "https://github.com/mcoin-project/onem-nodejs-api/issues"
+  },
+  "homepage": "https://github.com/mcoin-project/onem-nodejs-api#readme"
+}
