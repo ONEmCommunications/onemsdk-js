@@ -1,7 +1,7 @@
 {
   "name": "onem-nodejs-api",
   "version": "1.0.0",
-  "description": "onem developer library for node",
+  "description": "ONEm developer library for node",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
