@@ -25,7 +25,7 @@ Form.prototype.header = function (header) {
     }
 }
 
-Form.prototype.footr = function (footer) {
+Form.prototype.footer = function (footer) {
     if (typeof footer !== 'undefined') {
         this.footerValue = footer;
         return true;
