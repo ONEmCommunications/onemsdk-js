@@ -25,14 +25,23 @@ Form.prototype.header = function (header) {
     }
 }
 
+Form.prototype.footr = function (footer) {
+    if (typeof footer !== 'undefined') {
+        this.footerValue = footer;
+        return true;
+    } else {
+        return this.footerValue;
+    }
+}
+
 Form.prototype.render = function () {
 
+    var self = this;
     var html = pug.renderFile(this.template, this.data);
     var root = parse(html);
     var result = {};
 
     result.type = this.type;
-    result.header = this.header();
     result.body = [];
     result.nextRoute = root.childNodes[0].attributes['submit'];
     result.method = root.childNodes[0].attributes['method'].toUpperCase();
@@ -42,6 +51,14 @@ Form.prototype.render = function () {
     for (var i = 0; i < form.childNodes.length; i++) {
         var record = undefined;
         switch (form.childNodes[i].tagName) {
+            case "footer":
+                self.footer(root.childNodes[i].text);
+                break;
+            case "header":
+                record = {};
+                record.type = "header";
+                self.header(root.childNodes[i].text);
+                break;
             case "p":
                 record = {};
                 try {
@@ -66,6 +83,10 @@ Form.prototype.render = function () {
         }
         if (record) result.body.push(record);
     }
+
+    result.header = this.header();
+    result.footer = this.footer();
+
     return result;
 }
 
@@ -85,18 +106,34 @@ Menu.prototype.header = function (header) {
     }
 }
 
+Menu.prototype.footer = function (footer) {
+    if (typeof footer !== 'undefined') {
+        this.footerValue = footer;
+        return true;
+    } else {
+        return this.footerValue;
+    }
+}
+
 Menu.prototype.render = function () {
+
+    var self = this;
 
     var html = pug.renderFile(this.template, this.data);
     var root = parse(html);
     var result = {};
 
     result.type = this.type;
-    result.header = this.header();
     result.body = [];
     for (var i = 0; i < root.childNodes.length; i++) {
         var record = undefined;
         switch (root.childNodes[i].tagName) {
+            case "footer":
+                self.footer(root.childNodes[i].text);
+                break;
+            case "header":
+                self.header(root.childNodes[i].text);
+                break;
             case "option":
                 record = {};
                 record.type = "option";
@@ -117,6 +154,8 @@ Menu.prototype.render = function () {
         }
         if (record) result.body.push(record);
     }
+    result.header = this.header();
+    result.footer = this.footer();
     return result;
 }
 
@@ -132,8 +171,3 @@ exports.Service.prototype.addMenu = function (template, data) {
     return this.menus[this.menus.length - 1];
 }
 
-exports.Service.prototype.renderForm = function (template, data) {
-    var html = pug.renderFile(template, data);
-    var result = { json: html2json(html) }
-    return result;
-}
