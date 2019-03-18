@@ -1,6 +1,6 @@
 {
   "name": "onem-nodejs-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ONEm developer library for node",
   "main": "index.js",
   "scripts": {
