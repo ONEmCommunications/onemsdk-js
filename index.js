@@ -11,14 +11,20 @@ exports.Service = function (apiKey, serviceName, verbs) {
 
 function Form(index, template, data) {
     this.template = template;
-    this.data = data;
+    this.data = data || {};
     this.index = index;
     this.type = "form";
 }
 
 Form.prototype.header = function (header) {
-    if (typeof header !== 'undefined') {
-        this.headerValue = header;
+    if (arguments.length > 0) {
+        if (header && !header.startsWith('#')) {
+            this.headerValue = '#' + header.toUpperCase();
+        } else if (header && header.startsWith('#')) {
+            this.headerValue = header.toUpperCase();
+        } else if (typeof header == 'undefined') {
+            this.headerValue = undefined;
+        }
         return true;
     } else {
         return this.headerValue;
@@ -81,7 +87,7 @@ Form.prototype.render = function () {
             default:
                 break;
         }
-        if (record) result.body.push(record);
+        if (record && record.description) result.body.push(record);
     }
 
     result.header = this.header();
@@ -92,14 +98,20 @@ Form.prototype.render = function () {
 
 function Menu(index, template, data) {
     this.template = template;
-    this.data = data;
+    this.data = data || {};
     this.index = index;
     this.type = "menu";
 }
 
 Menu.prototype.header = function (header) {
-    if (typeof header !== 'undefined') {
-        this.headerValue = header;
+    if (arguments.length > 0) {
+        if (header && !header.startsWith('#')) {
+            this.headerValue = '#' + header.toUpperCase();
+        } else if (header && header.startsWith('#')) {
+            this.headerValue = header.toUpperCase();
+        } else if (typeof header == 'undefined') {
+            this.headerValue = undefined;
+        }
         return true;
     } else {
         return this.headerValue;
@@ -107,7 +119,7 @@ Menu.prototype.header = function (header) {
 }
 
 Menu.prototype.footer = function (footer) {
-    if (typeof footer !== 'undefined') {
+    if (arguments.length > 0) {
         this.footerValue = footer;
         return true;
     } else {
@@ -118,13 +130,13 @@ Menu.prototype.footer = function (footer) {
 Menu.prototype.render = function () {
 
     var self = this;
-
     var html = pug.renderFile(this.template, this.data);
     var root = parse(html);
     var result = {};
 
     result.type = this.type;
     result.body = [];
+
     for (var i = 0; i < root.childNodes.length; i++) {
         var record = undefined;
         switch (root.childNodes[i].tagName) {
@@ -152,7 +164,7 @@ Menu.prototype.render = function () {
             default:
                 break;
         }
-        if (record) result.body.push(record);
+        if (record && record.description) result.body.push(record);
     }
     result.header = this.header();
     result.footer = this.footer();
