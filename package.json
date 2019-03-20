@@ -1,6 +1,6 @@
 {
   "name": "onem-nodejs-api",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "ONEm developer library for node",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "node-html-parser": "^1.1.12",
-    "pug": "^2.0.3"
+    "pug": "^2.0.3",
+    "request": "^2.88.0"
   },
   "devDependencies": {},
   "repository": {

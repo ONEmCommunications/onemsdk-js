@@ -1,12 +1,28 @@
 var pug = require('pug');
 var parse = require('node-html-parser').parse;
+var apiServerPath = process.env.API_SERVER_BASE_PATH;
+var request = require('request');
 
 exports.Service = function (apiKey, serviceName, verbs) {
     this.apiKey = apiKey;
+    this.basePath = apiServerPath;
     this.serviceName = serviceName;
     this.verbs = verbs;
     this.menus = [];
     this.forms = [];
+    if (!(this.apiKey && this.basePath && this.verbs && this.serviceName)) {
+        throw "Invalid parameters or missing base path";
+    }
+    request({method: "post", url: this.basePath + '/service', json: true, body: {
+        apiKey: this.apiKey,
+        serviceName: this.serviceName,
+        verbs: this.verbs
+    }}, function(error, response, body) {
+        if (error) throw error;
+        if(response.statusCode !== 200) {
+            throw JSON.stringify(response.body,{},4);
+        }
+    });
 }
 
 function Form(index, template, data) {
