@@ -3,19 +3,21 @@ var parse = require('node-html-parser').parse;
 var apiServerPath = process.env.API_SERVER_BASE_PATH;
 var request = require('request');
 
-exports.Service = function (apiKey, serviceName, verbs) {
+exports.Service = function (apiKey, serviceName, callbackPath, verbs) {
     this.apiKey = apiKey;
     this.basePath = apiServerPath;
+    this.callbackPath = callbackPath;
     this.serviceName = serviceName;
-    this.verbs = verbs;
+    this.verbs = verbs || [];
     this.menus = [];
     this.forms = [];
-    if (!(this.apiKey && this.basePath && this.verbs && this.serviceName)) {
+    if (!(this.apiKey && this.basePath && this.callbackPath && this.serviceName )) {
         throw "Invalid parameters or missing base path";
     }
     request({method: "post", url: this.basePath + '/service', json: true, body: {
         apiKey: this.apiKey,
         serviceName: this.serviceName,
+        callbackPath: this.callbackPath,
         verbs: this.verbs
     }}, function(error, response, body) {
         if (error) throw error;
