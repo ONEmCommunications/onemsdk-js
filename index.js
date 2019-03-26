@@ -66,9 +66,10 @@ Form.prototype.render = function () {
     var result = {};
 
     result.type = this.type;
-    result.body = [];
-    result.nextRoute = root.childNodes[0].attributes['submit'];
-    result.method = root.childNodes[0].attributes['method'].toUpperCase();
+    result.body = {};
+    result.body.formItems = [];
+    result.body.nextRoute = root.childNodes[0].attributes['submit'];
+    result.body.method = root.childNodes[0].attributes['method'].toUpperCase();
 
     var form = root.childNodes[0];
 
@@ -105,11 +106,14 @@ Form.prototype.render = function () {
             default:
                 break;
         }
-        if (record && record.description) result.body.push(record);
+        if (record && record.description) result.body.formItems.push(record);
     }
 
     result.header = this.header();
     result.footer = this.footer();
+
+    console.log("form:");
+    console.log(result);
 
     return result;
 }
@@ -186,6 +190,10 @@ Menu.prototype.render = function () {
     }
     result.header = this.header();
     result.footer = this.footer();
+
+    console.log("menu:");
+    console.log(result);
+
     return result;
 }
 
