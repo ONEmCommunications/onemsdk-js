@@ -1,7 +1,7 @@
 var pug = require('pug');
 var parse = require('node-html-parser').parse;
 var apiServerPath = process.env.API_SERVER_BASE_PATH;
-var request = require('request');
+var request = require('request-promise');
 
 exports.Service = function (apiKey, serviceName, callbackPath, verbs) {
     this.apiKey = apiKey;
@@ -11,21 +11,32 @@ exports.Service = function (apiKey, serviceName, callbackPath, verbs) {
     this.verbs = verbs || [];
     this.menus = [];
     this.forms = [];
-    if (!(this.apiKey && this.basePath && this.callbackPath && this.serviceName )) {
+    if (!this.apiKey || !this.basePath || !this.callbackPath || !this.serviceName ) {
         throw "Invalid parameters or missing base path";
+    } else {
+        this.initialized = true;
     }
-    request({method: "post", url: this.basePath + '/service', json: true, body: {
-        apiKey: this.apiKey,
-        serviceName: this.serviceName,
-        callbackPath: this.callbackPath,
-        verbs: this.verbs
-    }}, function(error, response, body) {
-        if (error) throw error;
-        if(response.statusCode !== 200) {
-            throw JSON.stringify(response.body,{},4);
+}
+
+exports.Service.prototype.register = function() {
+    var self = this;
+    return new Promise(function(resolve, reject) {
+        if (!self.initialized) {
+            reject("Service not initialized with required parameters");
+        } else {
+            request({method: "post", url: self.basePath + '/service', json: true, body: {
+                apiKey: self.apiKey,
+                serviceName: self.serviceName,
+                callbackPath: self.callbackPath,
+                verbs: self.verbs
+            }}).then(function(body) {
+                resolve(true);
+            }).catch(function(error) {
+                reject(error);
+            })
         }
     });
-}
+};
 
 function Form(index, template, data) {
     this.template = template;
