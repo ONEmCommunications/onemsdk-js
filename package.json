@@ -1,6 +1,6 @@
 {
   "name": "onem-nodejs-api",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "ONEm developer library for node",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,9 @@
     "pug": "^2.0.3",
     "request-promise": "^4.2.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^5.16.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mcoin-project/onem-nodejs-api.git"
