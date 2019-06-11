@@ -1,0 +1,29 @@
+{
+    "tags": {
+        "allowUnknownTags": true,
+        "dictionaries": ["jsdoc"]
+    },
+    "source": {
+        "include": ["src", "package.json", "README.md"],
+        "includePattern": ".js$",
+        "excludePattern": "(node_modules/|docs)"
+    },
+    "plugins": [
+        "plugins/markdown"
+    ],
+    "templates": {
+        "cleverLinks": true,
+        "monospaceLinks": true,
+        "referenceTitle": "ONEm Node.js SDK",
+        "disableSort": false,
+        "collapse": true
+    },
+    "opts": {
+        "destination": "./docs/",
+        "recurse": true,
+        "encoding": "utf8",
+        "private": true,
+        "readme": "./README.md",
+        "template": "./node_modules/jsdoc-template"
+    }
+}

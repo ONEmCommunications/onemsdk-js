@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>
+      Home - Documentation
+  </title>
+
+  <link href="https://www.braintreepayments.com/images/favicon-ccda0b14.png" rel="icon" type="image/png">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+  <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+  <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+  
+  <link type="text/css" rel="stylesheet" href="styles/collapse.css">
+  
+
+  
+
+  <!-- start Mixpanel -->
+  <script type="text/javascript">(function(e,a){if(!a.__SV){var b=window;try{var c,l,i,j=b.location,g=j.hash;c=function(a,b){return(l=a.match(RegExp(b+"=([^&]*)")))?l[1]:null};g&&c(g,"state")&&(i=JSON.parse(decodeURIComponent(c(g,"state"))),"mpeditor"===i.action&&(b.sessionStorage.setItem("_mpcehash",g),history.replaceState(i.desiredHash||"",e.title,j.pathname+j.search)))}catch(m){}var k,h;window.mixpanel=a;a._i=[];a.init=function(b,c,f){function e(b,a){var c=a.split(".");2==c.length&&(b=b[c[0]],a=c[1]);b[a]=function(){b.push([a].concat(Array.prototype.slice.call(arguments,
+  0)))}}var d=a;"undefined"!==typeof f?d=a[f]=[]:f="mixpanel";d.people=d.people||[];d.toString=function(b){var a="mixpanel";"mixpanel"!==f&&(a+="."+f);b||(a+=" (stub)");return a};d.people.toString=function(){return d.toString(1)+".people (stub)"};k="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config reset people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
+  for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElement("script");b.type="text/javascript";b.async=!0;b.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";c=e.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c)}})(document,window.mixpanel||[]);
+  mixpanel.init("1919205b2da72e4da3b9b6639b444d59");</script>
+  <!-- end Mixpanel -->
+</head>
+
+<body>
+  <svg style="display: none;">
+    <defs>
+      <symbol id="linkIcon" fill="#706d77" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0h24v24H0z" fill="none"/>
+          <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+  <label for="nav-trigger" class="navicon-button x">
+    <div class="navicon"></div>
+  </label>
+
+  <label for="nav-trigger" class="overlay"></label>
+
+  <div class="top-nav-wrapper">
+    <ul>
+      <li  class="active" >
+        <a href="index.html">
+          
+          
+            <svg fill="#0095dd" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              <path d="M0 0h24v24H0z" fill="none"/>
+            </svg>
+          
+        </a>
+      </li>
+
+      
+
+    </ul>
+  </div>
+
+  <nav>
+    <h3 class="reference-title">
+      ONEm Node.js SDK
+    </h3>
+
+    
+
+    <h3>Classes</h3><ul><li id="Service-nav"><a href="module-onem-nodejs-api-Service.html">Service</a><ul class='methods'><li data-type="method" id="Service-addForm-nav"><a href="module-onem-nodejs-api-Service.html#addForm">addForm</a></li><li data-type="method" id="Service-addMenu-nav"><a href="module-onem-nodejs-api-Service.html#addMenu">addMenu</a></li></ul></li></ul><h3>Modules</h3><ul><li id="onem-nodejs-api-nav"><a href="module-onem-nodejs-api.html">onem-nodejs-api</a><ul class='methods'><li data-type="method" id="onem-nodejs-api-Form-nav"><a href="module-onem-nodejs-api.html#~Form">Form</a></li><li data-type="method" id="onem-nodejs-api-Menu-nav"><a href="module-onem-nodejs-api.html#~Menu">Menu</a></li></ul></li></ul>
+  </nav>
+
+  <div id="main">
+    
+
+    
+      
+
+
+
+    
+
+      
+
+
+  <section class="readme">
+    <article>
+      <p><a name="module_onem-nodejs-api"></a></p>
+<h2>onem-nodejs-api</h2>
+<p>Node.js SDK for ONEm API</p>
+<ul>
+<li><a href="#module_onem-nodejs-api">onem-nodejs-api</a>
+<ul>
+<li><a href="#module_onem-nodejs-api..Service">~Service</a>
+<ul>
+<li><a href="#new_module_onem-nodejs-api..Service_new">new Service(serviceName)</a></li>
+<li><a href="#module_onem-nodejs-api..Service+addForm">.addForm(template, data)</a> ⇒ <code>object</code></li>
+<li><a href="#module_onem-nodejs-api..Service+addMenu">.addMenu(template, data)</a> ⇒ <code>object</code></li>
+</ul>
+</li>
+<li><a href="#module_onem-nodejs-api..Form">~Form(index, template, data)</a>
+<ul>
+<li><a href="#module_onem-nodejs-api..Form+header">.header([header])</a> ⇒ <code>boolean</code> | <code>string</code></li>
+<li><a href="#module_onem-nodejs-api..Form+footer">.footer([footer])</a> ⇒ <code>boolean</code> | <code>string</code></li>
+<li><a href="#module_onem-nodejs-api..Form+render">.render()</a> ⇒ <code>Form</code></li>
+</ul>
+</li>
+<li><a href="#module_onem-nodejs-api..Menu">~Menu(index, template, data)</a>
+<ul>
+<li><a href="#module_onem-nodejs-api..Menu+header">.header([header])</a> ⇒ <code>boolean</code> | <code>string</code></li>
+<li><a href="#module_onem-nodejs-api..Menu+footer">.footer([footer])</a> ⇒ <code>boolean</code> | <code>string</code></li>
+<li><a href="#module_onem-nodejs-api..Menu+render">.render()</a> ⇒ <code>Menu</code></li>
+</ul>
+</li>
+<li><a href="#module_onem-nodejs-api..Form">~Form</a> : <code>object</code>
+<ul>
+<li><a href="#module_onem-nodejs-api..Form+header">.header([header])</a> ⇒ <code>boolean</code> | <code>string</code></li>
+<li><a href="#module_onem-nodejs-api..Form+footer">.footer([footer])</a> ⇒ <code>boolean</code> | <code>string</code></li>
+<li><a href="#module_onem-nodejs-api..Form+render">.render()</a> ⇒ <code>Form</code></li>
+</ul>
+</li>
+<li><a href="#module_onem-nodejs-api..FormBody">~FormBody</a> : <code>object</code></li>
+<li><a href="#module_onem-nodejs-api..FormItem">~FormItem</a> : <code>object</code></li>
+<li><a href="#module_onem-nodejs-api..Menu">~Menu</a> : <code>object</code>
+<ul>
+<li><a href="#module_onem-nodejs-api..Menu+header">.header([header])</a> ⇒ <code>boolean</code> | <code>string</code></li>
+<li><a href="#module_onem-nodejs-api..Menu+footer">.footer([footer])</a> ⇒ <code>boolean</code> | <code>string</code></li>
+<li><a href="#module_onem-nodejs-api..Menu+render">.render()</a> ⇒ <code>Menu</code></li>
+</ul>
+</li>
+<li><a href="#module_onem-nodejs-api..MenuItem">~MenuItem</a> : <code>object</code></li>
+</ul>
+</li>
+</ul>
+<p><a name="module_onem-nodejs-api..Service"></a></p>
+<h3>onem-nodejs-api~Service</h3>
+<p><strong>Kind</strong>: inner class of <a href="#module_onem-nodejs-api"><code>onem-nodejs-api</code></a></p>
+<ul>
+<li><a href="#module_onem-nodejs-api..Service">~Service</a>
+<ul>
+<li><a href="#new_module_onem-nodejs-api..Service_new">new Service(serviceName)</a></li>
+<li><a href="#module_onem-nodejs-api..Service+addForm">.addForm(template, data)</a> ⇒ <code>object</code></li>
+<li><a href="#module_onem-nodejs-api..Service+addMenu">.addMenu(template, data)</a> ⇒ <code>object</code></li>
+</ul>
+</li>
+</ul>
+<p><a name="new_module_onem-nodejs-api..Service_new"></a></p>
+<h4>new Service(serviceName)</h4>
+<p>Instantiates a new Service with given name and optional verbs list</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>serviceName</td>
+<td><code>string</code></td>
+<td>name of the service</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_onem-nodejs-api..Service+addForm"></a></p>
+<h4>service.addForm(template, data) ⇒ <code>object</code></h4>
+<p>Adds a new form to the service with given pug template and data object</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_onem-nodejs-api..Service"><code>Service</code></a><br>
+<strong>Returns</strong>: <code>object</code> - form object that was added</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>template</td>
+<td><code>string</code></td>
+<td>reference to the pug template file</td>
+</tr>
+<tr>
+<td>data</td>
+<td><code>object</code></td>
+<td>form variables for injection</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_onem-nodejs-api..Service+addMenu"></a></p>
+<h4>service.addMenu(template, data) ⇒ <code>object</code></h4>
+<p>Adds a new menu to the service with given pug template and data object</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_onem-nodejs-api..Service"><code>Service</code></a><br>
+<strong>Returns</strong>: <code>object</code> - menu object that was added</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>template</td>
+<td><code>string</code></td>
+<td>reference to the pug template file</td>
+</tr>
+<tr>
+<td>data</td>
+<td><code>object</code></td>
+<td>menu variables for injection</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_onem-nodejs-api..Form"></a></p>
+<h3>onem-nodejs-api~Form(index, template, data)</h3>
+<p>Instantiates a new Form with given name and optional verbs list</p>
+<p><strong>Kind</strong>: inner method of <a href="#module_onem-nodejs-api"><code>onem-nodejs-api</code></a></p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td><code>number</code></td>
+<td>index to the array of forms that this form instance references</td>
+</tr>
+<tr>
+<td>template</td>
+<td><code>string</code></td>
+<td>file reference of the pug template</td>
+</tr>
+<tr>
+<td>data</td>
+<td><code>object</code></td>
+<td>form variables for injection</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><a href="#module_onem-nodejs-api..Form">~Form(index, template, data)</a>
+<ul>
+<li><a href="#module_onem-nodejs-api..Form+header">.header([header])</a> ⇒ <code>boolean</code> | <code>string</code></li>
+<li><a href="#module_onem-nodejs-api..Form+footer">.footer([footer])</a> ⇒ <code>boolean</code> | <code>string</code></li>
+<li><a href="#module_onem-nodejs-api..Form+render">.render()</a> ⇒ <code>Form</code></li>
+</ul>
+</li>
+</ul>
+<p><a name="module_onem-nodejs-api..Form+header"></a></p>
+<h4>form.header([header]) ⇒ <code>boolean</code> | <code>string</code></h4>
+<p>Getter/setter for a custom form header</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_onem-nodejs-api..Form"><code>Form</code></a><br>
+<strong>Returns</strong>: <code>boolean</code> | <code>string</code> - true indicating header was set or the current value of the header</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[header]</td>
+<td><code>string</code></td>
+<td>optional value of the header</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_onem-nodejs-api..Form+footer"></a></p>
+<h4>form.footer([footer]) ⇒ <code>boolean</code> | <code>string</code></h4>
+<p>Getter/setter for a custom form footer</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_onem-nodejs-api..Form"><code>Form</code></a><br>
+<strong>Returns</strong>: <code>boolean</code> | <code>string</code> - true indicating footer was set or the current value of the footer</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[footer]</td>
+<td><code>string</code></td>
+<td>optional value of the footer</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_onem-nodejs-api..Form+render"></a></p>
+<h4>form.render() ⇒ <code>Form</code></h4>
+<p>Processes the pug template for this form using the Form's this.data object as input and returns a JSON object ready for sending on the ONEm connection</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_onem-nodejs-api..Form"><code>Form</code></a><br>
+<strong>Returns</strong>: <code>Form</code> - JSON object<br>
+<a name="module_onem-nodejs-api..Menu"></a></p>
+<h3>onem-nodejs-api~Menu(index, template, data)</h3>
+<p>Instantiates a new Menu with given name and optional verbs list</p>
+<p><strong>Kind</strong>: inner method of <a href="#module_onem-nodejs-api"><code>onem-nodejs-api</code></a></p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td><code>number</code></td>
+<td>index to the array of menu items that this form instance references</td>
+</tr>
+<tr>
+<td>template</td>
+<td><code>string</code></td>
+<td>file reference of the pug template</td>
+</tr>
+<tr>
+<td>data</td>
+<td><code>object</code></td>
+<td>form variables for injection</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><a href="#module_onem-nodejs-api..Menu">~Menu(index, template, data)</a>
+<ul>
+<li><a href="#module_onem-nodejs-api..Menu+header">.header([header])</a> ⇒ <code>boolean</code> | <code>string</code></li>
+<li><a href="#module_onem-nodejs-api..Menu+footer">.footer([footer])</a> ⇒ <code>boolean</code> | <code>string</code></li>
+<li><a href="#module_onem-nodejs-api..Menu+render">.render()</a> ⇒ <code>Menu</code></li>
+</ul>
+</li>
+</ul>
+<p><a name="module_onem-nodejs-api..Menu+header"></a></p>
+<h4>menu.header([header]) ⇒ <code>boolean</code> | <code>string</code></h4>
+<p>Getter/setter for a custom menu header</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_onem-nodejs-api..Menu"><code>Menu</code></a><br>
+<strong>Returns</strong>: <code>boolean</code> | <code>string</code> - true indicating header was set or the current value of the header</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[header]</td>
+<td><code>string</code></td>
+<td>optional value of the header</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_onem-nodejs-api..Menu+footer"></a></p>
+<h4>menu.footer([footer]) ⇒ <code>boolean</code> | <code>string</code></h4>
+<p>Getter/setter for a custom menu footer</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_onem-nodejs-api..Menu"><code>Menu</code></a><br>
+<strong>Returns</strong>: <code>boolean</code> | <code>string</code> - true indicating footer was set or the current value of the footer</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[footer]</td>
+<td><code>string</code></td>
+<td>optional value of the footer</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_onem-nodejs-api..Menu+render"></a></p>
+<h4>menu.render() ⇒ <code>Menu</code></h4>
+<p>Processes the pug template for this menu using the menu's this.data object as input and returns a JSON object ready for sending on the ONEm connection</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_onem-nodejs-api..Menu"><code>Menu</code></a><br>
+<strong>Returns</strong>: <code>Menu</code> - JSON object<br>
+<a name="module_onem-nodejs-api..Form"></a></p>
+<h3>onem-nodejs-api~Form : <code>object</code></h3>
+<p><strong>Kind</strong>: inner typedef of <a href="#module_onem-nodejs-api"><code>onem-nodejs-api</code></a><br>
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td><code>'form'</code></td>
+<td>'Form'</td>
+</tr>
+<tr>
+<td>[header]</td>
+<td><code>string</code></td>
+<td>header value</td>
+</tr>
+<tr>
+<td>body</td>
+<td><code>FormBody</code></td>
+<td>form body object</td>
+</tr>
+<tr>
+<td>[footer]</td>
+<td><code>string</code></td>
+<td>footer value</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><a href="#module_onem-nodejs-api..Form">~Form</a> : <code>object</code>
+<ul>
+<li><a href="#module_onem-nodejs-api..Form+header">.header([header])</a> ⇒ <code>boolean</code> | <code>string</code></li>
+<li><a href="#module_onem-nodejs-api..Form+footer">.footer([footer])</a> ⇒ <code>boolean</code> | <code>string</code></li>
+<li><a href="#module_onem-nodejs-api..Form+render">.render()</a> ⇒ <code>Form</code></li>
+</ul>
+</li>
+</ul>
+<p><a name="module_onem-nodejs-api..Form+header"></a></p>
+<h4>form.header([header]) ⇒ <code>boolean</code> | <code>string</code></h4>
+<p>Getter/setter for a custom form header</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_onem-nodejs-api..Form"><code>Form</code></a><br>
+<strong>Returns</strong>: <code>boolean</code> | <code>string</code> - true indicating header was set or the current value of the header</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[header]</td>
+<td><code>string</code></td>
+<td>optional value of the header</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_onem-nodejs-api..Form+footer"></a></p>
+<h4>form.footer([footer]) ⇒ <code>boolean</code> | <code>string</code></h4>
+<p>Getter/setter for a custom form footer</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_onem-nodejs-api..Form"><code>Form</code></a><br>
+<strong>Returns</strong>: <code>boolean</code> | <code>string</code> - true indicating footer was set or the current value of the footer</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[footer]</td>
+<td><code>string</code></td>
+<td>optional value of the footer</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_onem-nodejs-api..Form+render"></a></p>
+<h4>form.render() ⇒ <code>Form</code></h4>
+<p>Processes the pug template for this form using the Form's this.data object as input and returns a JSON object ready for sending on the ONEm connection</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_onem-nodejs-api..Form"><code>Form</code></a><br>
+<strong>Returns</strong>: <code>Form</code> - JSON object<br>
+<a name="module_onem-nodejs-api..FormBody"></a></p>
+<h3>onem-nodejs-api~FormBody : <code>object</code></h3>
+<p><strong>Kind</strong>: inner typedef of <a href="#module_onem-nodejs-api"><code>onem-nodejs-api</code></a><br>
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>formItems</td>
+<td><code>Array.FormItem</code></td>
+<td></td>
+</tr>
+<tr>
+<td>nextRoute</td>
+<td><code>string</code></td>
+<td></td>
+</tr>
+<tr>
+<td>method</td>
+<td><code>'get'</code> | <code>'post'</code> | <code>'put'</code> | <code>'delete'</code></td>
+<td>HTTP method that should be used when redirecting after successful form submission</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_onem-nodejs-api..FormItem"></a></p>
+<h3>onem-nodejs-api~FormItem : <code>object</code></h3>
+<p><strong>Kind</strong>: inner typedef of <a href="#module_onem-nodejs-api"><code>onem-nodejs-api</code></a><br>
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>description</td>
+<td><code>string</code></td>
+<td>description of the form item which will appear as a prompt to the user</td>
+</tr>
+<tr>
+<td>name</td>
+<td><code>string</code></td>
+<td>name of the form property which will appear in the footer by default</td>
+</tr>
+<tr>
+<td>type</td>
+<td><code>'string'</code> | <code>'number'</code> | <code>'date'</code></td>
+<td>used for field validation</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_onem-nodejs-api..Menu"></a></p>
+<h3>onem-nodejs-api~Menu : <code>object</code></h3>
+<p><strong>Kind</strong>: inner typedef of <a href="#module_onem-nodejs-api"><code>onem-nodejs-api</code></a><br>
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td><code>'menu'</code></td>
+<td>'Menu'</td>
+</tr>
+<tr>
+<td>[header]</td>
+<td><code>string</code></td>
+<td>header value</td>
+</tr>
+<tr>
+<td>body</td>
+<td><code>Array.MenuItem</code></td>
+<td>form body object</td>
+</tr>
+<tr>
+<td>[footer]</td>
+<td><code>string</code></td>
+<td>footer value</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><a href="#module_onem-nodejs-api..Menu">~Menu</a> : <code>object</code>
+<ul>
+<li><a href="#module_onem-nodejs-api..Menu+header">.header([header])</a> ⇒ <code>boolean</code> | <code>string</code></li>
+<li><a href="#module_onem-nodejs-api..Menu+footer">.footer([footer])</a> ⇒ <code>boolean</code> | <code>string</code></li>
+<li><a href="#module_onem-nodejs-api..Menu+render">.render()</a> ⇒ <code>Menu</code></li>
+</ul>
+</li>
+</ul>
+<p><a name="module_onem-nodejs-api..Menu+header"></a></p>
+<h4>menu.header([header]) ⇒ <code>boolean</code> | <code>string</code></h4>
+<p>Getter/setter for a custom menu header</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_onem-nodejs-api..Menu"><code>Menu</code></a><br>
+<strong>Returns</strong>: <code>boolean</code> | <code>string</code> - true indicating header was set or the current value of the header</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[header]</td>
+<td><code>string</code></td>
+<td>optional value of the header</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_onem-nodejs-api..Menu+footer"></a></p>
+<h4>menu.footer([footer]) ⇒ <code>boolean</code> | <code>string</code></h4>
+<p>Getter/setter for a custom menu footer</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_onem-nodejs-api..Menu"><code>Menu</code></a><br>
+<strong>Returns</strong>: <code>boolean</code> | <code>string</code> - true indicating footer was set or the current value of the footer</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[footer]</td>
+<td><code>string</code></td>
+<td>optional value of the footer</td>
+</tr>
+</tbody>
+</table>
+<p><a name="module_onem-nodejs-api..Menu+render"></a></p>
+<h4>menu.render() ⇒ <code>Menu</code></h4>
+<p>Processes the pug template for this menu using the menu's this.data object as input and returns a JSON object ready for sending on the ONEm connection</p>
+<p><strong>Kind</strong>: instance method of <a href="#module_onem-nodejs-api..Menu"><code>Menu</code></a><br>
+<strong>Returns</strong>: <code>Menu</code> - JSON object<br>
+<a name="module_onem-nodejs-api..MenuItem"></a></p>
+<h3>onem-nodejs-api~MenuItem : <code>object</code></h3>
+<p><strong>Kind</strong>: inner typedef of <a href="#module_onem-nodejs-api"><code>onem-nodejs-api</code></a><br>
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td><code>'option'</code> | <code>'content'</code></td>
+<td></td>
+<td>indicating menu option or plain content</td>
+</tr>
+<tr>
+<td>description</td>
+<td><code>string</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>[nextRoute]</td>
+<td><code>string</code></td>
+<td></td>
+<td>For menu options only.  Path to be used for HTTP callback (added to base path configured in app's settings in developer portal)</td>
+</tr>
+<tr>
+<td>[method]</td>
+<td><code>'get'</code> | <code>'post'</code> | <code>'put'</code> | <code>'delete'</code></td>
+<td><code>get</code></td>
+<td>For menu options only.  HTTP method that should be used when redirecting after successful menu option submission</td>
+</tr>
+</tbody>
+</table>
+    </article>
+  </section>
+
+
+    
+
+
+  </div>
+
+  <br class="clear">
+
+  <footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a>
+  </footer>
+
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/pagelocation.js"></script>
+
+  
+
+</body>
+</html>

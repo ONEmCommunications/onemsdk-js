@@ -1,0 +1,410 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>
+      index.js - Documentation
+  </title>
+
+  <link href="https://www.braintreepayments.com/images/favicon-ccda0b14.png" rel="icon" type="image/png">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+  <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+  <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+  
+  <link type="text/css" rel="stylesheet" href="styles/collapse.css">
+  
+
+  
+
+  <!-- start Mixpanel -->
+  <script type="text/javascript">(function(e,a){if(!a.__SV){var b=window;try{var c,l,i,j=b.location,g=j.hash;c=function(a,b){return(l=a.match(RegExp(b+"=([^&]*)")))?l[1]:null};g&&c(g,"state")&&(i=JSON.parse(decodeURIComponent(c(g,"state"))),"mpeditor"===i.action&&(b.sessionStorage.setItem("_mpcehash",g),history.replaceState(i.desiredHash||"",e.title,j.pathname+j.search)))}catch(m){}var k,h;window.mixpanel=a;a._i=[];a.init=function(b,c,f){function e(b,a){var c=a.split(".");2==c.length&&(b=b[c[0]],a=c[1]);b[a]=function(){b.push([a].concat(Array.prototype.slice.call(arguments,
+  0)))}}var d=a;"undefined"!==typeof f?d=a[f]=[]:f="mixpanel";d.people=d.people||[];d.toString=function(b){var a="mixpanel";"mixpanel"!==f&&(a+="."+f);b||(a+=" (stub)");return a};d.people.toString=function(){return d.toString(1)+".people (stub)"};k="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config reset people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
+  for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElement("script");b.type="text/javascript";b.async=!0;b.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";c=e.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c)}})(document,window.mixpanel||[]);
+  mixpanel.init("1919205b2da72e4da3b9b6639b444d59");</script>
+  <!-- end Mixpanel -->
+</head>
+
+<body>
+  <svg style="display: none;">
+    <defs>
+      <symbol id="linkIcon" fill="#706d77" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0h24v24H0z" fill="none"/>
+          <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+  <label for="nav-trigger" class="navicon-button x">
+    <div class="navicon"></div>
+  </label>
+
+  <label for="nav-trigger" class="overlay"></label>
+
+  <div class="top-nav-wrapper">
+    <ul>
+      <li >
+        <a href="index.html">
+          
+            <svg fill="#6D6D6D" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              <path d="M0 0h24v24H0z" fill="none"/>
+            </svg>
+          
+          
+        </a>
+      </li>
+
+      
+
+    </ul>
+  </div>
+
+  <nav>
+    <h3 class="reference-title">
+      ONEm Node.js SDK
+    </h3>
+
+    
+
+    <h3>Classes</h3><ul><li id="Service-nav"><a href="module-onem-nodejs-api-Service.html">Service</a><ul class='methods'><li data-type="method" id="Service-addForm-nav"><a href="module-onem-nodejs-api-Service.html#addForm">addForm</a></li><li data-type="method" id="Service-addMenu-nav"><a href="module-onem-nodejs-api-Service.html#addMenu">addMenu</a></li></ul></li></ul><h3>Modules</h3><ul><li id="onem-nodejs-api-nav"><a href="module-onem-nodejs-api.html">onem-nodejs-api</a><ul class='methods'><li data-type="method" id="onem-nodejs-api-Form-nav"><a href="module-onem-nodejs-api.html#~Form">Form</a></li><li data-type="method" id="onem-nodejs-api-Menu-nav"><a href="module-onem-nodejs-api.html#~Menu">Menu</a></li></ul></li></ul>
+  </nav>
+
+  <div id="main">
+    
+      <h1 class="page-title">
+        index.js
+      </h1>
+    
+
+    
+      
+
+<section>
+  <article>
+    <pre class="prettyprint source linenums"><code>const pug = require('pug')
+const parse = require('node-html-parser').parse
+
+/**
+ * Node.js SDK for ONEm API
+ @module onem-nodejs-api
+*/
+
+/**
+ * @typedef {object} Form
+ * @property {('form')} type 'Form'
+ * @property {string} [header] header value
+ * @property {FormBody} body form body object
+ * @property {string} [footer] footer value
+ */
+
+/**
+ * @typedef {object} FormBody
+ * @property {Array.FormItem} formItems
+ * @property {string} nextRoute
+ * @property {('get'|'post'|'put'|'delete')} method HTTP method that should be used when redirecting after successful form submission
+ */
+
+/**
+ * @typedef {object} FormItem
+ * @property {string} description description of the form item which will appear as a prompt to the user
+ * @property {string} name name of the form property which will appear in the footer by default
+ * @property {('string'|'number'|'date')} type used for field validation 
+ */
+
+/**
+ * Instantiates a new Service with given name and optional verbs list
+ * @constructor
+ * @param {string} serviceName name of the service
+ */
+function Service(serviceName) {
+
+    if (typeof serviceName !== "string") {
+        throw "serviceName must be of type string"
+    }
+    if (!serviceName.match(/^[a-zA-Z0-9]{3,15}$/)) {
+        throw "serviceName must be between 3 and 15 characters, be one word only with only numbers and letters"
+    }
+
+    this.serviceName = serviceName
+    this.menus = []
+    this.forms = []
+}
+
+/**
+ * Instantiates a new Form with given name and optional verbs list
+ * @param {number} index index to the array of forms that this form instance references
+ * @param {string} template file reference of the pug template
+ * @param {object} data form variables for injection
+ */
+function Form(template, data) {
+    this.template = template
+    this.data = data || {}
+    this.type = "form"
+}
+
+/**
+ * Getter/setter for a custom form header
+ * @param {string} [header] optional value of the header
+ * @returns {boolean|string} true indicating header was set or the current value of the header
+ */
+Form.prototype.header = function (header) {
+    if (arguments.length > 0) {
+        if (header &amp;&amp; !header.startsWith('#')) {
+            this.headerValue = '#' + header.toUpperCase()
+        } else if (header &amp;&amp; header.startsWith('#')) {
+            this.headerValue = header.toUpperCase()
+        } else if (typeof header == 'undefined') {
+            this.headerValue = undefined
+        }
+        return true
+    } else {
+        return this.headerValue
+    }
+}
+
+/**
+ * Getter/setter for a custom form footer
+ * @param {string} [footer] optional value of the footer
+ * @returns {boolean|string} true indicating footer was set or the current value of the footer
+ */
+Form.prototype.footer = function (footer) {
+    if (typeof footer !== 'undefined') {
+        this.footerValue = footer
+        return true
+    } else {
+        return this.footerValue
+    }
+}
+
+/**
+ * Processes the pug template for this form using the Form's this.data object as input and returns a JSON object ready for sending on the ONEm connection
+ * @returns {Form} JSON object
+ */
+Form.prototype.render = function () {
+
+    const self = this
+    const html = pug.renderFile(this.template, this.data)
+    const root = parse(html)
+    let result = {}
+
+    result.type = this.type
+    result.body = {}
+    result.body.formItems = []
+    result.body.nextRoute = root.childNodes[0].attributes['submit']
+    result.body.method = root.childNodes[0].attributes['method'].toUpperCase()
+
+    const form = root.childNodes[0]
+
+    for (let i = 0; i &lt; form.childNodes.length; i++) {
+        let record = undefined
+        switch (form.childNodes[i].tagName) {
+            case "footer":
+                self.footer(root.childNodes[i].text)
+                break
+            case "header":
+                record = {}
+                record.type = "header"
+                self.header(root.childNodes[i].text)
+                break
+            case "p":
+                record = {}
+                try {
+                    record.description = typeof form.childNodes[i].text !== 'undefined' ?
+                        form.childNodes[i].text
+                        :
+                        undefined
+                    record.name = typeof form.childNodes[i].childNodes[1] !== 'undefined' ?
+                        form.childNodes[i].childNodes[1].attributes['name']
+                        :
+                        undefined
+                    record.type = typeof form.childNodes[i].childNodes[1] !== 'undefined' ?
+                        form.childNodes[i].childNodes[1].attributes['type']
+                        :
+                        undefined
+                } catch (error) {
+                    record = {}
+                }
+                break
+            default:
+                break
+        }
+        if (record &amp;&amp; record.description) result.body.formItems.push(record)
+    }
+
+    result.header = this.header()
+    result.footer = this.footer()
+
+    return result
+}
+
+/**
+* @typedef {object} Menu
+* @property {('menu')} type 'Menu'
+* @property {string} [header] header value
+* @property {Array.MenuItem} body form body object
+* @property {string} [footer] footer value
+*/
+
+/**
+ * @typedef {object} MenuItem
+ * @property {('option'|'content')} type indicating menu option or plain content
+ * @property {string} description
+ * @property {string} [nextRoute] For menu options only.  Path to be used for HTTP callback (added to base path configured in app's settings in developer portal)
+ * @property {('get'|'post'|'put'|'delete')} [method=get] For menu options only.  HTTP method that should be used when redirecting after successful menu option submission
+ */
+
+
+/**
+ * Instantiates a new Menu with given name and optional verbs list
+ * @param {number} index index to the array of menu items that this form instance references
+ * @param {string} template file reference of the pug template
+ * @param {object} data form variables for injection
+ */
+function Menu(template, data) {
+    this.template = template
+    this.data = data || {}
+    this.type = "menu"
+}
+
+/**
+ * Getter/setter for a custom menu header
+ * @param {string} [header] optional value of the header
+ * @returns {boolean|string} true indicating header was set or the current value of the header
+ */
+Menu.prototype.header = function (header) {
+    if (arguments.length > 0) {
+        if (header &amp;&amp; !header.startsWith('#')) {
+            this.headerValue = '#' + header.toUpperCase()
+        } else if (header &amp;&amp; header.startsWith('#')) {
+            this.headerValue = header.toUpperCase()
+        } else if (typeof header == 'undefined') {
+            this.headerValue = undefined
+        }
+        return true
+    } else {
+        return this.headerValue
+    }
+}
+
+/**
+ * Getter/setter for a custom menu footer
+ * @param {string} [footer] optional value of the footer
+ * @returns {boolean|string} true indicating footer was set or the current value of the footer
+ */
+Menu.prototype.footer = function (footer) {
+    if (arguments.length > 0) {
+        this.footerValue = footer
+        return true
+    } else {
+        return this.footerValue
+    }
+}
+
+/**
+ * Processes the pug template for this menu using the menu's this.data object as input and returns a JSON object ready for sending on the ONEm connection
+ * @returns {Menu} JSON object
+ */
+Menu.prototype.render = function () {
+
+    const self = this
+    const html = pug.renderFile(this.template, this.data)
+    const root = parse(html)
+    let result = {}
+
+    result.type = this.type
+    result.body = []
+
+    for (let i = 0; i &lt; root.childNodes.length; i++) {
+        let record = undefined
+        switch (root.childNodes[i].tagName) {
+            case "footer":
+                self.footer(root.childNodes[i].text)
+                break
+            case "header":
+                self.header(root.childNodes[i].text)
+                break
+            case "option":
+                record = {}
+                record.type = "option"
+                record.description = root.childNodes[i].text
+                record.nextRoute = root.childNodes[i].attributes['href']
+                record.method = typeof root.childNodes[i].attributes['method'] !== 'undefined' ?
+                    root.childNodes[i].attributes['method'].toUpperCase()
+                    :
+                    'GET'
+                break
+            case "p":
+                record = {}
+                record.type = "content"
+                record.description = root.childNodes[i].text
+                break
+            default:
+                break
+        }
+        if (record &amp;&amp; record.description) result.body.push(record)
+    }
+    result.header = this.header()
+    result.footer = this.footer()
+
+    return result
+}
+
+/**
+ * Adds a new form to the service with given pug template and data object
+ * @param {string} template reference to the pug template file 
+ * @param {object} data form variables for injection 
+ * @returns {object} form object that was added
+ */
+Service.prototype.addForm = function (template, data) {
+    const form = new Form(template, data)
+    this.forms.push(form)
+    return this.forms[this.forms.length - 1]
+}
+
+/**
+ * Adds a new menu to the service with given pug template and data object
+ * @param {string} template reference to the pug template file 
+ * @param {object} data menu variables for injection 
+ * @returns {object} menu object that was added
+ */
+Service.prototype.addMenu = function (template, data) {
+    const menu = new Menu(template, data)
+    this.menus.push(menu)
+    return this.menus[this.menus.length - 1]
+}
+
+module.exports = {
+    Service
+}</code></pre>
+  </article>
+</section>
+
+    
+
+
+  </div>
+
+  <br class="clear">
+
+  <footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a>
+  </footer>
+
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/pagelocation.js"></script>
+
+  
+
+</body>
+</html>
