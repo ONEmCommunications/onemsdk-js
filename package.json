@@ -4,7 +4,7 @@
   "description": "ONEm developer library for node",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "docs": "jsdoc -c jsdoc.conf.json && jsdoc2md --files ./src/**/*.js > README.md",
     "generate-docs": "node_modules/.bin/jsdoc --configure jsdoc.conf.json --template ./node_modules/braintree-jsdoc-template  --verbose"
   },
@@ -16,8 +16,10 @@
   },
   "devDependencies": {
     "braintree-jsdoc-template": "^3.3.0",
+    "chai": "^4.2.0",
     "eslint": "^5.16.0",
-    "jsdoc": "^3.6.2"
+    "jsdoc": "^3.6.2",
+    "mocha": "^6.1.4"
   },
   "repository": {
     "type": "git",
