@@ -1,4 +1,4 @@
-parser = require('node-html-parser');
+const parser = require('node-html-parser');
 
 /**
  * @typedef Tag
@@ -84,6 +84,9 @@ parser = require('node-html-parser');
  * @property {undefined} attrs
  */
 
+/**
+ * @type {{br: *, p: *, a: *, input: *, form: *, footer: *, ul: *, header: *, section: *, label: *, li: *}}
+ */
 const tagClsMap = {
     a: ATag,
     br: BrTag,
@@ -151,6 +154,7 @@ Tag.getAttributes = function (node) {
     return undefined;
 };
 
+
 function HeaderTag(children) {
     if (children.length !== 1 || !(children[0] instanceof String)) {
         throw Error('<header> must have 1 text child')
@@ -160,6 +164,7 @@ function HeaderTag(children) {
 
 HeaderTag.__proto__ = Tag;
 HeaderTag.tagName = 'header';
+
 
 function FooterTag(children) {
     if (children.length !== 1 || !(children[0] instanceof String)) {
@@ -171,6 +176,7 @@ function FooterTag(children) {
 FooterTag.__proto__ = Tag;
 FooterTag.tagName = 'footer';
 
+
 /**
  * @constructor
  */
@@ -179,6 +185,7 @@ function BrTag() {
 
 BrTag.__proto__ = Tag;
 BrTag.tagName = 'br';
+
 
 /**
  * @param {Array<String>} children
@@ -194,24 +201,6 @@ function PTag(children) {
 PTag.__proto__ = Tag;
 PTag.tagName = 'p';
 
-//
-// /**
-//  * @param {HTMLElement} node
-//  * @returns {PTag}
-//  */
-// PTag.fromNode = function (node) {
-//     if (node.tagName !== 'p') {
-//         throw new Error(`Expected tag <p>, received <${node.tagName}>`);
-//     }
-//
-//     let children = [];
-//
-//     if (node.childNodes.length !== 1 || !(node.childNodes[0] instanceof parser.TextNode)) {
-//         throw Error('<p> must have 1 text child');
-//     }
-//     children.push(new String(node.childNodes[0].text));
-//     return new PTag(children);
-// };
 
 /**
  * @param {String} href
@@ -240,6 +229,7 @@ function ATag(children, attrs) {
 ATag.__proto__ = Tag;
 ATag.tagName = 'a';
 
+
 /**
  *
  * @param {HTMLAnchorElement} node
@@ -247,6 +237,7 @@ ATag.tagName = 'a';
 ATag.getAttributes = function (node) {
     return new ATagAttrs(node.attributes.href);
 };
+
 
 /**
  * @param {String} data
@@ -296,22 +287,7 @@ function UlTag(children) {
 
 UlTag.__proto__ = Tag;
 UlTag.tagName = 'ul';
-// /**
-//  * @param {HTMLElement} node
-//  * @returns {UlTag}
-//  */
-// UlTag.fromNode = function (node) {
-//     if (node.tagName !== 'ul') {
-//         throw new Error(`Expected tag <ul>, received <${node.tagName}>`);
-//     }
-//
-//     let children = [];
-//     node.childNodes.forEach(function (child) {
-//         children.push(LiTag.fromNode(child));
-//     });
-//
-//     return new UlTag(children);
-// };
+
 
 /**
  *
@@ -342,6 +318,7 @@ InputTag.tagName = 'input';
 InputTag.getAttributes = function (node) {
     return new InputTagAttrs(node.attributes.name, node.attributes.type);
 };
+
 
 function LabelTag(children) {
     this.children = children;
@@ -381,6 +358,7 @@ function SectionTag(children) {
 
 SectionTag.__proto__ = Tag;
 SectionTag.tagName = 'section';
+
 
 function FormTagAttrs(action) {
     this.action = action;

@@ -6,7 +6,7 @@ const tags = require('./tag');
 
 function clean(node) {
     for (let i = 0; i < node.childNodes.length; i++) {
-        var child = node.childNodes[i];
+        const child = node.childNodes[i];
         if (
             child.nodeType === 8 ||
             (child.nodeType === 3 && !/\S/.test(child.rawText))
@@ -39,7 +39,7 @@ function loadHtml(htmlFile, htmlText) {
 }
 
 function loadTemplate(templateFile, data) {
-    const htmlText = pug.renderFile(templateFile, data);
+    const htmlText = pug.renderFile(templateFile, data, undefined);
     return loadHtml(undefined, htmlText);
 }
 

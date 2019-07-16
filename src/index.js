@@ -170,6 +170,7 @@ function MenuItem(type, description, method, path) {
 function Response(content, messageId) {
     assert(content, 'content is mandatory');
 
+    let contentType;
     if (content instanceof Form) {
         contentType = 'form';
     } else if (content instanceof Menu) {
