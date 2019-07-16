@@ -126,6 +126,22 @@ describe('SectionTag', function () {
 
             assert.throws(iThrow, Error, '("name", "expectedResponse") attributes are mandatory for <section>');
         });
+
+        it('should render the children correctly', function () {
+            const expected = 'This is paragraph\n\nAn item\nAnother item\n';
+            const html = '<section name="name" expected-response="exp">' +
+                '<p>This is paragraph</p>' +
+                '<br/><input/>' +
+                '<ul>' +
+                '<li>An item</li>' +
+                '<li><a href="/route">Another item</a></li>' +
+                '</ul>' +
+                '</section>';
+            const parsedHtml = parser.parse(html);
+            const sectionTag = SectionTag.fromNode(parsedHtml.childNodes[0]);
+            const rendered = sectionTag.toString();
+            assert.strictEqual(expected, rendered);
+        });
     });
 });
 

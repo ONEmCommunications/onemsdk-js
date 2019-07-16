@@ -73,15 +73,15 @@ const parser = require('node-html-parser');
 /**
  * @typedef SectionTag
  * @extends Tag
- * @property {Array<HeaderTag | FooterTag | UlTag | PTag | BrTag | InputTag | LabelTag>} children
- * @property {undefined} attrs
+ * @property {Array<HeaderTag|FooterTag|UlTag|PTag|BrTag|InputTag|LabelTag>} children
+ * @property {SectionTagAttrs} attrs
  */
 
 /**
  * @typedef FormTag
  * @extends Tag
  * @property {Array<SectionTag>} children
- * @property {undefined} attrs
+ * @property {FormTagAttrs} attrs
  */
 
 /**
@@ -186,6 +186,9 @@ function BrTag() {
 BrTag.__proto__ = Tag;
 BrTag.tagName = 'br';
 
+BrTag.prototype.toString = function brTagToString() {
+    return '\n';
+};
 
 /**
  * @param {Array<String>} children
@@ -200,6 +203,10 @@ function PTag(children) {
 
 PTag.__proto__ = Tag;
 PTag.tagName = 'p';
+
+PTag.prototype.toString = function pTagToString() {
+    return `${this.children[0]}\n`;
+};
 
 
 /**
@@ -228,6 +235,10 @@ function ATag(children, attrs) {
 
 ATag.__proto__ = Tag;
 ATag.tagName = 'a';
+
+ATag.prototype.toString = function aTagToString() {
+    return this.children[0];
+};
 
 
 /**
@@ -266,6 +277,13 @@ function LiTag(children, attrs) {
 LiTag.__proto__ = Tag;
 LiTag.tagName = 'li';
 
+LiTag.prototype.toString = function liTagToString() {
+    if (this.children[0] instanceof ATag) {
+        return `${this.children[0].toString()}\n`;
+    }
+    return `${this.children[0]}\n`;
+};
+
 
 /**
  * @param {Array<LiTag>} children
@@ -287,6 +305,12 @@ function UlTag(children) {
 
 UlTag.__proto__ = Tag;
 UlTag.tagName = 'ul';
+
+UlTag.prototype.toString = function ulTagToString() {
+    return this.children.map(function (child) {
+        return child.toString();
+    }).join('');
+};
 
 
 /**
@@ -319,6 +343,10 @@ InputTag.getAttributes = function (node) {
     return new InputTagAttrs(node.attributes.name, node.attributes.type);
 };
 
+InputTag.prototype.toString = function () {
+    return '';
+};
+
 
 function LabelTag(children) {
     this.children = children;
@@ -349,9 +377,10 @@ function SectionTagAttrs(name, expectedResponse, header, footer) {
 
 /**
  * @param {Array<PTag | BrTag | UlTag | LabelTag | HeaderTag | FooterTag | InputTag>} children
+ * @param {SectionTagAttrs} attrs
  * @constructor
  */
-function SectionTag(children) {
+function SectionTag(children, attrs) {
     if (children.length === 0) {
         throw Error('<section> must have at least 1 child');
     }
@@ -372,7 +401,7 @@ function SectionTag(children) {
     });
 
     this.children = children;
-    this.attrs = undefined;
+    this.attrs = attrs;
 }
 
 SectionTag.__proto__ = Tag;
@@ -391,6 +420,18 @@ SectionTag.getAttributes = function (node) {
         node.attributes.header,
         node.attributes.footer
     );
+};
+
+SectionTag.prototype.toString = function sectionTagToString() {
+    let renderedChildren = [];
+    this.children.forEach(function (child) {
+        if (child instanceof String) {
+            renderedChildren.push(child);
+        } else {
+            renderedChildren.push(child.toString());
+        }
+    });
+    return renderedChildren.join('');
 };
 
 /**
