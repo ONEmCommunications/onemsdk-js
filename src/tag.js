@@ -360,8 +360,26 @@ SectionTag.__proto__ = Tag;
 SectionTag.tagName = 'section';
 
 
-function FormTagAttrs(action) {
-    this.action = action;
+/**
+ * Instantiates a new FormTagAttrs
+ * @param {string} path
+ * @param {string} method
+ * @param {string|undefined} header
+ * @param {string|undefined} footer
+ * @param {boolean|undefined} completionStatusShow
+ * @param {boolean|undefined} completionStatusInHeader
+ * @param {boolean|undefined} confirmationNeeded
+ * @constructor
+ */
+function FormTagAttrs(path, method, header, footer, completionStatusShow,
+                      completionStatusInHeader, confirmationNeeded) {
+    this.path = path;
+    this.method = method;
+    this.header = header || null;
+    this.footer = footer || null;
+    this.completionStatusShow = completionStatusShow || null;
+    this.completionStatusInHeader = completionStatusInHeader || null;
+    this.confirmationNeeded = confirmationNeeded || null;
 }
 
 /**
@@ -386,6 +404,44 @@ function FormTag(children, attrs) {
 FormTag.__proto__ = Tag;
 FormTag.tagName = 'form';
 
+FormTag.getAttributes = function (node) {
+    let completionStatusShow,
+        completionStatusInHeader,
+        confirmationNeeded;
+
+    const stringBooleanMap = {
+        'true': true,
+        'false': false
+    };
+
+    if (node.attributes.completionStatusShow !== undefined) {
+        completionStatusShow = node.attributes.completionStatusShow;
+    } else if (node.attributes['completion-status-show'] === undefined) {
+        completionStatusShow = node.attributes['completion-status-show'];
+    }
+
+    if (node.attributes.completionStatusInHeader !== undefined) {
+        completionStatusInHeader = node.attributes.completionStatusInHeader;
+    } else if (node.attributes['completion-status-in-header'] !== undefined) {
+        completionStatusInHeader = node.attributes['completion-status-in-header'];
+    }
+
+    if (node.attributes.confirmationNeeded !== undefined) {
+        confirmationNeeded = node.attributes.confirmationNeeded;
+    } else if (node.attributes['confirmation-needed'] !== undefined) {
+        confirmationNeeded = node.attributes['confirmation-needed'];
+    }
+
+    return new FormTagAttrs(
+        node.attributes.path,
+        node.attributes.method,
+        node.attributes.header,
+        node.attributes.footer,
+        stringBooleanMap[completionStatusShow],
+        stringBooleanMap[completionStatusInHeader],
+        stringBooleanMap[confirmationNeeded]
+    );
+};
 
 exports.ATag = ATag;
 exports.BrTag = BrTag;

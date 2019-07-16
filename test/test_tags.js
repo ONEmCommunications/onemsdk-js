@@ -29,6 +29,27 @@ describe('FormTag', function () {
             assert.strictEqual(form instanceof FormTag, true);
         });
 
+        it('should work with camelCase and dash attributes', function () {
+            const html = '<form completionStatusShow="true" confirmation-needed="true">' +
+                '<section><p>Some content</p></section></form>';
+            const parsedHtml = parser.parse(html);
+            const form = FormTag.fromNode(parsedHtml.childNodes[0]);
+
+            assert.strictEqual(true, form.attrs.completionStatusShow);
+            assert.strictEqual(true, form.attrs.confirmationNeeded);
+        });
+
+        it('should turn to null non-boolean attributes or missing ones', function () {
+            const html = '<form completionStatusShow="non-boolean" confirmation-needed="True">' +
+                '<section><p>Some content</p></section></form>';
+            const parsedHtml = parser.parse(html);
+            const form = FormTag.fromNode(parsedHtml.childNodes[0]);
+
+            assert.strictEqual(null, form.attrs.completionStatusShow);
+            assert.strictEqual(null, form.attrs.confirmationNeeded);
+            assert.strictEqual(null, form.attrs.completionStatusInHeader);
+        });
+
         it('should throw error for other tags', function () {
             const html = "<section><p>Para Para Paragraph</p></section>";
             const parsedHtml = parser.parse(html);
