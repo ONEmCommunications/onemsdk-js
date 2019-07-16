@@ -6,17 +6,17 @@ const parser = require("../src/parser");
 
 describe('loadHtml', function () {
     it('should return a FormTag() object from html string', function () {
-        let html = "<form>" +
-            "<section>" +
-            "<p>This is paragraph</p>" +
-            "</section>" +
-            "</form>";
+        let html = '<form>' +
+            '<section name="name" expected-response="exp">' +
+            '<p>This is paragraph</p>' +
+            '</section>' +
+            '</form>';
         const form = parser.loadHtml(undefined, html);
         assert.strictEqual(form instanceof FormTag, true);
     });
 
     it('should return a FormTag() object from html file', function () {
-        const form = parser.loadHtml('test/index.html');
+        const form = parser.loadHtml('test/index.html', undefined);
         assert.strictEqual(form instanceof FormTag, true);
     });
 });

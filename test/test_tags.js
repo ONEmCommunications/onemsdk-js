@@ -19,11 +19,11 @@ const parser = require("node-html-parser");
 describe('FormTag', function () {
     describe('FormTag.fromNode()', function () {
         it('should return a FormTag() object', function () {
-            let html = "<form>" +
-                "<section>" +
-                "<p>This is paragraph</p>" +
-                "</section>" +
-                "</form>";
+            let html = '<form>' +
+                '<section name="name" expected-response="exp">' +
+                '<p>This is paragraph</p>' +
+                '</section>' +
+                '</form>';
             const parsedHtml = parser.parse(html);
             const form = FormTag.fromNode(parsedHtml.childNodes[0]);
             assert.strictEqual(form instanceof FormTag, true);
@@ -31,7 +31,7 @@ describe('FormTag', function () {
 
         it('should work with camelCase and dash attributes', function () {
             const html = '<form completionStatusShow="true" confirmation-needed="true">' +
-                '<section><p>Some content</p></section></form>';
+                '<section name="name" expected-response="exp"><p>Some content</p></section></form>';
             const parsedHtml = parser.parse(html);
             const form = FormTag.fromNode(parsedHtml.childNodes[0]);
 
@@ -41,7 +41,7 @@ describe('FormTag', function () {
 
         it('should turn to null non-boolean attributes or missing ones', function () {
             const html = '<form completionStatusShow="non-boolean" confirmation-needed="True">' +
-                '<section><p>Some content</p></section></form>';
+                '<section name="name" expected-response="exp"><p>Some content</p></section></form>';
             const parsedHtml = parser.parse(html);
             const form = FormTag.fromNode(parsedHtml.childNodes[0]);
 
@@ -51,7 +51,7 @@ describe('FormTag', function () {
         });
 
         it('should throw error for other tags', function () {
-            const html = "<section><p>Para Para Paragraph</p></section>";
+            const html = '<section name="name" expected-response="exp"><p>Para Para Paragraph</p></section>';
             const parsedHtml = parser.parse(html);
 
             function iThrow() {
@@ -88,7 +88,7 @@ describe('FormTag', function () {
 describe('SectionTag', function () {
     describe('SectionTag.fromNode()', function () {
         it('should not work without children', function () {
-            const html = '<section></section>';
+            const html = '<section name="name" expected-response="exp"></section>';
             const parsedHtml = parser.parse(html);
 
             function iThrow() {
@@ -99,7 +99,7 @@ describe('SectionTag', function () {
         });
 
         it('should not work with some <li> children', function () {
-            const html = '<section><p>Para</p><li>li child</li></section>';
+            const html = '<section name="name" expected-response="exp"><p>Para</p><li>li child</li></section>';
             const parsedHtml = parser.parse(html);
 
             function iThrow() {
@@ -110,10 +110,21 @@ describe('SectionTag', function () {
         });
 
         it('should work with ul, p, br, input, label', function () {
-            const html = '<section><p>Para</p><br/><ul><li>li</li></ul><input name="some-name"/><label>label</label></section>';
+            const html = '<section name="name" expected-response="exp"><p>Para</p><br/><ul><li>li</li></ul><input name="some-name"/><label>label</label></section>';
             const parsedHtml = parser.parse(html);
             const sectionTag = SectionTag.fromNode(parsedHtml.childNodes[0]);
-            assert.equal(sectionTag instanceof SectionTag, true)
+            assert.equal(sectionTag instanceof SectionTag, true);
+        });
+
+        it('should not work without mandatory attributes', function () {
+            const html = '<section><p>Para</p></section>';
+            const parsedHtml = parser.parse(html);
+
+            function iThrow() {
+                return SectionTag.fromNode(parsedHtml.childNodes[0]);
+            }
+
+            assert.throws(iThrow, Error, '("name", "expectedResponse") attributes are mandatory for <section>');
         });
     });
 });

@@ -328,6 +328,25 @@ function LabelTag(children) {
 LabelTag.__proto__ = Tag;
 LabelTag.tagName = 'label';
 
+
+/**
+ * Instantiates a new SectionTagAttrs
+ * @param {string} name
+ * @param {('string', 'date', 'datetime')} expectedResponse
+ * @param {string|undefined} header
+ * @param {string|undefined} footer
+ * @constructor
+ */
+function SectionTagAttrs(name, expectedResponse, header, footer) {
+    if (!name || !expectedResponse) {
+        throw Error('("name", "expectedResponse") attributes are mandatory for <section>');
+    }
+    this.name = name;
+    this.expectedResponse = expectedResponse;
+    this.header = header || null;
+    this.footer = footer || null;
+}
+
 /**
  * @param {Array<PTag | BrTag | UlTag | LabelTag | HeaderTag | FooterTag | InputTag>} children
  * @constructor
@@ -359,6 +378,20 @@ function SectionTag(children) {
 SectionTag.__proto__ = Tag;
 SectionTag.tagName = 'section';
 
+SectionTag.getAttributes = function (node) {
+    let expectedResponse;
+    if (node.attributes.expectedResponse !== undefined) {
+        expectedResponse = node.attributes.expectedResponse;
+    } else if (node.attributes['expected-response'] !== undefined) {
+        expectedResponse = node.attributes['expected-response'];
+    }
+    return new SectionTagAttrs(
+        node.attributes.name,
+        expectedResponse,
+        node.attributes.header,
+        node.attributes.footer
+    );
+};
 
 /**
  * Instantiates a new FormTagAttrs
