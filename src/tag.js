@@ -320,7 +320,7 @@ UlTag.prototype.toString = function ulTagToString() {
 /**
  *
  * @param {String} name
- * @param {('text' | 'date' | 'datetime')} type
+ * @param {('text'|'date'|'datetime')} type
  * @constructor
  */
 function InputTagAttrs(name, type) {
@@ -370,7 +370,7 @@ LabelTag.prototype.toString = function labelTagToString() {
 /**
  * Instantiates a new SectionTagAttrs
  * @param {string} name
- * @param {('string', 'date', 'datetime')} expectedResponse
+ * @param {('string'|'date'|'datetime')} expectedResponse
  * @param {string|undefined} header
  * @param {string|undefined} footer
  * @constructor

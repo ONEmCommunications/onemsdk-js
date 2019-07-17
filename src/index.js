@@ -25,7 +25,7 @@ const UlTag = tags.UlTag,
 
 /**
  * @typedef {object} FormItemContent
- * @property {('string', 'date', 'datetime')} type
+ * @property {('string'|'date'|'datetime')} type
  * @property {string} name
  * @property {string} description
  * @property {string|undefined} header
@@ -64,7 +64,7 @@ const UlTag = tags.UlTag,
 /**
  * @typedef {Object} Response
  * @property {String | undefined} messageId
- * @property {('form', 'menu')} contentType
+ * @property {('form'|'menu')} contentType
  * @property {Form | Menu} content
  */
 
@@ -138,7 +138,7 @@ function FormMeta(completionStatusShow, completionStatusInHeader, confirmationNe
 
 /**
  * Instantiates a new FormItemContent
- * @param {('string', 'date', 'datetime')} type
+ * @param {('string'|'date'|'datetime')} type
  * @param {string} name
  * @param {string} description
  * @param {string|undefined} header
@@ -200,7 +200,7 @@ FormItemMenu.fromTag = function (sectionTag) {
 
 /**
  * Instantiates a new FormItemMenuItem
- * @param {('option', 'content')} type
+ * @param {('option'|'content')} type
  * @param {string} description
  * @param {string|undefined} value
  * @constructor
