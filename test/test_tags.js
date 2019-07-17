@@ -19,7 +19,7 @@ const parser = require("node-html-parser");
 describe('FormTag', function () {
     describe('FormTag.fromNode()', function () {
         it('should return a FormTag() object', function () {
-            let html = '<form>' +
+            let html = '<form path="/route">' +
                 '<section name="name" expected-response="exp">' +
                 '<p>This is paragraph</p>' +
                 '</section>' +
@@ -30,7 +30,7 @@ describe('FormTag', function () {
         });
 
         it('should work with camelCase and dash attributes', function () {
-            const html = '<form completionStatusShow="true" confirmation-needed="true">' +
+            const html = '<form path="/route" completionStatusShow="true" confirmation-needed="true">' +
                 '<section name="name" expected-response="exp"><p>Some content</p></section></form>';
             const parsedHtml = parser.parse(html);
             const form = FormTag.fromNode(parsedHtml.childNodes[0]);
@@ -40,7 +40,7 @@ describe('FormTag', function () {
         });
 
         it('should turn to null non-boolean attributes or missing ones', function () {
-            const html = '<form completionStatusShow="non-boolean" confirmation-needed="True">' +
+            const html = '<form path="/route" completionStatusShow="non-boolean" confirmation-needed="True">' +
                 '<section name="name" expected-response="exp"><p>Some content</p></section></form>';
             const parsedHtml = parser.parse(html);
             const form = FormTag.fromNode(parsedHtml.childNodes[0]);
@@ -62,7 +62,7 @@ describe('FormTag', function () {
         });
 
         it('should throw error for other children than section', function () {
-            const html = "<form><ul><li>Para Para Paragraph</li></ul></form>";
+            const html = '<form path="/route"><ul><li>Para Para Paragraph</li></ul></form>';
             const parsedHtml = parser.parse(html);
 
             function iThrow() {
@@ -73,7 +73,7 @@ describe('FormTag', function () {
         });
 
         it('should not work without children', function () {
-            const html = "<form></form>";
+            const html = '<form path="/route"></form>';
             const parsedHtml = parser.parse(html);
 
             function iThrow() {
@@ -128,19 +128,25 @@ describe('SectionTag', function () {
         });
 
         it('should render the children correctly', function () {
-            const expected = 'This is paragraph\n\nAn item\nAnother item\n';
+            const expected = 'This is just a text\n' +
+                'This is paragraph\n' +
+                '\n' +
+                'An item\n' +
+                'Another item\n' +
+                'This is another text';
             const html = '<section name="name" expected-response="exp">' +
+                'This is just a text' +
                 '<p>This is paragraph</p>' +
                 '<br/><input/>' +
                 '<ul>' +
                 '<li>An item</li>' +
                 '<li><a href="/route">Another item</a></li>' +
-                '</ul>' +
+                '</ul>This is another text' +
                 '</section>';
             const parsedHtml = parser.parse(html);
             const sectionTag = SectionTag.fromNode(parsedHtml.childNodes[0]);
             const rendered = sectionTag.toString();
-            assert.strictEqual(expected, rendered);
+            assert.strictEqual(rendered, expected);
         });
     });
 });

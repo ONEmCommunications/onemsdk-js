@@ -205,7 +205,7 @@ PTag.__proto__ = Tag;
 PTag.tagName = 'p';
 
 PTag.prototype.toString = function pTagToString() {
-    return `${this.children[0]}\n`;
+    return `${this.children[0]}`;
 };
 
 
@@ -251,11 +251,11 @@ ATag.getAttributes = function (node) {
 
 
 /**
- * @param {String} data
+ * @param {String|undefined} value
  * @constructor
  */
-function LiTagAttrs(data) {
-    this.data = data;
+function LiTagAttrs(value) {
+    this.value = value || null;
 }
 
 /**
@@ -277,11 +277,15 @@ function LiTag(children, attrs) {
 LiTag.__proto__ = Tag;
 LiTag.tagName = 'li';
 
+LiTag.getAttributes = function (node) {
+    return new LiTagAttrs(node.attributes.value);
+};
+
 LiTag.prototype.toString = function liTagToString() {
     if (this.children[0] instanceof ATag) {
-        return `${this.children[0].toString()}\n`;
+        return this.children[0].toString();
     }
-    return `${this.children[0]}\n`;
+    return this.children[0];
 };
 
 
@@ -309,7 +313,7 @@ UlTag.tagName = 'ul';
 UlTag.prototype.toString = function ulTagToString() {
     return this.children.map(function (child) {
         return child.toString();
-    }).join('');
+    }).join('\n');
 };
 
 
@@ -349,12 +353,18 @@ InputTag.prototype.toString = function () {
 
 
 function LabelTag(children) {
+    if (children.length !== 1 || !(children[0] instanceof String)) {
+        throw Error('<label> must have 1 text child')
+    }
     this.children = children;
-    this.attrs = undefined;
 }
 
 LabelTag.__proto__ = Tag;
 LabelTag.tagName = 'label';
+
+LabelTag.prototype.toString = function labelTagToString() {
+    return this.children[0];
+};
 
 
 /**
@@ -396,7 +406,9 @@ function SectionTag(children, attrs) {
             case 'footer':
                 break;
             default:
-                throw Error(`<section> cannot have <${child.constructor.tagName}> child`);
+                if (!(child instanceof String)) {
+                    throw Error(`<section> cannot have <${child.constructor.tagName}> child`);
+                }
         }
     });
 
@@ -423,15 +435,32 @@ SectionTag.getAttributes = function (node) {
 };
 
 SectionTag.prototype.toString = function sectionTagToString() {
-    let renderedChildren = [];
+    // Add a temporary \n for help
+    let renderedChildren = ['\n'];
+
     this.children.forEach(function (child) {
         if (child instanceof String) {
             renderedChildren.push(child);
-        } else {
+        } else if (child instanceof PTag || child instanceof UlTag) {
+            if (renderedChildren[renderedChildren.length - 1] !== '\n') {
+                renderedChildren.push('\n');
+            }
             renderedChildren.push(child.toString());
+            renderedChildren.push('\n');
+        } else {
+            if (!(child instanceof InputTag)) {
+                // InputTag is never rendered
+                renderedChildren.push(child.toString());
+            }
         }
     });
-    return renderedChildren.join('');
+
+    if (renderedChildren[renderedChildren.length - 1] === '\n') {
+        renderedChildren = renderedChildren.slice(0, renderedChildren.length - 1);
+    }
+
+    // Remove the temporary \n
+    return renderedChildren.slice(1, undefined).join('');
 };
 
 /**
@@ -447,8 +476,11 @@ SectionTag.prototype.toString = function sectionTagToString() {
  */
 function FormTagAttrs(path, method, header, footer, completionStatusShow,
                       completionStatusInHeader, confirmationNeeded) {
+    if (!path) {
+        throw Error('(path) is a required attribute for <form>');
+    }
     this.path = path;
-    this.method = method;
+    this.method = method || 'POST';
     this.header = header || null;
     this.footer = footer || null;
     this.completionStatusShow = completionStatusShow || null;

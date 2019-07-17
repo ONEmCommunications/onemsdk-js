@@ -6,7 +6,7 @@ const parser = require("../src/parser");
 
 describe('loadHtml', function () {
     it('should return a FormTag() object from html string', function () {
-        let html = '<form>' +
+        let html = '<form path="/route">' +
             '<section name="name" expected-response="exp">' +
             '<p>This is paragraph</p>' +
             '</section>' +
