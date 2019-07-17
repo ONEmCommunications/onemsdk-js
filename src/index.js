@@ -1,3 +1,10 @@
+const tags = require('./tag');
+const UlTag = tags.UlTag,
+    SectionTag = tags.SectionTag,
+    FormTag = tags.FormTag,
+    LiTag = tags.LiTag;
+
+
 /**
  * @typedef {object} Form
  * @property {('form')} type
@@ -63,7 +70,7 @@
 
 /**
  * Instantiates a new Form
- * @param {FormItemContent|FormItemMenu} body
+ * @param {Array<FormItemContent|FormItemMenu>} body
  * @param {('GET'|'POST'|'PUT'|'DELETE')} method='POST'
  * @param {string} path
  * @param {string|undefined} header
@@ -72,6 +79,9 @@
  * @constructor
  */
 function Form(body, method, path, header, footer, meta) {
+    if (!body || !path) {
+        throw Error('(body, path) are mandatory');
+    }
     this.type = 'form';
     this.body = body;
     this.method = method || 'POST';
@@ -80,6 +90,38 @@ function Form(body, method, path, header, footer, meta) {
     this.footer = footer || null;
     this.meta = meta || null;
 }
+
+/**
+ * Creates a Form from a FormTag
+ * @param {FormTag} formTag
+ * @returns {Form}
+ */
+Form.fromTag = function (formTag) {
+    let body = [];
+    formTag.children.forEach(function (sectionTag) {
+        let childType = FormItemContent;
+        for (let i = 0; i < sectionTag.children.length; i++) {
+            if (sectionTag.children[i] instanceof UlTag) {
+                childType = FormItemMenu;
+                break;
+            }
+        }
+        body.push(childType.fromTag(sectionTag));
+    });
+
+    return new Form(
+        body,
+        formTag.attrs.method,
+        formTag.attrs.path,
+        formTag.attrs.header,
+        formTag.attrs.footer,
+        new FormMeta(
+            formTag.attrs.completionStatusShow,
+            formTag.attrs.completionStatusInHeader,
+            formTag.attrs.confirmationNeeded
+        )
+    );
+};
 
 /**
  * Instantiates a new FormMeta
@@ -112,6 +154,21 @@ function FormItemContent(type, name, description, header, footer) {
 }
 
 /**
+ * Creates a FormItemContent from a SectionTag
+ * @param {SectionTag} sectionTag
+ * @returns {FormItemContent}
+ */
+FormItemContent.fromTag = function (sectionTag) {
+    return new FormItemContent(
+        sectionTag.attrs.expectedResponse,
+        sectionTag.attrs.name,
+        sectionTag.toString(),
+        sectionTag.attrs.header,
+        sectionTag.attrs.footer
+    );
+};
+
+/**
  * Instantiates a new FormItemMenu
  * @param {Array<FormItemMenuItem>} body
  * @constructor
@@ -122,15 +179,58 @@ function FormItemMenu(body) {
 }
 
 /**
+ * Creates a FormItemMenu from a SectionTag
+ * @param {SectionTag} sectionTag
+ * @returns {FormItemMenu}
+ */
+FormItemMenu.fromTag = function (sectionTag) {
+    let body = [];
+    sectionTag.children.forEach(function (child) {
+        if (child instanceof UlTag) {
+            child.children.forEach(function (liTag) {
+                body.push(FormItemMenuItem.fromTag(liTag));
+            })
+        } else {
+            body.push(FormItemMenuItem.fromTag(child));
+        }
+    });
+
+    return new FormItemMenu(body);
+};
+
+/**
  * Instantiates a new FormItemMenuItem
+ * @param {('option', 'content')} type
  * @param {string} description
  * @param {string|undefined} value
  * @constructor
  */
-function FormItemMenuItem(description, value) {
+function FormItemMenuItem(type, description, value) {
+    this.type = type;
     this.description = description;
     this.value = value || null;
 }
+
+/**
+ * Creates a FormItemMenuItem from a SectionTag's child
+ * @param tag
+ * @returns {FormItemMenuItem}
+ */
+FormItemMenuItem.fromTag = function (tag) {
+    let item;
+    if (tag instanceof String) {
+        item = new FormItemMenuItem('content', tag, undefined);
+    } else if (tag instanceof LiTag) {
+        if (tag.attrs.value) {
+            item = new FormItemMenuItem('option', tag.toString(), tag.attrs.value);
+        } else {
+            item = new FormItemMenuItem('content', tag.toString(), undefined);
+        }
+    } else {
+        item = new FormItemMenuItem('content', tag.toString(), undefined);
+    }
+    return item;
+};
 
 /**
  * Instantiates a new Menu
@@ -145,6 +245,27 @@ function Menu(body, header, footer) {
     this.header = header || null;
     this.footer = footer || null;
 }
+
+/**
+ * Creates a Menu from a SectionTag
+ * @param {SectionTag} sectionTag
+ * @returns {Menu}
+ */
+Menu.fromTag = function (sectionTag) {
+    let body = [];
+
+    sectionTag.children.forEach(function (child) {
+        if (child instanceof UlTag) {
+            child.children.forEach(function (liTag) {
+                body.push(MenuItem.fromTag(liTag));
+            });
+        } else {
+            body.push(MenuItem.fromTag(child));
+        }
+    });
+
+    return new Menu(body, sectionTag.attrs.header, sectionTag.attrs.footer);
+};
 
 /**
  * Instantiates a new MenuItem
@@ -162,13 +283,35 @@ function MenuItem(type, description, method, path) {
 }
 
 /**
+ * Creates a MenuItem from a SectionTag's child
+ * @param {LiTag|BrTag|PTag|LabelTag|InputTag|String} tag
+ * @returns {MenuItem}
+ */
+MenuItem.fromTag = function (tag) {
+    let menuItem;
+
+    if (tag instanceof String) {
+        menuItem = new MenuItem('content', tag, undefined, undefined);
+    } else {
+        if (tag.attrs.href) {
+            menuItem = new MenuItem('option', tag.toString(), tag.attrs.method, tag.attrs.href);
+        } else {
+            menuItem = new MenuItem('content', tag.toString(), undefined, undefined);
+        }
+    }
+    return menuItem;
+};
+
+/**
  * Instantiates a Response object
  * @param {String | undefined} messageId
  * @param {Form | Menu} content
  * @constructor
  */
 function Response(content, messageId) {
-    assert(content, 'content is mandatory');
+    if (!content) {
+        throw Error('content is mandatory');
+    }
 
     let contentType;
     if (content instanceof Form) {
@@ -183,3 +326,22 @@ function Response(content, messageId) {
     this.contentType = contentType;
     this.content = content;
 }
+
+/**
+ * Creates a Response from a FormTag or SectionTag
+ * @param tag
+ * @param messageId
+ * @returns {Response}
+ */
+Response.fromTag = function (tag, messageId) {
+    if (tag instanceof FormTag) {
+        return new Response(Form.fromTag(tag), messageId);
+    } else if (tag instanceof SectionTag) {
+        return new Response(Menu.fromTag(tag), messageId);
+    } else {
+        throw Error(`Cannot create response from ${tag.tagName} tag`)
+    }
+};
+
+exports.Form = Form;
+exports.Response = Response;
