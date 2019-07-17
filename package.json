@@ -19,6 +19,7 @@
     "chai": "^4.2.0",
     "eslint": "^5.16.0",
     "jsdoc": "^3.6.2",
+    "jsdoc-to-markdown": "^5.0.0",
     "mocha": "^6.1.4"
   },
   "repository": {
