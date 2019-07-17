@@ -1,3 +1,4 @@
+const snakecase = require('snakecase-keys');
 const tags = require('./tag');
 const UlTag = tags.UlTag,
     SectionTag = tags.SectionTag,
@@ -63,7 +64,7 @@ const UlTag = tags.UlTag,
 
 /**
  * @typedef {Object} Response
- * @property {String | undefined} messageId
+ * @property {string | undefined} correlationId
  * @property {('form'|'menu')} contentType
  * @property {Form | Menu} content
  */
@@ -218,7 +219,7 @@ function FormItemMenuItem(type, description, value) {
  */
 FormItemMenuItem.fromTag = function (tag) {
     let item;
-    if (tag instanceof String) {
+    if (typeof tag === 'string') {
         item = new FormItemMenuItem('content', tag, undefined);
     } else if (tag instanceof LiTag) {
         if (tag.attrs.value) {
@@ -235,8 +236,8 @@ FormItemMenuItem.fromTag = function (tag) {
 /**
  * Instantiates a new Menu
  * @param {Array<MenuItem>} body
- * @param {String | undefined} header
- * @param {String | undefined} footer
+ * @param {string | undefined} header
+ * @param {string | undefined} footer
  * @constructor
  */
 function Menu(body, header, footer) {
@@ -284,13 +285,13 @@ function MenuItem(type, description, method, path) {
 
 /**
  * Creates a MenuItem from a SectionTag's child
- * @param {LiTag|BrTag|PTag|LabelTag|InputTag|String} tag
+ * @param {LiTag|BrTag|PTag|LabelTag|InputTag|string} tag
  * @returns {MenuItem}
  */
 MenuItem.fromTag = function (tag) {
     let menuItem;
 
-    if (tag instanceof String) {
+    if (typeof tag === 'string') {
         menuItem = new MenuItem('content', tag, undefined, undefined);
     } else {
         if (tag.attrs.href) {
@@ -304,11 +305,11 @@ MenuItem.fromTag = function (tag) {
 
 /**
  * Instantiates a Response object
- * @param {String | undefined} messageId
+ * @param {string | undefined} correlationId
  * @param {Form | Menu} content
  * @constructor
  */
-function Response(content, messageId) {
+function Response(content, correlationId) {
     if (!content) {
         throw Error('content is mandatory');
     }
@@ -322,26 +323,41 @@ function Response(content, messageId) {
         throw Error(`Cannot create Response from ${content.constructor}`)
     }
 
-    this.messageId = messageId || null;
+    this.correlationId = correlationId || null;
     this.contentType = contentType;
     this.content = content;
 }
 
 /**
  * Creates a Response from a FormTag or SectionTag
- * @param tag
- * @param messageId
+ * @param {FormTag|SectionTag} tag
+ * @param {string} correlationId request correlation id
  * @returns {Response}
  */
-Response.fromTag = function (tag, messageId) {
+Response.fromTag = function (tag, correlationId) {
     if (tag instanceof FormTag) {
-        return new Response(Form.fromTag(tag), messageId);
+        return new Response(Form.fromTag(tag), correlationId);
     } else if (tag instanceof SectionTag) {
-        return new Response(Menu.fromTag(tag), messageId);
+        return new Response(Menu.fromTag(tag), correlationId);
     } else {
         throw Error(`Cannot create response from ${tag.tagName} tag`)
     }
 };
 
+Response.prototype.toJSON = function () {
+    console.log('this is it', this.content.body[0].body[0].description);
+    return snakecase(this);
+};
+
+
 exports.Form = Form;
 exports.Response = Response;
+exports.Menu = Menu;
+exports.MenuItem = MenuItem;
+exports.FormItemMenu = FormItemMenu;
+exports.FormItemMenuItem = FormItemMenuItem;
+exports.FormItemContent = FormItemContent;
+exports.FormMeta = FormMeta;
+
+exports.parser = require('./parser');
+exports.tags = require('./tag');

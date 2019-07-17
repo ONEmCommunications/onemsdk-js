@@ -4,27 +4,27 @@ const parser = require('node-html-parser');
  * @typedef Tag
  * @property {Array<Tag> | undefined} children
  * @property {Object | undefined} attrs
- * @property {String} tagName
+ * @property {string} tagName
  */
 
 /**
  * @typedef HeaderTag
  * @extends Tag
- * @property {Array<String>} children
+ * @property {Array<string>} children
  * @property {undefined} attrs
  */
 
 /**
  * @typedef FooterTag
  * @extends Tag
- * @property {Array<String>} children
+ * @property {Array<string>} children
  * @property {undefined} attrs
  */
 
 /**
  * @typedef LabelTag
  * @extends Tag
- * @property {Array<String>} children
+ * @property {Array<string>} children
  * @property {undefined} attrs
  */
 
@@ -38,14 +38,14 @@ const parser = require('node-html-parser');
 /**
  * @typedef ATag
  * @extends Tag
- * @property {Array<String>} children
+ * @property {Array<string>} children
  * @property {ATagAttrs} attrs
  */
 
 /**
  * @typedef PTag
  * @extends Tag
- * @property {Array<String>} children
+ * @property {Array<string>} children
  * @property {undefined} attrs
  */
 
@@ -59,7 +59,7 @@ const parser = require('node-html-parser');
 /**
  * @typedef LiTag
  * @extends Tag
- * @property {Array<ATag | String>} children
+ * @property {Array<ATag | string>} children
  * @property {LiTagAttrs} attrs
  */
 
@@ -136,7 +136,7 @@ Tag.fromNode = function (node) {
         const childCls = getTagCls(childNode.tagName);
 
         if (childNode instanceof parser.TextNode) {
-            children.push(new String(childNode.text))
+            children.push(childNode.text);
         } else {
             children.push(childCls.fromNode(childNode));
         }
@@ -156,7 +156,7 @@ Tag.getAttributes = function (node) {
 
 
 function HeaderTag(children) {
-    if (children.length !== 1 || !(children[0] instanceof String)) {
+    if (children.length !== 1 || typeof children[0] !== 'string') {
         throw Error('<header> must have 1 text child')
     }
     this.children = children;
@@ -167,7 +167,7 @@ HeaderTag.tagName = 'header';
 
 
 function FooterTag(children) {
-    if (children.length !== 1 || !(children[0] instanceof String)) {
+    if (children.length !== 1 || typeof children[0] !== 'string') {
         throw Error('<footer> must have 1 text child')
     }
     this.children = children;
@@ -191,11 +191,11 @@ BrTag.prototype.toString = function brTagToString() {
 };
 
 /**
- * @param {Array<String>} children
+ * @param {Array<string>} children
  * @constructor
  */
 function PTag(children) {
-    if (children.length !== 1 || !(children[0] instanceof String)) {
+    if (children.length !== 1 || typeof children[0] !== 'string') {
         throw Error('<p> must have 1 text child')
     }
     this.children = children;
@@ -210,7 +210,7 @@ PTag.prototype.toString = function pTagToString() {
 
 
 /**
- * @param {String} href
+ * @param {string} href
  * @constructor
  */
 function ATagAttrs(href) {
@@ -221,12 +221,12 @@ function ATagAttrs(href) {
 }
 
 /**
- * @param {Array<String>} children
+ * @param {Array<string>} children
  * @param {ATagAttrs} attrs
  * @constructor
  */
 function ATag(children, attrs) {
-    if (children.length !== 1 || !(children[0] instanceof String)) {
+    if (children.length !== 1 || typeof children[0] !== 'string') {
         throw Error('<a> must have 1 text child')
     }
     this.children = children;
@@ -251,7 +251,7 @@ ATag.getAttributes = function (node) {
 
 
 /**
- * @param {String|undefined} value
+ * @param {string|undefined} value
  * @constructor
  */
 function LiTagAttrs(value) {
@@ -259,14 +259,14 @@ function LiTagAttrs(value) {
 }
 
 /**
- * @param {Array<ATag | String>} children
+ * @param {Array<ATag|string>} children
  * @param {LiTagAttrs} attrs
  * @constructor
  */
 function LiTag(children, attrs) {
     if (
         children.length !== 1 ||
-        !(children[0] instanceof ATag || children[0] instanceof String)
+        !(children[0] instanceof ATag || typeof children[0] === 'string')
     ) {
         throw Error('<li> must have 1 child (<a> or text)')
     }
@@ -319,7 +319,7 @@ UlTag.prototype.toString = function ulTagToString() {
 
 /**
  *
- * @param {String} name
+ * @param {string} name
  * @param {('text'|'date'|'datetime')} type
  * @constructor
  */
@@ -353,7 +353,7 @@ InputTag.prototype.toString = function () {
 
 
 function LabelTag(children) {
-    if (children.length !== 1 || !(children[0] instanceof String)) {
+    if (children.length !== 1 || typeof children[0] !== 'string') {
         throw Error('<label> must have 1 text child')
     }
     this.children = children;
@@ -406,7 +406,7 @@ function SectionTag(children, attrs) {
             case 'footer':
                 break;
             default:
-                if (!(child instanceof String)) {
+                if (typeof child !== 'string') {
                     throw Error(`<section> cannot have <${child.constructor.tagName}> child`);
                 }
         }
@@ -439,7 +439,7 @@ SectionTag.prototype.toString = function sectionTagToString() {
     let renderedChildren = ['\n'];
 
     this.children.forEach(function (child) {
-        if (child instanceof String) {
+        if (typeof child === 'string') {
             renderedChildren.push(child);
         } else if (child instanceof PTag || child instanceof UlTag) {
             if (renderedChildren[renderedChildren.length - 1] !== '\n') {

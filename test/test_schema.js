@@ -1,4 +1,5 @@
 const assert = require("chai").assert;
+const snakecase = require("snakecase-keys");
 
 const tags = require("../src/tag");
 
@@ -26,7 +27,7 @@ describe('Form', function () {
 describe('Response', function () {
     it('should return the correct Response object', function () {
         const expected = {
-            messageId: "alabama",
+            correlationId: "alabama",
             contentType: "form",
             content: {
                 type: "form",
@@ -78,6 +79,6 @@ describe('Response', function () {
         const formTag = parser.loadHtml(undefined, html);
         const response = Response.fromTag(formTag, 'alabama');
         assert.strictEqual(response instanceof Response, true);
-        assert.strictEqual(JSON.stringify(expected), JSON.stringify(response));
+        assert.strictEqual(JSON.stringify(response), JSON.stringify(snakecase(expected)));
     })
 });

@@ -1,5 +1,5 @@
 {
-  "name": "onem-nodejs-api",
+  "name": "onemsdk",
   "version": "0.1.0",
   "description": "ONEm developer library for node",
   "main": "src/index.js",
@@ -8,11 +8,12 @@
     "docs": "jsdoc -c jsdoc.conf.json && jsdoc2md --files ./src/**/*.js > README.md",
     "generate-docs": "node_modules/.bin/jsdoc --configure jsdoc.conf.json --template ./node_modules/braintree-jsdoc-template  --verbose"
   },
-  "author": "chris horn",
+  "author": "romeo tudureanu",
   "license": "ISC",
   "dependencies": {
     "node-html-parser": "^1.1.12",
-    "pug": "^2.0.3"
+    "pug": "^2.0.3",
+    "snakecase-keys": "^3.1.0"
   },
   "devDependencies": {
     "braintree-jsdoc-template": "^3.3.0",

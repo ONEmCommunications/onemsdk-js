@@ -21,8 +21,8 @@ function clean(node) {
 
 /**
  * Turns a HTML content (from file or from variable) to a Tag object
- * @param {String | undefined} htmlFile
- * @param {String | undefined} htmlText
+ * @param {string | undefined} htmlFile
+ * @param {string | undefined} htmlText
  * @returns {FormTag|SectionTag|UlTag|LiTag|ATag|PTag|*}
  */
 function loadHtml(htmlFile, htmlText) {
