@@ -384,9 +384,6 @@ LabelTag.prototype.toString = function labelTagToString() {
  * @constructor
  */
 function SectionTagAttrs(name, expectedResponse, header, footer) {
-    if (!name || !expectedResponse) {
-        throw Error('("name", "expectedResponse") attributes are mandatory for <section>');
-    }
     this.name = name;
     this.expectedResponse = expectedResponse;
     this.header = header || null;
@@ -509,9 +506,12 @@ function FormTag(children, attrs) {
         throw Error('<form> must have at least 1 child');
     }
 
-    children.forEach(function (child) {
-        if (!(child instanceof SectionTag)) {
+    children.forEach(function (sectionTag) {
+        if (!(sectionTag instanceof SectionTag)) {
             throw Error('<form> can have only <section> children')
+        }
+        if (!sectionTag.attrs.expectedResponse || !sectionTag.attrs.name) {
+            throw Error('("name", "expectedResponse") attributes are mandatory for <section> inside <form>');
         }
     });
     this.children = children;

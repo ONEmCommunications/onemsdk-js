@@ -18,6 +18,31 @@ const parser = require("node-html-parser");
 
 describe('FormTag', function () {
     describe('FormTag.fromNode()', function () {
+        it('should raise error if <section> does not define "name" and "expected-response"', function () {
+            let html = '<form path="/route">' +
+                '<section expected-response="exp"><p>Para Para Paragraph</p></section>' +
+                '</form>';
+            let parsedHtml = parser.parse(html);
+
+            function iThrow() {
+                return FormTag.fromNode(parsedHtml.childNodes[0]);
+            }
+
+            assert.throws(iThrow, Error, '("name", "expectedResponse") attributes are mandatory for <section> inside <form>');
+
+            html = '<form path="/route">' +
+                '<section name="a name"><p>Para Para Paragraph</p></section>' +
+                '</form>';
+            parsedHtml = parser.parse(html);
+            assert.throws(iThrow, Error, '("name", "expectedResponse") attributes are mandatory for <section> inside <form>');
+
+            html = '<form path="/route">' +
+                '<section><p>Para Para Paragraph</p></section>' +
+                '</form>';
+            parsedHtml = parser.parse(html);
+            assert.throws(iThrow, Error, '("name", "expectedResponse") attributes are mandatory for <section> inside <form>');
+        });
+
         it('should return a FormTag() object', function () {
             let html = '<form path="/route">' +
                 '<section name="name" expected-response="exp">' +
@@ -116,15 +141,18 @@ describe('SectionTag', function () {
             assert.equal(sectionTag instanceof SectionTag, true);
         });
 
-        it('should not work without mandatory attributes', function () {
-            const html = '<section><p>Para</p></section>';
+        it('should parse attributes correctly', function () {
+            const html = '' +
+                '<section name="a-name" expected-response="option" header="a header" footer="a footer">' +
+                '<p>Para</p>' +
+                '</section>';
             const parsedHtml = parser.parse(html);
+            const sectionTag = SectionTag.fromNode(parsedHtml.childNodes[0]);
 
-            function iThrow() {
-                return SectionTag.fromNode(parsedHtml.childNodes[0]);
-            }
-
-            assert.throws(iThrow, Error, '("name", "expectedResponse") attributes are mandatory for <section>');
+            assert.strictEqual(sectionTag.attrs.name, 'a-name');
+            assert.strictEqual(sectionTag.attrs.expectedResponse, 'option');
+            assert.strictEqual(sectionTag.attrs.header, 'a header');
+            assert.strictEqual(sectionTag.attrs.footer, 'a footer');
         });
 
         it('should render the children correctly', function () {
