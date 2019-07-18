@@ -64,7 +64,6 @@ const UlTag = tags.UlTag,
 
 /**
  * @typedef {Object} Response
- * @property {string | undefined} corrId
  * @property {('form'|'menu')} contentType
  * @property {Form | Menu} content
  */
@@ -305,11 +304,10 @@ MenuItem.fromTag = function (tag) {
 
 /**
  * Instantiates a Response object
- * @param {string | undefined} corrId
  * @param {Form | Menu} content
  * @constructor
  */
-function Response(content, corrId) {
+function Response(content) {
     if (!content) {
         throw Error('content is mandatory');
     }
@@ -323,7 +321,6 @@ function Response(content, corrId) {
         throw Error(`Cannot create Response from ${content.constructor}`)
     }
 
-    this.corrId = corrId || null;
     this.contentType = contentType;
     this.content = content;
 }
@@ -331,14 +328,13 @@ function Response(content, corrId) {
 /**
  * Creates a Response from a FormTag or SectionTag
  * @param {FormTag|SectionTag} tag
- * @param {string} corrId request correlation id
  * @returns {Response}
  */
-Response.fromTag = function (tag, corrId) {
+Response.fromTag = function (tag) {
     if (tag instanceof FormTag) {
-        return new Response(Form.fromTag(tag), corrId);
+        return new Response(Form.fromTag(tag));
     } else if (tag instanceof SectionTag) {
-        return new Response(Menu.fromTag(tag), corrId);
+        return new Response(Menu.fromTag(tag));
     } else {
         throw Error(`Cannot create response from ${tag.tagName} tag`)
     }

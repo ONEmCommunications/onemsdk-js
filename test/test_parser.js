@@ -53,7 +53,6 @@ describe('loadTemplate', function () {
         assert.strictEqual(response instanceof Response, true);
 
         const expectedJson = {
-            "corr_id": null,
             "content_type": "menu",
             "content": {
                 "type": "menu",
