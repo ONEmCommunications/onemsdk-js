@@ -160,6 +160,13 @@ describe('PTag', function () {
             assert.strictEqual(ptag instanceof PTag, true);
         });
 
+        it('should work with no children', function () {
+            const html = "<p></p>";
+            const parsedHTML = parser.parse(html);
+            const pTag = PTag.fromNode(parsedHTML.childNodes[0]);
+            assert.strictEqual(pTag instanceof PTag, true);
+        });
+
         it('should not work with more than 1 child', function () {
             const html = "<p><br/>Paragraph</p>";
             const parsedHtml = parser.parse(html);
@@ -168,10 +175,10 @@ describe('PTag', function () {
                 return PTag.fromNode(parsedHtml.childNodes[0]);
             }
 
-            assert.throws(iThrow, Error, '<p> must have 1 text child')
+            assert.throws(iThrow, Error, '<p> cannot have more than 1 child')
         });
 
-        it('should not work with non text node', function () {
+        it('should not work with non-text child', function () {
             const html = "<p><br/></p>";
             const parsedHtml = parser.parse(html);
 
@@ -179,7 +186,7 @@ describe('PTag', function () {
                 return PTag.fromNode(parsedHtml.childNodes[0]);
             }
 
-            assert.throws(iThrow, Error, '<p> must have 1 text child')
+            assert.throws(iThrow, Error, '<p> child must be text');
         });
     })
 });

@@ -21,6 +21,39 @@ describe('loadHtml', function () {
         const form = parser.loadHtml('test/index.html', undefined);
         assert.strictEqual(form instanceof FormTag, true);
     });
+
+    it('should ignore the empty <p>', function () {
+        let html = '<section name="some name" expected-response="option" footer="a footer">' +
+            '<p></p>This is some text<p>Paragraph</p><p></p>Another text' +
+            '</section>';
+        const section = parser.loadHtml(undefined, html);
+        const response = Response.fromTag(section);
+        const expected = {
+            "content_type": "menu",
+            "content": {
+                "type": "menu",
+                "body": [{
+                    "type": "content",
+                    "description": "This is some text",
+                    "method": null,
+                    "path": null
+                }, {
+                    "type": "content",
+                    "description": "Paragraph",
+                    "method": null,
+                    "path": null
+                }, {
+                    "type": "content",
+                    "description": "Another text",
+                    "method": null,
+                    "path": null
+                }],
+                "header": null,
+                "footer": "a footer"
+            }
+        };
+        assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
+    });
 });
 
 describe('loadTemplate', function () {

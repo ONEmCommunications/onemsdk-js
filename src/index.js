@@ -265,6 +265,11 @@ Menu.fromTag = function (sectionTag) {
         }
     });
 
+    // Discard all the menu items evaluated to false (eg: those with no description)
+    body = body.filter(function (menuItem) {
+        return menuItem;
+    });
+
     return new Menu(body, sectionTag.attrs.header, sectionTag.attrs.footer);
 };
 
@@ -289,19 +294,30 @@ function MenuItem(type, description, method, path) {
  * @returns {MenuItem}
  */
 MenuItem.fromTag = function (tag) {
-    let menuItem;
+    let description,
+        method,
+        path,
+        type = 'content';
 
     if (typeof tag === 'string') {
-        menuItem = new MenuItem('content', tag, undefined, undefined);
+        description = tag;
     } else {
-        if (tag instanceof LiTag && tag.children[0] instanceof ATag) {
-            const aTag = tag.children[0];
-            menuItem = new MenuItem('option', aTag.toString(), aTag.attrs.method, aTag.attrs.href);
-        } else {
-            menuItem = new MenuItem('content', tag.toString(), undefined, undefined);
-        }
+        description = tag.toString();
     }
-    return menuItem;
+
+    if (!description) {
+        // Ignore the menu items without text
+        return undefined;
+    }
+
+    if (tag instanceof LiTag && tag.children[0] instanceof ATag) {
+        const aTag = tag.children[0];
+        method = aTag.attrs.method;
+        path = aTag.attrs.href;
+        type = 'option';
+    }
+
+    return new MenuItem(type, description, method, path);
 };
 
 /**

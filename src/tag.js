@@ -195,8 +195,11 @@ BrTag.prototype.toString = function brTagToString() {
  * @constructor
  */
 function PTag(children) {
-    if (children.length !== 1 || typeof children[0] !== 'string') {
-        throw Error('<p> must have 1 text child')
+    if (children.length > 1) {
+        throw Error('<p> cannot have more than 1 child');
+    }
+    if (children.length === 1 && typeof children[0] !== 'string') {
+        throw Error('<p> child must be text');
     }
     this.children = children;
 }
@@ -205,7 +208,10 @@ PTag.__proto__ = Tag;
 PTag.tagName = 'p';
 
 PTag.prototype.toString = function pTagToString() {
-    return `${this.children[0]}`;
+    if (this.children.length === 1) {
+        return `${this.children[0]}`;
+    }
+    return '';
 };
 
 
@@ -441,17 +447,20 @@ SectionTag.prototype.toString = function sectionTagToString() {
     let renderedChildren = ['\n'];
 
     this.children.forEach(function (child) {
+        let text;
         if (typeof child === 'string') {
-            renderedChildren.push(child);
-        } else if (child instanceof PTag || child instanceof UlTag) {
-            if (renderedChildren[renderedChildren.length - 1] !== '\n') {
-                renderedChildren.push('\n');
-            }
-            renderedChildren.push(child.toString());
-            renderedChildren.push('\n');
+            text = child;
         } else {
-            if (!(child instanceof InputTag)) {
-                // InputTag is never rendered
+            text = child.toString();
+        }
+        if (text) {
+            if (child instanceof PTag || child instanceof UlTag) {
+                if (renderedChildren[renderedChildren.length - 1] !== '\n') {
+                    renderedChildren.push('\n');
+                }
+                renderedChildren.push(child.toString());
+                renderedChildren.push('\n');
+            } else {
                 renderedChildren.push(child.toString());
             }
         }
