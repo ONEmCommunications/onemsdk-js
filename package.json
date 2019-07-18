@@ -1,7 +1,7 @@
 {
   "name": "onemsdk",
-  "version": "0.2.2",
-  "description": "ONEm developer library for node",
+  "version": "0.2.3",
+  "description": "ONEm developer library for NodeJS",
   "main": "src/index.js",
   "scripts": {
     "test": "mocha",
@@ -25,16 +25,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mcoin-project/onem-nodejs-api.git"
+    "url": "git+https://github.com/romeo1m/onemsdk-js.git"
   },
   "keywords": [
     "onem",
     "developer",
-    "api",
+    "sdk",
     "node"
   ],
   "bugs": {
-    "url": "https://github.com/mcoin-project/onem-nodejs-api/issues"
+    "url": "https://github.com/romeo1m/onemsdk-js/issues"
   },
-  "homepage": "https://github.com/mcoin-project/onem-nodejs-api#readme"
+  "homepage": "https://github.com/romeo1m/onemsdk-js#readme"
 }
