@@ -211,13 +211,15 @@ PTag.prototype.toString = function pTagToString() {
 
 /**
  * @param {string} href
+ * @param {('GET'|'POST')} method default 'GET'
  * @constructor
  */
-function ATagAttrs(href) {
+function ATagAttrs(href, method) {
     if (!href) {
         throw Error('<a> must contain href attribute');
     }
     this.href = href;
+    this.method = method || 'GET';
 }
 
 /**
@@ -246,7 +248,7 @@ ATag.prototype.toString = function aTagToString() {
  * @param {HTMLAnchorElement} node
  */
 ATag.getAttributes = function (node) {
-    return new ATagAttrs(node.attributes.href);
+    return new ATagAttrs(node.attributes.href, node.attributes.method);
 };
 
 

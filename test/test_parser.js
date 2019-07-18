@@ -62,22 +62,32 @@ describe('loadTemplate', function () {
                     "method": null,
                     "path": null
                 }, {
-                    "type": "content",
+                    "type": "option",
                     "description": "My points: 30",
-                    "method": null,
-                    "path": null
+                    "method": 'GET',
+                    "path": "/points/"
                 }, {
-                    "type": "content",
+                    "type": "option",
                     "description": "News & info (10)",
-                    "method": null,
-                    "path": null
-                }, {"type": "content", "description": "Surveys (2)", "method": null, "path": null}, {
-                    "type": "content",
+                    "method": 'GET',
+                    "path": "/newsInfos/Past"
+                }, {
+                    "type": "option",
+                    "description": "Surveys (2)",
+                    "method": 'GET',
+                    "path": "/surveys/Past"
+                }, {
+                    "type": "option",
                     "description": "Classifieds (2)",
-                    "method": null,
-                    "path": null
-                }, {"type": "content", "description": "Profile: 20%", "method": null, "path": null}],
-                "header": null,
+                    "method": 'GET',
+                    "path": "/classifieds/Past"
+                }, {
+                    "type": "option",
+                    "description": "Profile: 20%",
+                    "method": 'GET',
+                    "path": "/profile/"
+                }],
+                "header": "some header",
                 "footer": null
             }
         };

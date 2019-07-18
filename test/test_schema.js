@@ -9,6 +9,57 @@ const Form = schema.Form,
 
 const parser = require("../src/parser");
 
+
+describe('Menu', function () {
+    describe('Menu.fromTag', function () {
+        it('should return a navigable Menu', function () {
+            const html = '' +
+                '<section header="Some header" footer="Some footer" name="some-name" expected-response="option">' +
+                '   <ul>' +
+                '       <li><a href="/route1" method="POST">Route 1</a></li>' +
+                '       <li><a href="/route2">Route 2</a></li>' +
+                '       <li>Separator</li>' +
+                '       <li><a href="/route3">Route 3</a></li>' +
+                '   </ul>' +
+                '</section>';
+            const rootTag = parser.loadHtml(undefined, html);
+            const response = Response.fromTag(rootTag);
+
+            const expected = {
+                "content_type": "menu",
+                "content": {
+                    "type": "menu",
+                    "body": [{
+                        "type": "option",
+                        "description": "Route 1",
+                        "method": "POST",
+                        "path": "/route1"
+                    }, {
+                        "type": "option",
+                        "description": "Route 2",
+                        "method": 'GET',
+                        "path": "/route2"
+                    }, {
+                        "type": "content",
+                        "description": "Separator",
+                        "method": null,
+                        "path": null
+                    }, {
+                        "type": "option",
+                        "description": "Route 3",
+                        "method": 'GET',
+                        "path": "/route3"
+                    }],
+                    "header": "Some header",
+                    "footer": "Some footer"
+                }
+            };
+            assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
+
+        });
+    });
+});
+
 describe('Form', function () {
     describe('Form.fromTag', function () {
         it('should return a Form() object from html form', function () {

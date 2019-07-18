@@ -3,7 +3,8 @@ const tags = require('./tag');
 const UlTag = tags.UlTag,
     SectionTag = tags.SectionTag,
     FormTag = tags.FormTag,
-    LiTag = tags.LiTag;
+    LiTag = tags.LiTag,
+    ATag = tags.ATag;
 
 
 /**
@@ -293,8 +294,9 @@ MenuItem.fromTag = function (tag) {
     if (typeof tag === 'string') {
         menuItem = new MenuItem('content', tag, undefined, undefined);
     } else {
-        if (tag.attrs && tag.attrs.href) {
-            menuItem = new MenuItem('option', tag.toString(), tag.attrs.method, tag.attrs.href);
+        if (tag instanceof LiTag && tag.children[0] instanceof ATag) {
+            const aTag = tag.children[0];
+            menuItem = new MenuItem('option', aTag.toString(), aTag.attrs.method, aTag.attrs.href);
         } else {
             menuItem = new MenuItem('content', tag.toString(), undefined, undefined);
         }
