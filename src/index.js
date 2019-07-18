@@ -64,7 +64,7 @@ const UlTag = tags.UlTag,
 
 /**
  * @typedef {Object} Response
- * @property {string | undefined} correlationId
+ * @property {string | undefined} corrId
  * @property {('form'|'menu')} contentType
  * @property {Form | Menu} content
  */
@@ -305,11 +305,11 @@ MenuItem.fromTag = function (tag) {
 
 /**
  * Instantiates a Response object
- * @param {string | undefined} correlationId
+ * @param {string | undefined} corrId
  * @param {Form | Menu} content
  * @constructor
  */
-function Response(content, correlationId) {
+function Response(content, corrId) {
     if (!content) {
         throw Error('content is mandatory');
     }
@@ -323,7 +323,7 @@ function Response(content, correlationId) {
         throw Error(`Cannot create Response from ${content.constructor}`)
     }
 
-    this.correlationId = correlationId || null;
+    this.corrId = corrId || null;
     this.contentType = contentType;
     this.content = content;
 }
@@ -331,14 +331,14 @@ function Response(content, correlationId) {
 /**
  * Creates a Response from a FormTag or SectionTag
  * @param {FormTag|SectionTag} tag
- * @param {string} correlationId request correlation id
+ * @param {string} corrId request correlation id
  * @returns {Response}
  */
-Response.fromTag = function (tag, correlationId) {
+Response.fromTag = function (tag, corrId) {
     if (tag instanceof FormTag) {
-        return new Response(Form.fromTag(tag), correlationId);
+        return new Response(Form.fromTag(tag), corrId);
     } else if (tag instanceof SectionTag) {
-        return new Response(Menu.fromTag(tag), correlationId);
+        return new Response(Menu.fromTag(tag), corrId);
     } else {
         throw Error(`Cannot create response from ${tag.tagName} tag`)
     }

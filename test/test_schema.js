@@ -27,7 +27,7 @@ describe('Form', function () {
 describe('Response', function () {
     it('should return the correct Response object', function () {
         const expected = {
-            correlationId: "alabama",
+            corrId: "alabama",
             contentType: "form",
             content: {
                 type: "form",
