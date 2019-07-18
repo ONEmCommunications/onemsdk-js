@@ -294,7 +294,7 @@ MenuItem.fromTag = function (tag) {
     if (typeof tag === 'string') {
         menuItem = new MenuItem('content', tag, undefined, undefined);
     } else {
-        if (tag.attrs.href) {
+        if (tag.attrs && tag.attrs.href) {
             menuItem = new MenuItem('option', tag.toString(), tag.attrs.method, tag.attrs.href);
         } else {
             menuItem = new MenuItem('content', tag.toString(), undefined, undefined);
@@ -345,7 +345,6 @@ Response.fromTag = function (tag, corrId) {
 };
 
 Response.prototype.toJSON = function () {
-    console.log('this is it', this.content.body[0].body[0].description);
     return snakecase(this);
 };
 

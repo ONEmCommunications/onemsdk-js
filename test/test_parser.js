@@ -1,7 +1,9 @@
 const assert = require("chai").assert;
 
 const tags = require("../src/tag");
-const FormTag = tags.FormTag;
+const FormTag = tags.FormTag,
+    SectionTag = tags.SectionTag;
+const Response = require('../src/index').Response;
 const parser = require("../src/parser");
 
 describe('loadHtml', function () {
@@ -33,5 +35,54 @@ describe('loadTemplate', function () {
         };
         const form = parser.loadTemplate('test/index.pug', data);
         assert.strictEqual(form instanceof FormTag, true);
-    })
+    });
+
+    it('should return a SectionTag() object from a template file', function () {
+        const data = {
+            preBody: 'This is pre body',
+            myPointsTotal: 30,
+            newNewsInfoCount: 10,
+            newSurveysCount: 2,
+            newClassifiedsCount: 2,
+            showProfileComplete: 20
+        };
+        const section = parser.loadTemplate('test/section_example_1.pug', data);
+        assert.strictEqual(section instanceof SectionTag, true);
+
+        const response = Response.fromTag(section);
+        assert.strictEqual(response instanceof Response, true);
+
+        const expectedJson = {
+            "corr_id": null,
+            "content_type": "menu",
+            "content": {
+                "type": "menu",
+                "body": [{
+                    "type": "content",
+                    "description": "This is pre body",
+                    "method": null,
+                    "path": null
+                }, {
+                    "type": "content",
+                    "description": "My points: 30",
+                    "method": null,
+                    "path": null
+                }, {
+                    "type": "content",
+                    "description": "News & info (10)",
+                    "method": null,
+                    "path": null
+                }, {"type": "content", "description": "Surveys (2)", "method": null, "path": null}, {
+                    "type": "content",
+                    "description": "Classifieds (2)",
+                    "method": null,
+                    "path": null
+                }, {"type": "content", "description": "Profile: 20%", "method": null, "path": null}],
+                "header": null,
+                "footer": null
+            }
+        };
+
+        assert.strictEqual(JSON.stringify(response), JSON.stringify(expectedJson));
+    });
 });

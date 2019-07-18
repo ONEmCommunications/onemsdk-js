@@ -1,0 +1,31 @@
+section(name="landing" expected-response="option")
+    p
+        | #{preBody}
+    ul
+        li
+            a(href='/points/')
+                if myPointsTotal > 0
+                    | My points: #{myPointsTotal}
+                else
+                    | My Points: None
+        li
+            a(href='/newsInfos/Past')
+                if newNewsInfoCount > 0
+                    | News & info (#{newNewsInfoCount})
+                else
+                    | News & info
+        li
+            a(href='/surveys/Past')
+                if newSurveysCount > 0
+                    | Surveys (#{newSurveysCount})
+                else
+                    | Surveys
+        li
+            a(href='/classifieds/Past')
+                if newClassifiedsCount > 0
+                    | Classifieds (#{newClassifiedsCount})
+                else
+                    | Classifieds
+        li
+            a(href='/profile/')
+                | Profile: #{showProfileComplete}%
