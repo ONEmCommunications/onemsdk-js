@@ -18,31 +18,6 @@ const parser = require("node-html-parser");
 
 describe('FormTag', function () {
     describe('FormTag.fromNode()', function () {
-        it('should raise error if <section> does not define "name" and "expected-response"', function () {
-            let html = '<form path="/route">' +
-                '<section expected-response="exp"><p>Para Para Paragraph</p></section>' +
-                '</form>';
-            let parsedHtml = parser.parse(html);
-
-            function iThrow() {
-                return FormTag.fromNode(parsedHtml.childNodes[0]);
-            }
-
-            assert.throws(iThrow, Error, '("name", "expectedResponse") attributes are mandatory for <section> inside <form>');
-
-            html = '<form path="/route">' +
-                '<section name="a name"><p>Para Para Paragraph</p></section>' +
-                '</form>';
-            parsedHtml = parser.parse(html);
-            assert.throws(iThrow, Error, '("name", "expectedResponse") attributes are mandatory for <section> inside <form>');
-
-            html = '<form path="/route">' +
-                '<section><p>Para Para Paragraph</p></section>' +
-                '</form>';
-            parsedHtml = parser.parse(html);
-            assert.throws(iThrow, Error, '("name", "expectedResponse") attributes are mandatory for <section> inside <form>');
-        });
-
         it('should return a FormTag() object', function () {
             let html = '<form path="/route">' +
                 '<section name="name" expected-response="exp">' +

@@ -4,7 +4,9 @@ const UlTag = tags.UlTag,
     SectionTag = tags.SectionTag,
     FormTag = tags.FormTag,
     LiTag = tags.LiTag,
-    ATag = tags.ATag;
+    ATag = tags.ATag,
+    HeaderTag = tags.HeaderTag,
+    FooterTag = tags.FooterTag;
 
 
 /**
@@ -160,21 +162,37 @@ function FormItemContent(type, name, description, header, footer) {
  * @returns {FormItemContent}
  */
 FormItemContent.fromTag = function (sectionTag) {
-    return new FormItemContent(
-        sectionTag.attrs.expectedResponse,
-        sectionTag.attrs.name,
-        sectionTag.toString(),
-        sectionTag.attrs.header,
-        sectionTag.attrs.footer
-    );
+    if (!sectionTag.attrs.expectedResponse || !sectionTag.attrs.name) {
+        throw Error('("name", "expectedResponse") attributes are mandatory for ' +
+            'content type <section>s inside <form>')
+    }
+
+    let type = sectionTag.attrs.expectedResponse,
+        name = sectionTag.attrs.name,
+        description = sectionTag.toString(true, true),
+        header = sectionTag.attrs.header,
+        footer = sectionTag.attrs.footer;
+
+    if (sectionTag.children[0] instanceof HeaderTag) {
+        header = sectionTag.children[0].toString();
+    }
+    if (sectionTag.children[sectionTag.children.length - 1] instanceof FooterTag) {
+        footer = sectionTag.children[sectionTag.children.length - 1].toString();
+    }
+
+    return new FormItemContent(type, name, description, header, footer);
 };
 
 /**
  * Instantiates a new FormItemMenu
  * @param {Array<FormItemMenuItem>} body
+ * @param {string} header
+ * @param {string} footer
  * @constructor
  */
-function FormItemMenu(body) {
+function FormItemMenu(body, header, footer) {
+    this.header = header;
+    this.footer = footer;
     this.type = 'form-menu';
     this.body = body;
 }
@@ -185,18 +203,30 @@ function FormItemMenu(body) {
  * @returns {FormItemMenu}
  */
 FormItemMenu.fromTag = function (sectionTag) {
-    let body = [];
+    let body = [],
+        header,
+        footer;
+
     sectionTag.children.forEach(function (child) {
         if (child instanceof UlTag) {
             child.children.forEach(function (liTag) {
                 body.push(FormItemMenuItem.fromTag(liTag));
             })
+        } else if (child instanceof HeaderTag) {
+            header = child.toString();
+        } else if (child instanceof FooterTag) {
+            footer = child.toString();
         } else {
             body.push(FormItemMenuItem.fromTag(child));
         }
     });
 
-    return new FormItemMenu(body);
+    // Discard all the menu items evaluated to false (eg: those with no description)
+    body = body.filter(function (menuItem) {
+        return menuItem;
+    });
+
+    return new FormItemMenu(body, header || sectionTag.attrs.header, footer || sectionTag.attrs.footer);
 };
 
 /**
@@ -218,19 +248,27 @@ function FormItemMenuItem(type, description, value) {
  * @returns {FormItemMenuItem}
  */
 FormItemMenuItem.fromTag = function (tag) {
-    let item;
+    let description,
+        type = 'content',
+        value;
+
     if (typeof tag === 'string') {
-        item = new FormItemMenuItem('content', tag, undefined);
-    } else if (tag instanceof LiTag) {
-        if (tag.attrs.value) {
-            item = new FormItemMenuItem('option', tag.toString(), tag.attrs.value);
-        } else {
-            item = new FormItemMenuItem('content', tag.toString(), undefined);
-        }
+        description = tag;
     } else {
-        item = new FormItemMenuItem('content', tag.toString(), undefined);
+        description = tag.toString();
     }
-    return item;
+
+    if (!description) {
+        // Ignore the menu items without text
+        return undefined;
+    }
+
+    if (tag instanceof LiTag && tag.attrs.value) {
+        type = 'option';
+        value = tag.attrs.value;
+    }
+
+    return new FormItemMenuItem(type, description, value);
 };
 
 /**
@@ -253,13 +291,19 @@ function Menu(body, header, footer) {
  * @returns {Menu}
  */
 Menu.fromTag = function (sectionTag) {
-    let body = [];
+    let body = [],
+        header,
+        footer;
 
     sectionTag.children.forEach(function (child) {
         if (child instanceof UlTag) {
             child.children.forEach(function (liTag) {
                 body.push(MenuItem.fromTag(liTag));
             });
+        } else if (child instanceof HeaderTag) {
+            header = child.toString();
+        } else if (child instanceof FooterTag) {
+            footer = child.toString();
         } else {
             body.push(MenuItem.fromTag(child));
         }
@@ -270,7 +314,7 @@ Menu.fromTag = function (sectionTag) {
         return menuItem;
     });
 
-    return new Menu(body, sectionTag.attrs.header, sectionTag.attrs.footer);
+    return new Menu(body, header || sectionTag.attrs.header, footer || sectionTag.attrs.footer);
 };
 
 /**

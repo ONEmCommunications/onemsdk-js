@@ -155,6 +155,11 @@ Tag.getAttributes = function (node) {
 };
 
 
+/**
+ * Instantiates a new HeaderTag
+ * @param {Array<string>} children
+ * @constructor
+ */
 function HeaderTag(children) {
     if (children.length !== 1 || typeof children[0] !== 'string') {
         throw Error('<header> must have 1 text child')
@@ -165,7 +170,19 @@ function HeaderTag(children) {
 HeaderTag.__proto__ = Tag;
 HeaderTag.tagName = 'header';
 
+HeaderTag.prototype.toString = function headerTagToString() {
+    if (this.children.length === 1) {
+        return `${this.children[0]}`;
+    }
+    return '';
+};
 
+
+/**
+ * Instantiates a new FooterTag
+ * @param {Array<string>} children
+ * @constructor
+ */
 function FooterTag(children) {
     if (children.length !== 1 || typeof children[0] !== 'string') {
         throw Error('<footer> must have 1 text child')
@@ -175,6 +192,10 @@ function FooterTag(children) {
 
 FooterTag.__proto__ = Tag;
 FooterTag.tagName = 'footer';
+
+FooterTag.prototype.toString = function () {
+    return this.children[0];
+};
 
 
 /**
@@ -377,10 +398,14 @@ LabelTag.prototype.toString = function labelTagToString() {
 
 /**
  * Instantiates a new SectionTagAttrs
- * @param {string} name
- * @param {('string'|'date'|'datetime')} expectedResponse
- * @param {string|undefined} header
- * @param {string|undefined} footer
+ * @param {string|undefined} name this attribute is relevant only if the
+ * SectionTag is part of a FormTag
+ * @param {('string'|'date'|'datetime')|undefined} expectedResponse this
+ * attribute is relevant only if the SectionTag is part of a FormTag and
+ * it doesn't contain a menu/list (in this case the expected response is
+ * always an option)
+ * @param {string|undefined} header text that will be included in header
+ * @param {string|undefined} footer text that will be included in footer
  * @constructor
  */
 function SectionTagAttrs(name, expectedResponse, header, footer) {
@@ -391,6 +416,9 @@ function SectionTagAttrs(name, expectedResponse, header, footer) {
 }
 
 /**
+ * Instantiates a new SectionTag. A SectionTag may represent a step in a form,
+ * a menu or a block of text. A user will always receive the content of a
+ * SectionTag at a time.
  * @param {Array<PTag | BrTag | UlTag | LabelTag | HeaderTag | FooterTag | InputTag>} children
  * @param {SectionTagAttrs} attrs
  * @constructor
@@ -439,12 +467,23 @@ SectionTag.getAttributes = function (node) {
     );
 };
 
-SectionTag.prototype.toString = function sectionTagToString() {
+SectionTag.prototype.toString = function sectionTagToString(excludeHeader, excludeFooter) {
     // Add a temporary \n for help
     let renderedChildren = ['\n'];
 
     this.children.forEach(function (child) {
         let text;
+
+        if (child instanceof HeaderTag && excludeHeader) {
+            // Do not include the header
+            return;
+        }
+
+        if (child instanceof FooterTag && excludeFooter) {
+            // Do not include the footer
+            return;
+        }
+
         if (typeof child === 'string') {
             text = child;
         } else {
@@ -473,13 +512,19 @@ SectionTag.prototype.toString = function sectionTagToString() {
 
 /**
  * Instantiates a new FormTagAttrs
- * @param {string} path
- * @param {string} method
- * @param {string|undefined} header
- * @param {string|undefined} footer
- * @param {boolean|undefined} completionStatusShow
- * @param {boolean|undefined} completionStatusInHeader
- * @param {boolean|undefined} confirmationNeeded
+ * @param {string} path the path where the form data is sent to after the user
+ * finishes the form
+ * @param {string} method the method use to send the form data
+ * @param {string|undefined} header the global form header which can be
+ * overwritten at the SectionTag level
+ * @param {string|undefined} footer the global form footer which can be
+ * overwritten at the SectionTag level
+ * @param {boolean|undefined} completionStatusShow whether to display the
+ * progress the user made in a form
+ * @param {boolean|undefined} completionStatusInHeader whether to display
+ * that progress in header (if false it will be displayed in body)
+ * @param {boolean|undefined} confirmationNeeded whether the user will receive
+ * a form confirmation at the end of the form
  * @constructor
  */
 function FormTagAttrs(path, method, header, footer, completionStatusShow,
@@ -497,6 +542,11 @@ function FormTagAttrs(path, method, header, footer, completionStatusShow,
 }
 
 /**
+ * Instantiates a new FormTag. It is the equivalent of the HTML <form> tag and
+ * it is always the root (it cannot be placed inside of another tag). The
+ * FormTag is be used in all the situations where some data is expected from the
+ * user. The FormTag can have only SectionTag children and each SectionTag
+ * deals with one piece of data from the user.
  * @param {Array<SectionTag>} children
  * @param {FormTagAttrs} attrs
  * @constructor
@@ -509,9 +559,6 @@ function FormTag(children, attrs) {
     children.forEach(function (sectionTag) {
         if (!(sectionTag instanceof SectionTag)) {
             throw Error('<form> can have only <section> children')
-        }
-        if (!sectionTag.attrs.expectedResponse || !sectionTag.attrs.name) {
-            throw Error('("name", "expectedResponse") attributes are mandatory for <section> inside <form>');
         }
     });
     this.children = children;

@@ -55,7 +55,61 @@ describe('Menu', function () {
                 }
             };
             assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
+        });
 
+        it('should recognize header/footer as attrs and as children', function () {
+            let html = '' +
+                '<section header="header attr" footer="footer attr"><p></p>' +
+                '</section>';
+            let rootTag = parser.loadHtml(undefined, html);
+            let response = Response.fromTag(rootTag);
+            let expected = {
+                "content_type": "menu",
+                "content": {
+                    "type": "menu",
+                    "body": [],
+                    "header": "header attr",
+                    "footer": "footer attr"
+                }
+            };
+            assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
+
+            html = '' +
+                '<section>' +
+                '<header>header child</header>' +
+                '<footer>footer child</footer>' +
+                '</section>';
+            rootTag = parser.loadHtml(undefined, html);
+            response = Response.fromTag(rootTag);
+            expected = {
+                "content_type": "menu",
+                "content": {
+                    "type": "menu",
+                    "body": [],
+                    "header": "header child",
+                    "footer": "footer child"
+                }
+            };
+            assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
+        });
+
+        it('should ignore attr header/footer if they are present in children', function () {
+            let html = '' +
+                '<section header="header attr" footer="footer attr">' +
+                '<header>header child</header>' +
+                '</section>';
+            let rootTag = parser.loadHtml(undefined, html);
+            let response = Response.fromTag(rootTag);
+            let expected = {
+                "content_type": "menu",
+                "content": {
+                    "type": "menu",
+                    "body": [],
+                    "header": "header child",
+                    "footer": "footer attr"
+                }
+            };
+            assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
         });
     });
 });
@@ -72,47 +126,72 @@ describe('Form', function () {
             const form = Form.fromTag(formTag);
             assert.strictEqual(form instanceof Form, true);
         });
+
+        it('should return expected Response from html file form', function () {
+            const rootTag = parser.loadHtml('test/formBig.html', undefined);
+            const response = Response.fromTag(rootTag);
+            const expected = {
+                "content_type": "form",
+                "content": {
+                    "type": "form",
+                    "body": [{
+                        "type": "string",
+                        "name": "step1",
+                        "description": "What is your name?",
+                        "header": "SETUP NAME",
+                        "footer": "Reply with text"
+                    }, {
+                        "header": "SETUP CITY",
+                        "footer": "Reply A-D",
+                        "type": "form-menu",
+                        "body": [{
+                            "type": "content",
+                            "description": "Choose your city:",
+                            "value": null
+                        }, {
+                            "type": "content",
+                            "description": "UK",
+                            "value": null
+                        }, {
+                            "type": "option",
+                            "description": "London",
+                            "value": "london"
+                        }, {
+                            "type": "option",
+                            "description": "Manchester",
+                            "value": "manchester"
+                        }, {
+                            "type": "content",
+                            "description": "FR",
+                            "value": null
+                        }, {
+                            "type": "option",
+                            "description": "Paris",
+                            "value": "paris"
+                        }, {
+                            "type": "option",
+                            "description": "Nice",
+                            "value": "nice"
+                        }]
+                    }],
+                    "method": "POST",
+                    "path": "/route",
+                    "header": "Form header",
+                    "footer": "Form footer",
+                    "meta": {
+                        "completion_status_show": null,
+                        "completion_status_in_header": null,
+                        "confirmation_needed": null
+                    }
+                }
+            };
+            assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
+        });
     });
 });
 
 describe('Response', function () {
     it('should return the correct Response object', function () {
-        const expected = {
-            contentType: "form",
-            content: {
-                type: "form",
-                body: [
-                    {
-                        type: "form-menu",
-                        body: [
-                            {
-                                type: "option",
-                                description: "First item",
-                                value: "first"
-                            }, {
-                                type: "option",
-                                description: "Second item",
-                                value: "second"
-                            }]
-                    }, {
-                        type: "string",
-                        name: "second-step",
-                        description: "A question",
-                        header: null,
-                        footer: null
-                    }
-                ],
-                method: "PATCH",
-                path: "/route",
-                header: "Form header",
-                footer: null,
-                meta: {
-                    completionStatusShow: null,
-                    completionStatusInHeader: null,
-                    confirmationNeeded: true
-                }
-            }
-        };
 
         const html = '<form header="Form header" confirmation-needed="true" method="PATCH" path="/route">' +
             '<section name="first-step" expected-response="option">' +
@@ -128,6 +207,43 @@ describe('Response', function () {
 
         const formTag = parser.loadHtml(undefined, html);
         const response = Response.fromTag(formTag, 'alabama');
+        const expected = {
+            "content_type": "form",
+            "content": {
+                "type": "form",
+                "body": [
+                    {
+                        "header": null,
+                        "footer": null,
+                        "type": "form-menu",
+                        "body": [{
+                            "type": "option",
+                            "description": "First item",
+                            "value": "first"
+                        }, {
+                            "type": "option",
+                            "description": "Second item",
+                            "value": "second"
+                        }]
+                    }, {
+                        "type": "string",
+                        "name": "second-step",
+                        "description": "A question",
+                        "header": null,
+                        "footer": null
+                    }
+                ],
+                "method": "PATCH",
+                "path": "/route",
+                "header": "Form header",
+                "footer": null,
+                "meta": {
+                    "completion_status_show": null,
+                    "completion_status_in_header": null,
+                    "confirmation_needed": true
+                }
+            }
+        };
         assert.strictEqual(response instanceof Response, true);
         assert.strictEqual(JSON.stringify(response), JSON.stringify(snakecase(expected)));
     })
