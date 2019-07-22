@@ -111,6 +111,49 @@ describe('Menu', function () {
             };
             assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
         });
+
+        it('should render the correct response form pug section file', function () {
+            const data = {
+                NewsInfos: {
+                    preBody: 'This is prebody',
+                    title: 'This is title',
+                    date: 'This is the date',
+                    article: 'This is the article'
+                }
+            };
+            let rootTag = parser.loadTemplate('test/section_example_2.pug', data);
+            let response = Response.fromTag(rootTag);
+            const expected = {
+                "content_type": "menu",
+                "content": {
+                    "type": "menu",
+                    "body": [{
+                        "type": "content",
+                        "description": "This is prebody",
+                        "method": null,
+                        "path": null
+                    }, {
+                        "type": "content",
+                        "description": "Title: This is title",
+                        "method": null,
+                        "path": null
+                    }, {
+                        "type": "content",
+                        "description": "Date: This is the date",
+                        "method": null,
+                        "path": null
+                    }, {
+                        "type": "content",
+                        "description": "Article: This is the article",
+                        "method": null,
+                        "path": null
+                    }],
+                    "header": null,
+                    "footer": null
+                }
+            };
+            assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
+        })
     });
 });
 
@@ -134,46 +177,47 @@ describe('Form', function () {
                 "content_type": "form",
                 "content": {
                     "type": "form",
-                    "body": [{
-                        "type": "string",
-                        "name": "step1",
-                        "description": "What is your name?",
-                        "header": "SETUP NAME",
-                        "footer": "Reply with text"
-                    }, {
-                        "header": "SETUP CITY",
-                        "footer": "Reply A-D",
-                        "type": "form-menu",
-                        "body": [{
-                            "type": "content",
-                            "description": "Choose your city:",
-                            "value": null
+                    "body": [
+                        {
+                            "type": "string",
+                            "name": "step1",
+                            "description": "What is your name?",
+                            "header": "SETUP NAME",
+                            "footer": "Reply with text"
                         }, {
-                            "type": "content",
-                            "description": "UK",
-                            "value": null
-                        }, {
-                            "type": "option",
-                            "description": "London",
-                            "value": "london"
-                        }, {
-                            "type": "option",
-                            "description": "Manchester",
-                            "value": "manchester"
-                        }, {
-                            "type": "content",
-                            "description": "FR",
-                            "value": null
-                        }, {
-                            "type": "option",
-                            "description": "Paris",
-                            "value": "paris"
-                        }, {
-                            "type": "option",
-                            "description": "Nice",
-                            "value": "nice"
-                        }]
-                    }],
+                            "type": "form-menu",
+                            "body": [{
+                                "type": "content",
+                                "description": "Choose your city:",
+                                "value": null
+                            }, {
+                                "type": "content",
+                                "description": "UK",
+                                "value": null
+                            }, {
+                                "type": "option",
+                                "description": "London",
+                                "value": "london"
+                            }, {
+                                "type": "option",
+                                "description": "Manchester",
+                                "value": "manchester"
+                            }, {
+                                "type": "content",
+                                "description": "FR",
+                                "value": null
+                            }, {
+                                "type": "option",
+                                "description": "Paris",
+                                "value": "paris"
+                            }, {
+                                "type": "option",
+                                "description": "Nice",
+                                "value": "nice"
+                            }],
+                            "header": "SETUP CITY",
+                            "footer": "Reply A-D",
+                        }],
                     "method": "POST",
                     "path": "/route",
                     "header": "Form header",
@@ -213,8 +257,6 @@ describe('Response', function () {
                 "type": "form",
                 "body": [
                     {
-                        "header": null,
-                        "footer": null,
                         "type": "form-menu",
                         "body": [{
                             "type": "option",
@@ -224,7 +266,9 @@ describe('Response', function () {
                             "type": "option",
                             "description": "Second item",
                             "value": "second"
-                        }]
+                        }],
+                        "header": null,
+                        "footer": null,
                     }, {
                         "type": "string",
                         "name": "second-step",

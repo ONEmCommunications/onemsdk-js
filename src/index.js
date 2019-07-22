@@ -186,15 +186,15 @@ FormItemContent.fromTag = function (sectionTag) {
 /**
  * Instantiates a new FormItemMenu
  * @param {Array<FormItemMenuItem>} body
- * @param {string} header
- * @param {string} footer
+ * @param {string|undefined} header
+ * @param {string|undefined} footer
  * @constructor
  */
 function FormItemMenu(body, header, footer) {
-    this.header = header;
-    this.footer = footer;
     this.type = 'form-menu';
     this.body = body;
+    this.header = header || null;
+    this.footer = footer || null;
 }
 
 /**
@@ -274,8 +274,8 @@ FormItemMenuItem.fromTag = function (tag) {
 /**
  * Instantiates a new Menu
  * @param {Array<MenuItem>} body
- * @param {string | undefined} header
- * @param {string | undefined} footer
+ * @param {string|undefined} header
+ * @param {string|undefined} footer
  * @constructor
  */
 function Menu(body, header, footer) {
@@ -319,10 +319,10 @@ Menu.fromTag = function (sectionTag) {
 
 /**
  * Instantiates a new MenuItem
- * @param type
- * @param description
- * @param method
- * @param path
+ * @param {('option'|'content')} type
+ * @param {string} description
+ * @param {('GET'|'POST'|'PUT'|'DELETE'|undefined)} method
+ * @param {string|undefined} path
  * @constructor
  */
 function MenuItem(type, description, method, path) {
@@ -366,7 +366,7 @@ MenuItem.fromTag = function (tag) {
 
 /**
  * Instantiates a Response object
- * @param {Form | Menu} content
+ * @param {Form|Menu} content
  * @constructor
  */
 function Response(content) {
