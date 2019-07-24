@@ -348,21 +348,21 @@ UlTag.prototype.toString = function ulTagToString() {
 
 /**
  *
- * @param {string} name
  * @param {('text'|'date'|'datetime')} type
  * @constructor
  */
-function InputTagAttrs(name, type) {
-    this.name = name;
+function InputTagAttrs(type) {
     this.type = type;
 }
 
 /**
+ * @param {[]} children
  * @param {InputTagAttrs} attrs
  * @constructor
  */
-function InputTag(attrs) {
+function InputTag(children, attrs) {
     this.children = undefined;
+    this.attrs = attrs;
 }
 
 InputTag.__proto__ = Tag;
@@ -373,7 +373,7 @@ InputTag.tagName = 'input';
  * @returns {InputTagAttrs}
  */
 InputTag.getAttributes = function (node) {
-    return new InputTagAttrs(node.attributes.name, node.attributes.type);
+    return new InputTagAttrs(node.attributes.type);
 };
 
 InputTag.prototype.toString = function () {
@@ -400,19 +400,14 @@ LabelTag.prototype.toString = function labelTagToString() {
  * Instantiates a new SectionTagAttrs
  * @param {string|undefined} name this attribute is relevant only if the
  * SectionTag is part of a FormTag
- * @param {('string'|'date'|'datetime'|undefined)} expectedResponse this
- * attribute is relevant only if the SectionTag is part of a FormTag and
- * it doesn't contain a menu/list (in this case the expected response is
- * always an option)
  * @param {string|undefined} header text that will be included in header
  * @param {string|undefined} footer text that will be included in footer
  * @constructor
  */
-function SectionTagAttrs(name, expectedResponse, header, footer) {
-    this.name = name;
-    this.expectedResponse = expectedResponse;
+function SectionTagAttrs(name, header, footer) {
     this.header = header || null;
     this.footer = footer || null;
+    this.name = name || null;
 }
 
 /**
@@ -453,15 +448,8 @@ SectionTag.__proto__ = Tag;
 SectionTag.tagName = 'section';
 
 SectionTag.getAttributes = function (node) {
-    let expectedResponse;
-    if (node.attributes.expectedResponse !== undefined) {
-        expectedResponse = node.attributes.expectedResponse;
-    } else if (node.attributes['expected-response'] !== undefined) {
-        expectedResponse = node.attributes['expected-response'];
-    }
     return new SectionTagAttrs(
         node.attributes.name,
-        expectedResponse,
         node.attributes.header,
         node.attributes.footer
     );
@@ -560,7 +548,12 @@ function FormTag(children, attrs) {
         if (!(sectionTag instanceof SectionTag)) {
             throw Error('<form> can have only <section> children')
         }
+        if (!sectionTag.attrs.name) {
+            throw Error('<form> can contain only named <section> tags. ' +
+                'Please add a unique "name" attribute in each form  section.')
+        }
     });
+
     this.children = children;
     this.attrs = attrs;
 }

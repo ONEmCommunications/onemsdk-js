@@ -160,10 +160,12 @@ describe('Menu', function () {
 describe('Form', function () {
     describe('Form.fromTag', function () {
         it('should return a Form() object from html form', function () {
-            const html = '<form action="/route">' +
-                '<section name="name" expected-response="exp">' +
-                '<p>This is paragraph</p>' +
-                '</section>' +
+            const html = '' +
+                '<form action="/route">' +
+                '   <section name="name">' +
+                '       <p>This is paragraph</p>' +
+                '       <input type="text"/>' +
+                '   </section>' +
                 '</form>';
             const formTag = parser.loadHtml(undefined, html);
             const form = Form.fromTag(formTag);
@@ -186,35 +188,44 @@ describe('Form', function () {
                             "footer": "Reply with text"
                         }, {
                             "type": "form-menu",
-                            "body": [{
-                                "type": "content",
-                                "description": "Choose your city:",
-                                "value": null
-                            }, {
-                                "type": "content",
-                                "description": "UK",
-                                "value": null
-                            }, {
-                                "type": "option",
-                                "description": "London",
-                                "value": "london"
-                            }, {
-                                "type": "option",
-                                "description": "Manchester",
-                                "value": "manchester"
-                            }, {
-                                "type": "content",
-                                "description": "FR",
-                                "value": null
-                            }, {
-                                "type": "option",
-                                "description": "Paris",
-                                "value": "paris"
-                            }, {
-                                "type": "option",
-                                "description": "Nice",
-                                "value": "nice"
-                            }],
+                            "body": [
+                                {
+                                    "type": "content",
+                                    "description": "Choose your city:",
+                                    "value": null
+                                },
+                                {
+                                    "type": "content",
+                                    "description": "UK",
+                                    "value": null
+                                },
+                                {
+                                    "type": "option",
+                                    "description": "London",
+                                    "value": "london"
+                                },
+                                {
+                                    "type": "option",
+                                    "description": "Manchester",
+                                    "value": "manchester"
+                                },
+                                {
+                                    "type": "content",
+                                    "description": "FR",
+                                    "value": null
+                                },
+                                {
+                                    "type": "option",
+                                    "description": "Paris",
+                                    "value": "paris"
+                                },
+                                {
+                                    "type": "option",
+                                    "description": "Nice",
+                                    "value": "nice"
+                                }
+                            ],
+                            "name": "step2",
                             "header": "SETUP CITY",
                             "footer": "Reply A-D",
                         }],
@@ -238,15 +249,15 @@ describe('Response', function () {
     it('should return the correct Response object', function () {
 
         const html = '<form header="Form header" confirmation-needed="true" method="PATCH" action="/route">' +
-            '<section name="first-step" expected-response="option">' +
+            '<section name="first-step">' +
             '   <ul>' +
             '       <li value="first">First item</li>' +
             '       <li value="second">Second item</li>' +
             '   </ul>' +
             '</section>' +
-            '<section name="second-step" expected-response="string">' +
+            '<section name="second-step">' +
             '   <label>A question</label>' +
-            '   <input/>' +
+            '   <input type="text"/>' +
             '</section></form>';
 
         const formTag = parser.loadHtml(undefined, html);
@@ -258,18 +269,23 @@ describe('Response', function () {
                 "body": [
                     {
                         "type": "form-menu",
-                        "body": [{
-                            "type": "option",
-                            "description": "First item",
-                            "value": "first"
-                        }, {
-                            "type": "option",
-                            "description": "Second item",
-                            "value": "second"
-                        }],
+                        "body": [
+                            {
+                                "type": "option",
+                                "description": "First item",
+                                "value": "first"
+                            },
+                            {
+                                "type": "option",
+                                "description": "Second item",
+                                "value": "second"
+                            }
+                        ],
+                        "name": "first-step",
                         "header": null,
                         "footer": null,
-                    }, {
+                    },
+                    {
                         "type": "string",
                         "name": "second-step",
                         "description": "A question",

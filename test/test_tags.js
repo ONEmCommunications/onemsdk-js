@@ -20,7 +20,7 @@ describe('FormTag', function () {
     describe('FormTag.fromNode()', function () {
         it('should return a FormTag() object', function () {
             let html = '<form action="/route">' +
-                '<section name="name" expected-response="exp">' +
+                '<section name="name">' +
                 '<p>This is paragraph</p>' +
                 '</section>' +
                 '</form>';
@@ -31,7 +31,7 @@ describe('FormTag', function () {
 
         it('should work with camelCase and dash attributes', function () {
             const html = '<form action="/route" completionStatusShow="true" confirmation-needed="true">' +
-                '<section name="name" expected-response="exp"><p>Some content</p></section></form>';
+                '<section name="name"><p>Some content</p></section></form>';
             const parsedHtml = parser.parse(html);
             const form = FormTag.fromNode(parsedHtml.childNodes[0]);
 
@@ -41,7 +41,7 @@ describe('FormTag', function () {
 
         it('should turn to null non-boolean attributes or missing ones', function () {
             const html = '<form action="/route" completionStatusShow="non-boolean" confirmation-needed="True">' +
-                '<section name="name" expected-response="exp"><p>Some content</p></section></form>';
+                '<section name="name"><p>Some content</p></section></form>';
             const parsedHtml = parser.parse(html);
             const form = FormTag.fromNode(parsedHtml.childNodes[0]);
 
@@ -51,7 +51,7 @@ describe('FormTag', function () {
         });
 
         it('should throw error for other tags', function () {
-            const html = '<section name="name" expected-response="exp"><p>Para Para Paragraph</p></section>';
+            const html = '<section name="name"><p>Para Para Paragraph</p></section>';
             const parsedHtml = parser.parse(html);
 
             function iThrow() {
@@ -82,13 +82,25 @@ describe('FormTag', function () {
 
             assert.throws(iThrow, Error, '<form> must have at least 1 child');
         });
+
+        it('should throw an error if the section is not named', function () {
+            const html = '<form action="/route"><section><p></p></section></form>';
+            const parsedHtml = parser.parse(html);
+
+            function iThrow() {
+                return FormTag.fromNode(parsedHtml.childNodes[0]);
+            }
+
+            assert.throws(iThrow, Error, '<form> can contain only named <section> tags. ' +
+                'Please add a unique "name" attribute in each form  section.')
+        });
     })
 });
 
 describe('SectionTag', function () {
     describe('SectionTag.fromNode()', function () {
         it('should not work without children', function () {
-            const html = '<section name="name" expected-response="exp"></section>';
+            const html = '<section name="name"></section>';
             const parsedHtml = parser.parse(html);
 
             function iThrow() {
@@ -99,7 +111,7 @@ describe('SectionTag', function () {
         });
 
         it('should not work with some <li> children', function () {
-            const html = '<section name="name" expected-response="exp"><p>Para</p><li>li child</li></section>';
+            const html = '<section name="name"><p>Para</p><li>li child</li></section>';
             const parsedHtml = parser.parse(html);
 
             function iThrow() {
@@ -110,7 +122,7 @@ describe('SectionTag', function () {
         });
 
         it('should work with ul, p, br, input, label', function () {
-            const html = '<section name="name" expected-response="exp"><p>Para</p><br/><ul><li>li</li></ul><input name="some-name"/><label>label</label></section>';
+            const html = '<section name="name"><p>Para</p><br/><ul><li>li</li></ul><input name="some-name"/><label>label</label></section>';
             const parsedHtml = parser.parse(html);
             const sectionTag = SectionTag.fromNode(parsedHtml.childNodes[0]);
             assert.equal(sectionTag instanceof SectionTag, true);
@@ -118,14 +130,13 @@ describe('SectionTag', function () {
 
         it('should parse attributes correctly', function () {
             const html = '' +
-                '<section name="a-name" expected-response="option" header="a header" footer="a footer">' +
+                '<section name="a-name" header="a header" footer="a footer">' +
                 '<p>Para</p>' +
                 '</section>';
             const parsedHtml = parser.parse(html);
             const sectionTag = SectionTag.fromNode(parsedHtml.childNodes[0]);
 
             assert.strictEqual(sectionTag.attrs.name, 'a-name');
-            assert.strictEqual(sectionTag.attrs.expectedResponse, 'option');
             assert.strictEqual(sectionTag.attrs.header, 'a header');
             assert.strictEqual(sectionTag.attrs.footer, 'a footer');
         });
@@ -137,7 +148,7 @@ describe('SectionTag', function () {
                 'An item\n' +
                 'Another item\n' +
                 'This is another text';
-            const html = '<section name="name" expected-response="exp">' +
+            const html = '<section name="name">' +
                 'This is just a text' +
                 '<p>This is paragraph</p>' +
                 '<br/><input/>' +

@@ -6,7 +6,8 @@ const UlTag = tags.UlTag,
     LiTag = tags.LiTag,
     ATag = tags.ATag,
     HeaderTag = tags.HeaderTag,
-    FooterTag = tags.FooterTag;
+    FooterTag = tags.FooterTag,
+    InputTag = tags.InputTag;
 
 
 /**
@@ -40,6 +41,9 @@ const UlTag = tags.UlTag,
  * @typedef {Object} FormItemMenu
  * @property {('form-menu')} type
  * @property {Array<FormItemMenuItem>} body
+ * @property {string} name
+ * @property {string|undefined} header
+ * @property {string|undefined} footer
  */
 
 /**
@@ -162,16 +166,33 @@ function FormItemContent(type, name, description, header, footer) {
  * @returns {FormItemContent}
  */
 FormItemContent.fromTag = function (sectionTag) {
-    if (!sectionTag.attrs.expectedResponse || !sectionTag.attrs.name) {
-        throw Error('("name", "expectedResponse") attributes are mandatory for ' +
-            'content type <section>s inside <form>')
+    let type,
+        header,
+        footer;
+
+    sectionTag.children.forEach(function (child) {
+        if (child instanceof InputTag) {
+            type = child.attrs.type;
+        }
+    });
+
+    if (!type) {
+        throw Error('When <section> plays the role of a form item content, ' +
+            'it must contain a <input/>')
     }
 
-    let type = sectionTag.attrs.expectedResponse,
-        name = sectionTag.attrs.name,
-        description = sectionTag.toString(true, true),
-        header = sectionTag.attrs.header,
-        footer = sectionTag.attrs.footer;
+    // Translate the InputTag type to FormItemContent type
+    switch (type) {
+        case 'text':
+            type = 'string';
+            break;
+        case 'date':
+        case 'datetime':
+            // These are the same
+            break;
+        default:
+            throw Error(`<input/> type "#{type}" is not supported`);
+    }
 
     if (sectionTag.children[0] instanceof HeaderTag) {
         header = sectionTag.children[0].toString();
@@ -180,19 +201,27 @@ FormItemContent.fromTag = function (sectionTag) {
         footer = sectionTag.children[sectionTag.children.length - 1].toString();
     }
 
-    return new FormItemContent(type, name, description, header, footer);
+    return new FormItemContent(
+        type,
+        sectionTag.attrs.name,
+        sectionTag.toString(true, true),
+        header || sectionTag.attrs.header,
+        footer || sectionTag.attrs.footer,
+    );
 };
 
 /**
  * Instantiates a new FormItemMenu
  * @param {Array<FormItemMenuItem>} body
+ * @param {string} name
  * @param {string|undefined} header
  * @param {string|undefined} footer
  * @constructor
  */
-function FormItemMenu(body, header, footer) {
+function FormItemMenu(body, name, header, footer) {
     this.type = 'form-menu';
     this.body = body;
+    this.name = name;
     this.header = header || null;
     this.footer = footer || null;
 }
@@ -226,7 +255,12 @@ FormItemMenu.fromTag = function (sectionTag) {
         return menuItem;
     });
 
-    return new FormItemMenu(body, header || sectionTag.attrs.header, footer || sectionTag.attrs.footer);
+    return new FormItemMenu(
+        body,
+        sectionTag.attrs.name,
+        header || sectionTag.attrs.header,
+        footer || sectionTag.attrs.footer
+    );
 };
 
 /**
