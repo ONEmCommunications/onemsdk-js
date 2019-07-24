@@ -79,10 +79,10 @@ describe('loadTemplate', function () {
             newClassifiedsCount: 2,
             showProfileComplete: 20
         };
-        const section = parser.loadTemplate('test/section_example_1.pug', data);
+        let section = parser.loadTemplate('test/section_example_1.pug', data);
         assert.strictEqual(section instanceof SectionTag, true);
 
-        const response = Response.fromTag(section);
+        let response = Response.fromTag(section);
         assert.strictEqual(response instanceof Response, true);
 
         const expectedJson = {
@@ -126,5 +126,11 @@ describe('loadTemplate', function () {
         };
 
         assert.strictEqual(JSON.stringify(response), JSON.stringify(expectedJson));
+
+        section = parser.loadTemplate('test/section_example_1.ejs', data);
+        assert.strictEqual(section instanceof SectionTag, true);
+
+        response = Response.fromTag(section);
+        assert.strictEqual(response instanceof Response, true);
     });
 });

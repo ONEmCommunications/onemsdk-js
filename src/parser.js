@@ -1,6 +1,7 @@
 const fs = require('fs');
 const parser = require('node-html-parser');
 const pug = require('pug');
+const ejs = require('ejs');
 
 const tags = require('./tag');
 
@@ -21,8 +22,8 @@ function clean(node) {
 
 /**
  * Turns a HTML content (from file or from variable) to a Tag object
- * @param {string | undefined} htmlFile
- * @param {string | undefined} htmlText
+ * @param {string|undefined} htmlFile
+ * @param {string|undefined} htmlText
  * @returns {FormTag|SectionTag|UlTag|LiTag|ATag|PTag|*}
  */
 function loadHtml(htmlFile, htmlText) {
@@ -38,8 +39,22 @@ function loadHtml(htmlFile, htmlText) {
     return tagCls.fromNode(node);
 }
 
+/**
+ * Turns a template file to a Tag object
+ * @param {string} templateFile The name of the template file
+ * @param {object} data The data to fill the template with
+ * @returns {FormTag|SectionTag|UlTag|LiTag|ATag|PTag|*}
+ */
 function loadTemplate(templateFile, data) {
-    const htmlText = pug.renderFile(templateFile, data, undefined);
+    let htmlText;
+    if (templateFile.endsWith('.pug')) {
+        htmlText = pug.renderFile(templateFile, data, undefined);
+    } else if (templateFile.endsWith('.ejs')) {
+        const templateText = fs.readFileSync(templateFile, 'utf-8');
+        htmlText = ejs.render(templateText, data, {filename: templateFile});
+    } else {
+        throw Error('Template file type not recognized.');
+    }
     return loadHtml(undefined, htmlText);
 }
 

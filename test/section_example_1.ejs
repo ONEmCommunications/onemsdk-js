@@ -1,0 +1,46 @@
+<section name="landing" header="some header">
+    <p><%= preBody %></p>
+    <ul>
+        <li>
+            <a href="/points/">
+                <% if (myPointsTotal > 0) { %>
+                    My points: <%= myPointsTotal %>
+                <% } else { %>
+                    My Points: None
+                <% } %>
+            </a>
+        </li>
+        <li>
+            <a href="/newsInfos/Past">
+                <% if (newNewsInfoCount > 0) { %>
+                    News & info (<% newNewsInfoCount %>)
+                <% } else { %>
+                    News & info
+                <% } %>
+            </a>
+        </li>
+        <li>
+            <a href="/surveys/Past">
+                <% if (newSurveysCount > 0) { %>
+                    Surveys (<%= newSurveysCount %>)
+                <% } else { %>
+                    Surveys
+                <% } %>
+            </a>
+        </li>
+        <li>
+            <a href="/classifieds/Past">
+                <% if (newClassifiedsCount > 0) { %>
+                    Classifieds (<%= newClassifiedsCount %>)
+                <% } else { %>
+                    Classifieds
+                <% } %>
+            </a>
+        </li>
+        <li>
+            <a href="/profile/">
+                Profile: <%= showProfileComplete %>%
+            </a>
+        </li>
+    </ul>
+</section>
