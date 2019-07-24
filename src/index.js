@@ -115,7 +115,7 @@ Form.fromTag = function (formTag) {
     return new Form(
         body,
         formTag.attrs.method,
-        formTag.attrs.path,
+        formTag.attrs.action,
         formTag.attrs.header,
         formTag.attrs.footer,
         new FormMeta(

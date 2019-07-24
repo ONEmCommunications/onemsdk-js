@@ -512,7 +512,7 @@ SectionTag.prototype.toString = function sectionTagToString(excludeHeader, exclu
 
 /**
  * Instantiates a new FormTagAttrs
- * @param {string} path the path where the form data is sent to after the user
+ * @param {string} action the path where the form data is sent to after the user
  * finishes the form
  * @param {string} method the method use to send the form data
  * @param {string|undefined} header the global form header which can be
@@ -527,12 +527,12 @@ SectionTag.prototype.toString = function sectionTagToString(excludeHeader, exclu
  * a form confirmation at the end of the form
  * @constructor
  */
-function FormTagAttrs(path, method, header, footer, completionStatusShow,
+function FormTagAttrs(action, method, header, footer, completionStatusShow,
                       completionStatusInHeader, confirmationNeeded) {
-    if (!path) {
-        throw Error('(path) is a required attribute for <form>');
+    if (!action) {
+        throw Error('(action) is a required attribute for <form>');
     }
-    this.path = path;
+    this.action = action;
     this.method = method || 'POST';
     this.header = header || null;
     this.footer = footer || null;
@@ -597,7 +597,7 @@ FormTag.getAttributes = function (node) {
     }
 
     return new FormTagAttrs(
-        node.attributes.path,
+        node.attributes.action,
         node.attributes.method,
         node.attributes.header,
         node.attributes.footer,

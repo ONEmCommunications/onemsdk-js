@@ -160,7 +160,7 @@ describe('Menu', function () {
 describe('Form', function () {
     describe('Form.fromTag', function () {
         it('should return a Form() object from html form', function () {
-            const html = '<form path="/route">' +
+            const html = '<form action="/route">' +
                 '<section name="name" expected-response="exp">' +
                 '<p>This is paragraph</p>' +
                 '</section>' +
@@ -237,7 +237,7 @@ describe('Form', function () {
 describe('Response', function () {
     it('should return the correct Response object', function () {
 
-        const html = '<form header="Form header" confirmation-needed="true" method="PATCH" path="/route">' +
+        const html = '<form header="Form header" confirmation-needed="true" method="PATCH" action="/route">' +
             '<section name="first-step" expected-response="option">' +
             '   <ul>' +
             '       <li value="first">First item</li>' +
