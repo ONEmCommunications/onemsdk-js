@@ -1,13 +1,36 @@
+const Ajv = require("ajv");
 const assert = require("chai").assert;
+const fs = require("fs");
 const snakecase = require("snakecase-keys");
+const yaml = require("js-yaml");
 
+const parser = require("../src/parser");
 const tags = require("../src/tag");
-
 const schema = require("../src/index");
+
 const Form = schema.Form,
     Response = schema.Response;
 
-const parser = require("../src/parser");
+const jsonSchema = yaml.safeLoad(fs.readFileSync("schema.yaml", "utf8"));
+const ajv = new Ajv();
+const
+    MenuItemRef = '#/components/schemas/MenuItem',
+    MenuRef = '#/components/schemas/Menu',
+    FormItemContentRef = '#/components/schemas/FormItemContent',
+    FormItemMenuItemRef = '#/components/schemas/FormItemMenuItem',
+    FormItemMenuRef = '#/components/schemas/FormItemMenu',
+    FormMetaRef = '#/components/schemas/FormMeta',
+    FormRef = '#/components/schemas/Form',
+    ResponseRef = '#/components/schemas/Response';
+
+ajv.addSchema(jsonSchema.components.schemas.MenuItem, MenuItemRef);
+ajv.addSchema(jsonSchema.components.schemas.Menu, MenuRef);
+ajv.addSchema(jsonSchema.components.schemas.FormItemContent, FormItemContentRef);
+ajv.addSchema(jsonSchema.components.schemas.FormItemMenuItem, FormItemMenuItemRef);
+ajv.addSchema(jsonSchema.components.schemas.FormItemMenu, FormItemMenuRef);
+ajv.addSchema(jsonSchema.components.schemas.FormMeta, FormMetaRef);
+ajv.addSchema(jsonSchema.components.schemas.Form, FormRef);
+ajv.addSchema(jsonSchema.components.schemas.Response, ResponseRef);
 
 
 describe('Menu', function () {
@@ -54,6 +77,9 @@ describe('Menu', function () {
                     "footer": "Some footer"
                 }
             };
+
+            const valid = ajv.validate(MenuRef, JSON.parse(JSON.stringify(expected.content)));
+            console.log(JSON.stringify(ajv.errors));
             assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
         });
 

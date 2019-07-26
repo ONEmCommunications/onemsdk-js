@@ -17,9 +17,11 @@
     "snakecase-keys": "^3.1.0"
   },
   "devDependencies": {
+    "ajv": "^6.10.2",
     "braintree-jsdoc-template": "^3.3.0",
     "chai": "^4.2.0",
     "eslint": "^5.16.0",
+    "js-yaml": "^3.13.1",
     "jsdoc": "^3.6.2",
     "jsdoc-to-markdown": "^5.0.0",
     "mocha": "^6.1.4"
