@@ -452,3 +452,4 @@ exports.FormMeta = FormMeta;
 
 exports.parser = require('./parser');
 exports.tags = require('./tag');
+exports.config = require('./config');

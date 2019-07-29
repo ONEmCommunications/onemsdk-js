@@ -1,9 +1,11 @@
+const ejs = require('ejs');
 const fs = require('fs');
 const parser = require('node-html-parser');
+const path = require('path');
 const pug = require('pug');
-const ejs = require('ejs');
 
 const tags = require('./tag');
+const config = require('./config');
 
 function clean(node) {
     for (let i = 0; i < node.childNodes.length; i++) {
@@ -20,6 +22,22 @@ function clean(node) {
     }
 }
 
+function getAbsoluteStaticFilePath(filename) {
+    let htmlFilePath;
+
+    if (!path.isAbsolute(filename)) {
+        const staticDir = config.getStaticDir();
+        if (staticDir) {
+            htmlFilePath = path.resolve(staticDir, filename);
+        }
+    }
+
+    if (!htmlFilePath) {
+        htmlFilePath = path.resolve(filename);
+    }
+    return htmlFilePath;
+}
+
 /**
  * Turns a HTML content (from file or from variable) to a Tag object
  * @param {string|undefined} htmlFile
@@ -28,7 +46,8 @@ function clean(node) {
  */
 function loadHtml(htmlFile, htmlText) {
     if (htmlFile) {
-        htmlText = fs.readFileSync(htmlFile, 'utf-8');
+        const htmlFilePath = getAbsoluteStaticFilePath(htmlFile);
+        htmlText = fs.readFileSync(htmlFilePath, 'utf-8');
     }
     let node = parser.parse(htmlText, {lowerCaseTagName: true});
     if (node.tagName === null) {
@@ -47,6 +66,9 @@ function loadHtml(htmlFile, htmlText) {
  */
 function loadTemplate(templateFile, data) {
     let htmlText;
+
+    templateFile = getAbsoluteStaticFilePath(templateFile);
+
     if (templateFile.endsWith('.pug')) {
         htmlText = pug.renderFile(templateFile, data, undefined);
     } else if (templateFile.endsWith('.ejs')) {
