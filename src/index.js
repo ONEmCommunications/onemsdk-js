@@ -138,9 +138,19 @@ Form.fromTag = function (formTag) {
  * @constructor
  */
 function FormMeta(completionStatusShow, completionStatusInHeader, confirmationNeeded) {
-    this.completionStatusShow = completionStatusShow || null;
-    this.completionStatusInHeader = completionStatusInHeader || null;
-    this.confirmationNeeded = confirmationNeeded || null;
+    this.completionStatusShow = null;
+    this.completionStatusInHeader = null;
+    this.confirmationNeeded = null;
+
+    if (typeof completionStatusShow === 'boolean') {
+        this.completionStatusShow = completionStatusShow;
+    }
+    if (typeof completionStatusInHeader === 'boolean') {
+        this.completionStatusInHeader = completionStatusInHeader;
+    }
+    if (typeof confirmationNeeded === 'boolean') {
+        this.confirmationNeeded = confirmationNeeded;
+    }
 }
 
 /**

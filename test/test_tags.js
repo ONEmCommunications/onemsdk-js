@@ -32,13 +32,13 @@ describe('Test tags', function () {
             });
 
             it('should work with camelCase and dash attributes', function () {
-                const html = '<form action="/route" completionStatusShow="true" confirmation-needed="true">' +
+                const html = '<form action="/route" completionStatusShow="true" confirmation-needed="false">' +
                     '<section name="name"><p>Some content</p></section></form>';
                 const parsedHtml = parser.parse(html);
                 const form = FormTag.fromNode(parsedHtml.childNodes[0]);
 
                 assert.strictEqual(true, form.attrs.completionStatusShow);
-                assert.strictEqual(true, form.attrs.confirmationNeeded);
+                assert.strictEqual(false, form.attrs.confirmationNeeded);
             });
 
             it('should turn to null non-boolean attributes or missing ones', function () {

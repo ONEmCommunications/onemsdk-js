@@ -254,7 +254,7 @@ describe('Test schema', function () {
     describe('Response', function () {
         it('should return the correct Response object', function () {
 
-            const html = '<form header="Form header" confirmation-needed="true" method="PATCH" action="/route">' +
+            const html = '<form header="Form header" confirmation-needed="false" method="PATCH" action="/route">' +
                 '<section name="first-step">' +
                 '   <ul>' +
                 '       <li value="first">First item</li>' +
@@ -306,7 +306,7 @@ describe('Test schema', function () {
                     "meta": {
                         "completion_status_show": null,
                         "completion_status_in_header": null,
-                        "confirmation_needed": true
+                        "confirmation_needed": false
                     }
                 }
             };

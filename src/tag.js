@@ -522,11 +522,28 @@ function FormTagAttrs(action, method, header, footer, completionStatusShow,
     }
     this.action = action;
     this.method = method || 'POST';
-    this.header = header || null;
-    this.footer = footer || null;
-    this.completionStatusShow = completionStatusShow || null;
-    this.completionStatusInHeader = completionStatusInHeader || null;
-    this.confirmationNeeded = confirmationNeeded || null;
+
+    this.header = null;
+    this.footer = null;
+    this.completionStatusInHeader = null;
+    this.completionStatusShow = null;
+    this.confirmationNeeded = null;
+
+    if (typeof header === 'string') {
+        this.header = header;
+    }
+    if (typeof footer === 'string') {
+        this.footer = footer;
+    }
+    if (typeof completionStatusShow === 'boolean') {
+        this.completionStatusShow = completionStatusShow;
+    }
+    if (typeof completionStatusInHeader === 'boolean') {
+        this.completionStatusInHeader = completionStatusInHeader;
+    }
+    if (typeof confirmationNeeded === 'boolean') {
+        this.confirmationNeeded = confirmationNeeded;
+    }
 }
 
 /**
