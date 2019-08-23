@@ -84,6 +84,11 @@ const parser = require('node-html-parser');
  * @property {FormTagAttrs} attrs
  */
 
+const stringBooleanMap = {
+    'true': true,
+    'false': false
+};
+
 /**
  * @type {{br: *, p: *, a: *, input: *, form: *, footer: *, ul: *, header: *, section: *, label: *, li: *}}
  */
@@ -402,12 +407,18 @@ LabelTag.prototype.toString = function labelTagToString() {
  * SectionTag is part of a FormTag
  * @param {string|undefined} header text that will be included in header
  * @param {string|undefined} footer text that will be included in footer
+ * @param {boolean|undefined} autoSelect
+ * @param {boolean|undefined} multiSelect
+ * @param {boolean|undefined} numbered
  * @constructor
  */
-function SectionTagAttrs(name, header, footer) {
+function SectionTagAttrs(name, header, footer, autoSelect, multiSelect, numbered) {
     this.header = header || null;
     this.footer = footer || null;
     this.name = name || null;
+    this.autoSelect = autoSelect;
+    this.multiSelect = multiSelect;
+    this.numbered = numbered;
 }
 
 /**
@@ -448,10 +459,27 @@ SectionTag.__proto__ = Tag;
 SectionTag.tagName = 'section';
 
 SectionTag.getAttributes = function (node) {
+    let autoSelect, multiSelect;
+
+    if (node.attributes.autoSelect !== undefined) {
+        autoSelect = node.attributes.autoSelect;
+    } else if (node.attributes['auto-select'] !== undefined) {
+        autoSelect = node.attributes['auto-select'];
+    }
+
+    if (node.attributes.multiSelect !== undefined) {
+        multiSelect = node.attributes.multiSelect;
+    } else if (node.attributes['multi-select'] !== undefined) {
+        multiSelect = node.attributes['multi-select'];
+    }
+
     return new SectionTagAttrs(
         node.attributes.name,
         node.attributes.header,
-        node.attributes.footer
+        node.attributes.footer,
+        stringBooleanMap[autoSelect],
+        stringBooleanMap[multiSelect],
+        stringBooleanMap[node.attributes.numbered]
     );
 };
 
@@ -582,11 +610,6 @@ FormTag.getAttributes = function (node) {
     let completionStatusShow,
         completionStatusInHeader,
         confirmationNeeded;
-
-    const stringBooleanMap = {
-        'true': true,
-        'false': false
-    };
 
     if (node.attributes.completionStatusShow !== undefined) {
         completionStatusShow = node.attributes.completionStatusShow;

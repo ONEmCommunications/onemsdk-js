@@ -44,6 +44,14 @@ const UlTag = tags.UlTag,
  * @property {string} name
  * @property {string|undefined} header
  * @property {string|undefined} footer
+ * @property {FormItemMenuMeta|undefined} meta
+ */
+
+/**
+ * @typedef {Object} FormItemMenuMeta
+ * @property {boolean} autoSelect
+ * @property {boolean} multiSelect
+ * @property {boolean} numbered
  */
 
 /**
@@ -59,6 +67,12 @@ const UlTag = tags.UlTag,
  * @property {Array<MenuItem>} body
  * @property {string|undefined} header
  * @property {string|undefined} footer
+ * @property {MenuMeta|undefined} meta
+ */
+
+/**
+ * @typedef {Object} MenuMeta
+ * @property {boolean} autoSelect
  */
 
 /**
@@ -226,14 +240,16 @@ FormItemContent.fromTag = function (sectionTag) {
  * @param {string} name
  * @param {string|undefined} header
  * @param {string|undefined} footer
+ * @param {FormItemMenuMeta|undefined} meta
  * @constructor
  */
-function FormItemMenu(body, name, header, footer) {
+function FormItemMenu(body, name, header, footer, meta) {
     this.type = 'form-menu';
     this.body = body;
     this.name = name;
     this.header = header || null;
     this.footer = footer || null;
+    this.meta = meta || null;
 }
 
 /**
@@ -269,9 +285,36 @@ FormItemMenu.fromTag = function (sectionTag) {
         body,
         sectionTag.attrs.name,
         header || sectionTag.attrs.header,
-        footer || sectionTag.attrs.footer
+        footer || sectionTag.attrs.footer,
+        new FormItemMenuMeta(
+            sectionTag.attrs.autoSelect,
+            sectionTag.attrs.multiSelect,
+            sectionTag.attrs.numbered,
+        )
     );
 };
+
+/**
+ * Instantiates a new FormItemMenuMeta
+ * @param {boolean} autoSelect
+ * @param {boolean} multiSelect
+ * @param {boolean} numbered
+ * @constructor
+ */
+function FormItemMenuMeta(autoSelect, multiSelect, numbered) {
+    if (autoSelect === undefined) {
+        autoSelect = false;
+    }
+    if (multiSelect === undefined) {
+        multiSelect = false;
+    }
+    if (numbered === undefined) {
+        numbered = false;
+    }
+    this.autoSelect = autoSelect;
+    this.multiSelect = multiSelect;
+    this.numbered = numbered;
+}
 
 /**
  * Instantiates a new FormItemMenuItem
@@ -320,13 +363,15 @@ FormItemMenuItem.fromTag = function (tag) {
  * @param {Array<MenuItem>} body
  * @param {string|undefined} header
  * @param {string|undefined} footer
+ * @param {MenuMeta} meta
  * @constructor
  */
-function Menu(body, header, footer) {
+function Menu(body, header, footer, meta) {
     this.type = "menu";
     this.body = body;
     this.header = header || null;
     this.footer = footer || null;
+    this.meta = meta || null;
 }
 
 /**
@@ -358,8 +403,25 @@ Menu.fromTag = function (sectionTag) {
         return menuItem;
     });
 
-    return new Menu(body, header || sectionTag.attrs.header, footer || sectionTag.attrs.footer);
+    return new Menu(
+        body,
+        header || sectionTag.attrs.header,
+        footer || sectionTag.attrs.footer,
+        new MenuMeta(sectionTag.attrs.autoSelect)
+    );
 };
+
+/**
+ * Instantiates a new MenuMeta
+ * @param {boolean} autoSelect
+ * @constructor
+ */
+function MenuMeta(autoSelect) {
+    if (autoSelect === undefined) {
+        autoSelect = true;
+    }
+    this.autoSelect = autoSelect;
+}
 
 /**
  * Instantiates a new MenuItem
@@ -459,6 +521,8 @@ exports.FormItemMenu = FormItemMenu;
 exports.FormItemMenuItem = FormItemMenuItem;
 exports.FormItemContent = FormItemContent;
 exports.FormMeta = FormMeta;
+exports.MenuMeta = MenuMeta;
+exports.FormItemMenuMeta = FormItemMenuMeta;
 
 exports.parser = require('./parser');
 exports.tags = require('./tag');

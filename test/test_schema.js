@@ -35,29 +35,37 @@ describe('Test schema', function () {
                     "content_type": "menu",
                     "content": {
                         "type": "menu",
-                        "body": [{
-                            "type": "option",
-                            "description": "Route 1",
-                            "method": "POST",
-                            "path": "/route1"
-                        }, {
-                            "type": "option",
-                            "description": "Route 2",
-                            "method": 'GET',
-                            "path": "/route2"
-                        }, {
-                            "type": "content",
-                            "description": "Separator",
-                            "method": null,
-                            "path": null
-                        }, {
-                            "type": "option",
-                            "description": "Route 3",
-                            "method": 'GET',
-                            "path": "/route3"
-                        }],
+                        "body": [
+                            {
+                                "type": "option",
+                                "description": "Route 1",
+                                "method": "POST",
+                                "path": "/route1"
+                            },
+                            {
+                                "type": "option",
+                                "description": "Route 2",
+                                "method": 'GET',
+                                "path": "/route2"
+                            },
+                            {
+                                "type": "content",
+                                "description": "Separator",
+                                "method": null,
+                                "path": null
+                            },
+                            {
+                                "type": "option",
+                                "description": "Route 3",
+                                "method": 'GET',
+                                "path": "/route3"
+                            }
+                        ],
                         "header": "Some header",
-                        "footer": "Some footer"
+                        "footer": "Some footer",
+                        "meta": {
+                            "auto_select": true
+                        }
                     }
                 };
                 assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
@@ -75,7 +83,10 @@ describe('Test schema', function () {
                         "type": "menu",
                         "body": [],
                         "header": "header attr",
-                        "footer": "footer attr"
+                        "footer": "footer attr",
+                        "meta": {
+                            "auto_select": true
+                        }
                     }
                 };
                 assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
@@ -93,7 +104,10 @@ describe('Test schema', function () {
                         "type": "menu",
                         "body": [],
                         "header": "header child",
-                        "footer": "footer child"
+                        "footer": "footer child",
+                        "meta": {
+                            "auto_select": true
+                        }
                     }
                 };
                 assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
@@ -112,7 +126,10 @@ describe('Test schema', function () {
                         "type": "menu",
                         "body": [],
                         "header": "header child",
-                        "footer": "footer attr"
+                        "footer": "footer attr",
+                        "meta": {
+                            "auto_select": true
+                        }
                     }
                 };
                 assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
@@ -133,29 +150,37 @@ describe('Test schema', function () {
                     "content_type": "menu",
                     "content": {
                         "type": "menu",
-                        "body": [{
-                            "type": "content",
-                            "description": "This is prebody",
-                            "method": null,
-                            "path": null
-                        }, {
-                            "type": "content",
-                            "description": "Title: This is title",
-                            "method": null,
-                            "path": null
-                        }, {
-                            "type": "content",
-                            "description": "Date: This is the date",
-                            "method": null,
-                            "path": null
-                        }, {
-                            "type": "content",
-                            "description": "Article: This is the article",
-                            "method": null,
-                            "path": null
-                        }],
+                        "body": [
+                            {
+                                "type": "content",
+                                "description": "This is prebody",
+                                "method": null,
+                                "path": null
+                            },
+                            {
+                                "type": "content",
+                                "description": "Title: This is title",
+                                "method": null,
+                                "path": null
+                            },
+                            {
+                                "type": "content",
+                                "description": "Date: This is the date",
+                                "method": null,
+                                "path": null
+                            },
+                            {
+                                "type": "content",
+                                "description": "Article: This is the article",
+                                "method": null,
+                                "path": null
+                            }
+                        ],
                         "header": null,
-                        "footer": null
+                        "footer": null,
+                        "meta": {
+                            "auto_select": true
+                        }
                     }
                 };
                 assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
@@ -192,7 +217,8 @@ describe('Test schema', function () {
                                 "description": "What is your name?",
                                 "header": "SETUP NAME",
                                 "footer": "Reply with text"
-                            }, {
+                            },
+                            {
                                 "type": "form-menu",
                                 "body": [
                                     {
@@ -234,7 +260,13 @@ describe('Test schema', function () {
                                 "name": "step2",
                                 "header": "SETUP CITY",
                                 "footer": "Reply A-D",
-                            }],
+                                "meta": {
+                                    "auto_select": true,
+                                    "multi_select": false,
+                                    "numbered": true
+                                }
+                            }
+                        ],
                         "method": "POST",
                         "path": "/route",
                         "header": "Form header",
@@ -255,7 +287,7 @@ describe('Test schema', function () {
         it('should return the correct Response object', function () {
 
             const html = '<form header="Form header" confirmation-needed="false" method="PATCH" action="/route">' +
-                '<section name="first-step">' +
+                '<section name="first-step" multi-select="true">' +
                 '   <ul>' +
                 '       <li value="first">First item</li>' +
                 '       <li value="second">Second item</li>' +
@@ -290,6 +322,11 @@ describe('Test schema', function () {
                             "name": "first-step",
                             "header": null,
                             "footer": null,
+                            "meta": {
+                                "auto_select": false,
+                                "multi_select": true,
+                                "numbered": false
+                            }
                         },
                         {
                             "type": "string",

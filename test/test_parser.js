@@ -39,24 +39,31 @@ describe('Test parser', function () {
                 "content_type": "menu",
                 "content": {
                     "type": "menu",
-                    "body": [{
-                        "type": "content",
-                        "description": "This is some text",
-                        "method": null,
-                        "path": null
-                    }, {
-                        "type": "content",
-                        "description": "Paragraph",
-                        "method": null,
-                        "path": null
-                    }, {
-                        "type": "content",
-                        "description": "Another text",
-                        "method": null,
-                        "path": null
-                    }],
+                    "body": [
+                        {
+                            "type": "content",
+                            "description": "This is some text",
+                            "method": null,
+                            "path": null
+                        },
+                        {
+                            "type": "content",
+                            "description": "Paragraph",
+                            "method": null,
+                            "path": null
+                        },
+                        {
+                            "type": "content",
+                            "description": "Another text",
+                            "method": null,
+                            "path": null
+                        }
+                    ],
                     "header": null,
-                    "footer": "a footer"
+                    "footer": "a footer",
+                    "meta": {
+                        "auto_select": true
+                    }
                 }
             };
             assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
@@ -96,39 +103,49 @@ describe('Test parser', function () {
                 "content_type": "menu",
                 "content": {
                     "type": "menu",
-                    "body": [{
-                        "type": "content",
-                        "description": "This is pre body",
-                        "method": null,
-                        "path": null
-                    }, {
-                        "type": "option",
-                        "description": "My points: 30",
-                        "method": 'GET',
-                        "path": "/points/"
-                    }, {
-                        "type": "option",
-                        "description": "News & info (10)",
-                        "method": 'GET',
-                        "path": "/newsInfos/Past"
-                    }, {
-                        "type": "option",
-                        "description": "Surveys (2)",
-                        "method": 'GET',
-                        "path": "/surveys/Past"
-                    }, {
-                        "type": "option",
-                        "description": "Classifieds (2)",
-                        "method": 'GET',
-                        "path": "/classifieds/Past"
-                    }, {
-                        "type": "option",
-                        "description": "Profile: 20%",
-                        "method": 'GET',
-                        "path": "/profile/"
-                    }],
+                    "body": [
+                        {
+                            "type": "content",
+                            "description": "This is pre body",
+                            "method": null,
+                            "path": null
+                        },
+                        {
+                            "type": "option",
+                            "description": "My points: 30",
+                            "method": 'GET',
+                            "path": "/points/"
+                        },
+                        {
+                            "type": "option",
+                            "description": "News & info (10)",
+                            "method": 'GET',
+                            "path": "/newsInfos/Past"
+                        },
+                        {
+                            "type": "option",
+                            "description": "Surveys (2)",
+                            "method": 'GET',
+                            "path": "/surveys/Past"
+                        },
+                        {
+                            "type": "option",
+                            "description": "Classifieds (2)",
+                            "method": 'GET',
+                            "path": "/classifieds/Past"
+                        },
+                        {
+                            "type": "option",
+                            "description": "Profile: 20%",
+                            "method": 'GET',
+                            "path": "/profile/"
+                        }
+                    ],
                     "header": "some header",
-                    "footer": null
+                    "footer": null,
+                    "meta": {
+                        "auto_select": true
+                    }
                 }
             };
 
