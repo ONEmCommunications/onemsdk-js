@@ -152,18 +152,22 @@ Form.fromTag = function (formTag) {
  * @constructor
  */
 function FormMeta(completionStatusShow, completionStatusInHeader, confirmationNeeded) {
-    this.completionStatusShow = null;
-    this.completionStatusInHeader = null;
-    this.confirmationNeeded = null;
-
     if (typeof completionStatusShow === 'boolean') {
         this.completionStatusShow = completionStatusShow;
+    } else {
+        this.completionStatusShow = completionStatusShow !== undefined;
     }
+
     if (typeof completionStatusInHeader === 'boolean') {
         this.completionStatusInHeader = completionStatusInHeader;
+    } else {
+        this.completionStatusInHeader = completionStatusInHeader !== undefined;
     }
+
     if (typeof confirmationNeeded === 'boolean') {
         this.confirmationNeeded = confirmationNeeded;
+    } else {
+        this.confirmationNeeded = confirmationNeeded !== undefined;
     }
 }
 
@@ -302,15 +306,6 @@ FormItemMenu.fromTag = function (sectionTag) {
  * @constructor
  */
 function FormItemMenuMeta(autoSelect, multiSelect, numbered) {
-    if (autoSelect === undefined) {
-        autoSelect = false;
-    }
-    if (multiSelect === undefined) {
-        multiSelect = false;
-    }
-    if (numbered === undefined) {
-        numbered = false;
-    }
     this.autoSelect = autoSelect;
     this.multiSelect = multiSelect;
     this.numbered = numbered;
@@ -417,9 +412,6 @@ Menu.fromTag = function (sectionTag) {
  * @constructor
  */
 function MenuMeta(autoSelect) {
-    if (autoSelect === undefined) {
-        autoSelect = true;
-    }
     this.autoSelect = autoSelect;
 }
 

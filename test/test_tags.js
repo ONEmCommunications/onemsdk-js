@@ -37,19 +37,20 @@ describe('Test tags', function () {
                 const parsedHtml = parser.parse(html);
                 const form = FormTag.fromNode(parsedHtml.childNodes[0]);
 
-                assert.strictEqual(true, form.attrs.completionStatusShow);
-                assert.strictEqual(false, form.attrs.confirmationNeeded);
+                assert.strictEqual(form.attrs.completionStatusShow, true);
+                assert.strictEqual(form.attrs.confirmationNeeded, true);
+                assert.strictEqual(form.attrs.completionStatusInHeader, false);
             });
 
-            it('should turn to null non-boolean attributes or missing ones', function () {
+            it('should evaluate to true the present attributes, and to false the absent ones', function () {
                 const html = '<form action="/route" completionStatusShow="non-boolean" confirmation-needed="True">' +
                     '<section name="name"><p>Some content</p></section></form>';
                 const parsedHtml = parser.parse(html);
                 const form = FormTag.fromNode(parsedHtml.childNodes[0]);
 
-                assert.strictEqual(null, form.attrs.completionStatusShow);
-                assert.strictEqual(null, form.attrs.confirmationNeeded);
-                assert.strictEqual(null, form.attrs.completionStatusInHeader);
+                assert.strictEqual(form.attrs.completionStatusShow, true);
+                assert.strictEqual(form.attrs.confirmationNeeded, true);
+                assert.strictEqual(form.attrs.completionStatusInHeader, false);
             });
 
             it('should throw error for other tags', function () {

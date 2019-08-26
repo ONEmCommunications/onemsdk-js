@@ -16,7 +16,7 @@ describe('Test parser', function () {
 
         it('should return a FormTag() object from html string', function () {
             let html = '<form action="/route">' +
-                '<section name="name" expected-response="exp">' +
+                '<section name="name">' +
                 '<p>This is paragraph</p>' +
                 '</section>' +
                 '</form>';
@@ -30,7 +30,7 @@ describe('Test parser', function () {
         });
 
         it('should ignore the empty <p>', function () {
-            let html = '<section name="some name" expected-response="option" footer="a footer">' +
+            let html = '<section name="some name" footer="a footer">' +
                 '<p></p>This is some text<p>Paragraph</p><p></p>Another text' +
                 '</section>';
             const section = parser.loadHtml(undefined, html);
@@ -62,7 +62,7 @@ describe('Test parser', function () {
                     "header": null,
                     "footer": "a footer",
                     "meta": {
-                        "auto_select": true
+                        "auto_select": false
                     }
                 }
             };
@@ -144,7 +144,7 @@ describe('Test parser', function () {
                     "header": "some header",
                     "footer": null,
                     "meta": {
-                        "auto_select": true
+                        "auto_select": false
                     }
                 }
             };

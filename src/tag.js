@@ -84,11 +84,6 @@ const parser = require('node-html-parser');
  * @property {FormTagAttrs} attrs
  */
 
-const stringBooleanMap = {
-    'true': true,
-    'false': false
-};
-
 /**
  * @type {{br: *, p: *, a: *, input: *, form: *, footer: *, ul: *, header: *, section: *, label: *, li: *}}
  */
@@ -459,27 +454,22 @@ SectionTag.__proto__ = Tag;
 SectionTag.tagName = 'section';
 
 SectionTag.getAttributes = function (node) {
-    let autoSelect, multiSelect;
-
-    if (node.attributes.autoSelect !== undefined) {
-        autoSelect = node.attributes.autoSelect;
-    } else if (node.attributes['auto-select'] !== undefined) {
-        autoSelect = node.attributes['auto-select'];
-    }
-
-    if (node.attributes.multiSelect !== undefined) {
-        multiSelect = node.attributes.multiSelect;
-    } else if (node.attributes['multi-select'] !== undefined) {
-        multiSelect = node.attributes['multi-select'];
-    }
+    // Note that boolean attributes in HTML are evaluated to true if they are
+    // present (their actual value does not matter). They are evaluated to false
+    // only when they are missing
+    const autoSelect = node.attributes.hasOwnProperty('auto-select') ||
+        node.attributes.hasOwnProperty('autoSelect');
+    const multiSelect = node.attributes.hasOwnProperty('multi-select') ||
+        node.attributes.hasOwnProperty('multiSelect');
+    const numbered = node.attributes.hasOwnProperty('numbered');
 
     return new SectionTagAttrs(
         node.attributes.name,
         node.attributes.header,
         node.attributes.footer,
-        stringBooleanMap[autoSelect],
-        stringBooleanMap[multiSelect],
-        stringBooleanMap[node.attributes.numbered]
+        autoSelect,
+        multiSelect,
+        numbered
     );
 };
 
@@ -553,24 +543,15 @@ function FormTagAttrs(action, method, header, footer, completionStatusShow,
 
     this.header = null;
     this.footer = null;
-    this.completionStatusInHeader = null;
-    this.completionStatusShow = null;
-    this.confirmationNeeded = null;
+    this.completionStatusInHeader = completionStatusInHeader;
+    this.completionStatusShow = completionStatusShow;
+    this.confirmationNeeded = confirmationNeeded;
 
     if (typeof header === 'string') {
         this.header = header;
     }
     if (typeof footer === 'string') {
         this.footer = footer;
-    }
-    if (typeof completionStatusShow === 'boolean') {
-        this.completionStatusShow = completionStatusShow;
-    }
-    if (typeof completionStatusInHeader === 'boolean') {
-        this.completionStatusInHeader = completionStatusInHeader;
-    }
-    if (typeof confirmationNeeded === 'boolean') {
-        this.confirmationNeeded = confirmationNeeded;
     }
 }
 
@@ -607,36 +588,21 @@ FormTag.__proto__ = Tag;
 FormTag.tagName = 'form';
 
 FormTag.getAttributes = function (node) {
-    let completionStatusShow,
-        completionStatusInHeader,
-        confirmationNeeded;
-
-    if (node.attributes.completionStatusShow !== undefined) {
-        completionStatusShow = node.attributes.completionStatusShow;
-    } else if (node.attributes['completion-status-show'] === undefined) {
-        completionStatusShow = node.attributes['completion-status-show'];
-    }
-
-    if (node.attributes.completionStatusInHeader !== undefined) {
-        completionStatusInHeader = node.attributes.completionStatusInHeader;
-    } else if (node.attributes['completion-status-in-header'] !== undefined) {
-        completionStatusInHeader = node.attributes['completion-status-in-header'];
-    }
-
-    if (node.attributes.confirmationNeeded !== undefined) {
-        confirmationNeeded = node.attributes.confirmationNeeded;
-    } else if (node.attributes['confirmation-needed'] !== undefined) {
-        confirmationNeeded = node.attributes['confirmation-needed'];
-    }
+    const completionStatusShow = node.attributes.hasOwnProperty('completionStatusShow') ||
+        node.attributes.hasOwnProperty('completion-status-show');
+    const completionStatusInHeader = node.attributes.hasOwnProperty('completionStatusInHeader') ||
+        node.attributes.hasOwnProperty('completion-status-in-header');
+    const confirmationNeeded = node.attributes.hasOwnProperty('confirmationNeeded') ||
+        node.attributes.hasOwnProperty('confirmation-needed');
 
     return new FormTagAttrs(
         node.attributes.action,
         node.attributes.method,
         node.attributes.header,
         node.attributes.footer,
-        stringBooleanMap[completionStatusShow],
-        stringBooleanMap[completionStatusInHeader],
-        stringBooleanMap[confirmationNeeded]
+        completionStatusShow,
+        completionStatusInHeader,
+        confirmationNeeded,
     );
 };
 

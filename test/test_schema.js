@@ -20,7 +20,7 @@ describe('Test schema', function () {
         describe('Menu.fromTag', function () {
             it('should return a navigable Menu', function () {
                 const html = '' +
-                    '<section header="Some header" footer="Some footer" name="some-name" expected-response="option">' +
+                    '<section header="Some header" footer="Some footer" name="some-name" auto-select>' +
                     '   <ul>' +
                     '       <li><a href="/route1" method="POST">Route 1</a></li>' +
                     '       <li><a href="/route2">Route 2</a></li>' +
@@ -85,7 +85,7 @@ describe('Test schema', function () {
                         "header": "header attr",
                         "footer": "footer attr",
                         "meta": {
-                            "auto_select": true
+                            "auto_select": false
                         }
                     }
                 };
@@ -106,7 +106,7 @@ describe('Test schema', function () {
                         "header": "header child",
                         "footer": "footer child",
                         "meta": {
-                            "auto_select": true
+                            "auto_select": false
                         }
                     }
                 };
@@ -128,7 +128,7 @@ describe('Test schema', function () {
                         "header": "header child",
                         "footer": "footer attr",
                         "meta": {
-                            "auto_select": true
+                            "auto_select": false
                         }
                     }
                 };
@@ -272,9 +272,9 @@ describe('Test schema', function () {
                         "header": "Form header",
                         "footer": "Form footer",
                         "meta": {
-                            "completion_status_show": null,
-                            "completion_status_in_header": null,
-                            "confirmation_needed": null
+                            "completion_status_show": false,
+                            "completion_status_in_header": false,
+                            "confirmation_needed": false
                         }
                     }
                 };
@@ -286,8 +286,8 @@ describe('Test schema', function () {
     describe('Response', function () {
         it('should return the correct Response object', function () {
 
-            const html = '<form header="Form header" confirmation-needed="false" method="PATCH" action="/route">' +
-                '<section name="first-step" multi-select="true">' +
+            const html = '<form header="Form header" method="PATCH" action="/route">' +
+                '<section name="first-step" multi-select>' +
                 '   <ul>' +
                 '       <li value="first">First item</li>' +
                 '       <li value="second">Second item</li>' +
@@ -341,8 +341,8 @@ describe('Test schema', function () {
                     "header": "Form header",
                     "footer": null,
                     "meta": {
-                        "completion_status_show": null,
-                        "completion_status_in_header": null,
+                        "completion_status_show": false,
+                        "completion_status_in_header": false,
                         "confirmation_needed": false
                     }
                 }
