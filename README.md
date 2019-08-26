@@ -4,4 +4,5 @@
 ```bash
 $ npm install onemsdk
 ```
-## Usage example
+## Version history
+See [HISTORY.md](HISTORY.md) file.
