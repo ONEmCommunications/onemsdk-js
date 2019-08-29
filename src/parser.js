@@ -4,7 +4,7 @@ const parser = require('node-html-parser');
 const path = require('path');
 const pug = require('pug');
 
-const tags = require('./tag');
+const getTagCls = require('./tag/index').getTagCls;
 const config = require('./config');
 
 function clean(node) {
@@ -54,7 +54,7 @@ function loadHtml(htmlFile, htmlText) {
         node = node.childNodes[0];
     }
     clean(node);
-    const tagCls = tags.getTagCls(node.tagName);
+    const tagCls = getTagCls(node.tagName);
     return tagCls.fromNode(node);
 }
 
