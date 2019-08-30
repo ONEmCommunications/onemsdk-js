@@ -13,8 +13,9 @@ const ATag = require('./a').ATag;
  * @param {string|undefined} value
  * @constructor
  */
-function LiTagAttrs(value) {
+function LiTagAttrs(value, textSearch) {
     this.value = value || null;
+    this.textSearch = textSearch || null;
 }
 
 /**
@@ -37,7 +38,9 @@ LiTag.__proto__ = Tag;
 LiTag.tagName = 'li';
 
 LiTag.getAttributes = function (node) {
-    return new LiTagAttrs(node.attributes.value);
+    const value = node.attributes.value;
+    const textSearch = node.attributes['text-search'] || node.attributes.textSearch;
+    return new LiTagAttrs(value, textSearch);
 };
 
 LiTag.prototype.toString = function liTagToString() {

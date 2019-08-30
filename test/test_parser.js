@@ -43,18 +43,21 @@ describe('Test parser', function () {
                         {
                             "type": "content",
                             "description": "This is some text",
+                            "text_search": null,
                             "method": null,
                             "path": null
                         },
                         {
                             "type": "content",
                             "description": "Paragraph",
+                            "text_search": null,
                             "method": null,
                             "path": null
                         },
                         {
                             "type": "content",
                             "description": "Another text",
+                            "text_search": null,
                             "method": null,
                             "path": null
                         }
@@ -107,36 +110,42 @@ describe('Test parser', function () {
                         {
                             "type": "content",
                             "description": "This is pre body",
+                            "text_search": null,
                             "method": null,
                             "path": null
                         },
                         {
                             "type": "option",
                             "description": "My points: 30",
+                            "text_search": null,
                             "method": 'GET',
                             "path": "/points/"
                         },
                         {
                             "type": "option",
                             "description": "News & info (10)",
+                            "text_search": null,
                             "method": 'GET',
                             "path": "/newsInfos/Past"
                         },
                         {
                             "type": "option",
                             "description": "Surveys (2)",
+                            "text_search": null,
                             "method": 'GET',
                             "path": "/surveys/Past"
                         },
                         {
                             "type": "option",
                             "description": "Classifieds (2)",
+                            "text_search": null,
                             "method": 'GET',
                             "path": "/classifieds/Past"
                         },
                         {
                             "type": "option",
                             "description": "Profile: 20%",
+                            "text_search": null,
                             "method": 'GET',
                             "path": "/profile/"
                         }

@@ -22,10 +22,10 @@ describe('Test schema', function () {
                 const html = '' +
                     '<section header="Some header" footer="Some footer" name="some-name" auto-select>' +
                     '   <ul>' +
-                    '       <li><a href="/route1" method="POST">Route 1</a></li>' +
-                    '       <li><a href="/route2">Route 2</a></li>' +
+                    '       <li text-search="route1 route 1"><a href="/route1" method="POST">Route 1</a></li>' +
+                    '       <li text-search="route2 route 2"><a href="/route2">Route 2</a></li>' +
                     '       <li>Separator</li>' +
-                    '       <li><a href="/route3">Route 3</a></li>' +
+                    '       <li text-search="route 3 route3"><a href="/route3">Route 3</a></li>' +
                     '   </ul>' +
                     '</section>';
                 const rootTag = parser.loadHtml(undefined, html);
@@ -39,24 +39,28 @@ describe('Test schema', function () {
                             {
                                 "type": "option",
                                 "description": "Route 1",
+                                "text_search": "route1 route 1",
                                 "method": "POST",
                                 "path": "/route1"
                             },
                             {
                                 "type": "option",
                                 "description": "Route 2",
+                                "text_search": "route2 route 2",
                                 "method": 'GET',
                                 "path": "/route2"
                             },
                             {
                                 "type": "content",
                                 "description": "Separator",
+                                "text_search": null,
                                 "method": null,
                                 "path": null
                             },
                             {
                                 "type": "option",
                                 "description": "Route 3",
+                                "text_search": "route 3 route3",
                                 "method": 'GET',
                                 "path": "/route3"
                             }
@@ -154,24 +158,28 @@ describe('Test schema', function () {
                             {
                                 "type": "content",
                                 "description": "This is prebody",
+                                "text_search": null,
                                 "method": null,
                                 "path": null
                             },
                             {
                                 "type": "content",
                                 "description": "Title: This is title",
+                                "text_search": null,
                                 "method": null,
                                 "path": null
                             },
                             {
                                 "type": "content",
                                 "description": "Date: This is the date",
+                                "text_search": null,
                                 "method": null,
                                 "path": null
                             },
                             {
                                 "type": "content",
                                 "description": "Article: This is the article",
+                                "text_search": null,
                                 "method": null,
                                 "path": null
                             }
@@ -224,36 +232,43 @@ describe('Test schema', function () {
                                     {
                                         "type": "content",
                                         "description": "Choose your city:",
+                                        "text_search": null,
                                         "value": null
                                     },
                                     {
                                         "type": "content",
                                         "description": "UK",
+                                        "text_search": null,
                                         "value": null
                                     },
                                     {
                                         "type": "option",
                                         "description": "London",
+                                        "text_search": null,
                                         "value": "london"
                                     },
                                     {
                                         "type": "option",
                                         "description": "Manchester",
+                                        "text_search": null,
                                         "value": "manchester"
                                     },
                                     {
                                         "type": "content",
                                         "description": "FR",
+                                        "text_search": null,
                                         "value": null
                                     },
                                     {
                                         "type": "option",
                                         "description": "Paris",
+                                        "text_search": null,
                                         "value": "paris"
                                     },
                                     {
                                         "type": "option",
                                         "description": "Nice",
+                                        "text_search": null,
                                         "value": "nice"
                                     }
                                 ],
@@ -289,7 +304,7 @@ describe('Test schema', function () {
             const html = '<form header="Form header" method="PATCH" action="/route">' +
                 '<section name="first-step" multi-select>' +
                 '   <ul>' +
-                '       <li value="first">First item</li>' +
+                '       <li value="first" text-search="first item and some more">First item</li>' +
                 '       <li value="second">Second item</li>' +
                 '   </ul>' +
                 '</section>' +
@@ -311,11 +326,13 @@ describe('Test schema', function () {
                                 {
                                     "type": "option",
                                     "description": "First item",
+                                    "text_search": "first item and some more",
                                     "value": "first"
                                 },
                                 {
                                     "type": "option",
                                     "description": "Second item",
+                                    "text_search": null,
                                     "value": "second"
                                 }
                             ],

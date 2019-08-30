@@ -315,12 +315,14 @@ function FormItemMenuMeta(autoSelect, multiSelect, numbered) {
  * Instantiates a new FormItemMenuItem
  * @param {('option'|'content')} type
  * @param {string} description
+ * @param {string|undefined} textSearch
  * @param {string|undefined} value
  * @constructor
  */
-function FormItemMenuItem(type, description, value) {
+function FormItemMenuItem(type, description, textSearch, value) {
     this.type = type;
     this.description = description;
+    this.textSearch = textSearch || null;
     this.value = value || null;
 }
 
@@ -331,6 +333,7 @@ function FormItemMenuItem(type, description, value) {
  */
 FormItemMenuItem.fromTag = function (tag) {
     let description,
+        textSearch,
         type = 'content',
         value;
 
@@ -348,9 +351,10 @@ FormItemMenuItem.fromTag = function (tag) {
     if (tag instanceof LiTag && tag.attrs.value) {
         type = 'option';
         value = tag.attrs.value;
+        textSearch = tag.attrs.textSearch;
     }
 
-    return new FormItemMenuItem(type, description, value);
+    return new FormItemMenuItem(type, description, textSearch, value);
 };
 
 /**
@@ -419,13 +423,15 @@ function MenuMeta(autoSelect) {
  * Instantiates a new MenuItem
  * @param {('option'|'content')} type
  * @param {string} description
+ * @param {string|undefined} textSearch
  * @param {('GET'|'POST'|'PUT'|'DELETE'|undefined)} method
  * @param {string|undefined} path
  * @constructor
  */
-function MenuItem(type, description, method, path) {
+function MenuItem(type, description, textSearch, method, path) {
     this.type = type;
     this.description = description;
+    this.textSearch = textSearch || null;
     this.method = method || null;
     this.path = path || null;
 }
@@ -438,6 +444,7 @@ function MenuItem(type, description, method, path) {
 MenuItem.fromTag = function (tag) {
     let description,
         method,
+        textSearch,
         path,
         type = 'content';
 
@@ -457,9 +464,10 @@ MenuItem.fromTag = function (tag) {
         method = aTag.attrs.method;
         path = aTag.attrs.href;
         type = 'option';
+        textSearch = tag.attrs.textSearch;
     }
 
-    return new MenuItem(type, description, method, path);
+    return new MenuItem(type, description, textSearch, method, path);
 };
 
 /**
