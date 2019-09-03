@@ -11,6 +11,7 @@ const ATag = require('./a').ATag;
 
 /**
  * @param {string|undefined} value
+ * @param {string|undefined} textSearch
  * @constructor
  */
 function LiTagAttrs(value, textSearch) {
