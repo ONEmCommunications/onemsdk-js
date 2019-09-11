@@ -16,22 +16,44 @@ const UlTag = require("./ul").UlTag;
 
 /**
  * Instantiates a new SectionTagAttrs
- * @param {string|undefined} name this attribute is relevant only if the
+ * @param {string} [name] this attribute is relevant only if the
  * SectionTag is part of a FormTag
- * @param {string|undefined} header text that will be included in header
- * @param {string|undefined} footer text that will be included in footer
- * @param {boolean|undefined} autoSelect
- * @param {boolean|undefined} multiSelect
- * @param {boolean|undefined} numbered
+ * @param {string} [header] text that will be included in header
+ * @param {string} [footer] text that will be included in footer
+ * @param {boolean} [autoSelect=false]
+ * @param {boolean} [multiSelect=false]
+ * @param {boolean} [numbered=false]
+ * @param {string} [chunkingFooter]
+ * @param {string} [confirmationLabel]
+ * @param {string} [method]
+ * @param {boolean} [required=false]
+ * @param {boolean} [statusExclude=false]
+ * @param {boolean} [statusPrepend=false]
+ * @param {string} [url]
+ * @param {string} [validateTypeError]
+ * @param {string} [validateTypeErrorFooter]
+ * @param {string} [validateUrl]
  * @constructor
  */
-function SectionTagAttrs(name, header, footer, autoSelect, multiSelect, numbered) {
+function SectionTagAttrs(name, header, footer, autoSelect, multiSelect, numbered, chunkingFooter,
+                         confirmationLabel, method, required, statusExclude, statusPrepend, url,
+                         validateTypeError, validateTypeErrorFooter, validateUrl) {
     this.header = header || null;
     this.footer = footer || null;
     this.name = name || null;
-    this.autoSelect = autoSelect;
-    this.multiSelect = multiSelect;
-    this.numbered = numbered;
+    this.autoSelect = autoSelect || false;
+    this.multiSelect = multiSelect || false;
+    this.numbered = numbered || false;
+    this.chunkingFooter = chunkingFooter;
+    this.confirmationLabel = confirmationLabel;
+    this.method = method;
+    this.required = required || false;
+    this.statusExclude = statusExclude || false;
+    this.statusPrepend = statusPrepend || false;
+    this.url = url;
+    this.validateTypeError = validateTypeError;
+    this.validateTypeErrorFooter = validateTypeErrorFooter;
+    this.validateUrl = validateUrl;
 }
 
 /**
@@ -80,6 +102,21 @@ SectionTag.getAttributes = function (node) {
     const multiSelect = node.attributes.hasOwnProperty('multi-select') ||
         node.attributes.hasOwnProperty('multiSelect');
     const numbered = node.attributes.hasOwnProperty('numbered');
+    const chunkingFooter = node.attributes['chunking-footer'] ||
+        node.attributes.chunkingFooter;
+    const confirmationLabel = node.attributes['confirmation-label'] ||
+        node.attributes.confirmationLabel;
+    const required = node.attributes.hasOwnProperty('required');
+    const statusExclude = node.attributes.hasOwnProperty('status-exclude') ||
+        node.attributes.hasOwnProperty('statusExclude');
+    const statusPrepend = node.attributes.hasOwnProperty('status-prepend') ||
+        node.attributes.hasOwnProperty('statusPrepend');
+    const validateTypeError = node.attributes['validate-type-error'] ||
+        node.attributes.validateTypeError;
+    const validateTypeErrorFooter = node.attributes['validate-type-error-footer'] ||
+        node.attributes.validateTypeErrorFooter;
+    const validateUrl = node.attributes['validate-url'] ||
+        node.attributes.validateUrl;
 
     return new SectionTagAttrs(
         node.attributes.name,
@@ -87,7 +124,17 @@ SectionTag.getAttributes = function (node) {
         node.attributes.footer,
         autoSelect,
         multiSelect,
-        numbered
+        numbered,
+        chunkingFooter,
+        confirmationLabel,
+        node.attributes.method,
+        required,
+        statusExclude,
+        statusPrepend,
+        node.attributes.url,
+        validateTypeError,
+        validateTypeErrorFooter,
+        validateUrl
     );
 };
 

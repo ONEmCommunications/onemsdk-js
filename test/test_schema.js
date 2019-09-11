@@ -220,66 +220,105 @@ describe('Test schema', function () {
                         "type": "form",
                         "body": [
                             {
-                                "type": "string",
+                                "type": "float",
                                 "name": "step1",
-                                "description": "What is your name?",
-                                "header": "SETUP NAME",
-                                "footer": "Reply with text"
+                                "description": "What is your height?",
+                                "header": "SETUP HEIGHT",
+                                "footer": "Reply with text",
+                                "body": null,
+                                "value": null,
+                                "chunking_footer": null,
+                                "confirmation_label": null,
+                                "min_length": null,
+                                "min_length_error": null,
+                                "max_length": null,
+                                "max_length_error": null,
+                                "min_value": 0.5,
+                                "min_value_error": "Are you a baby?",
+                                "max_value": 2.5,
+                                "max_value_error": "Too high",
+                                "meta": {
+                                    "auto_select": false,
+                                    "multi_select": false,
+                                    "numbered": false
+                                },
+                                "method": null,
+                                "required": true,
+                                "status_exclude": false,
+                                "status_prepend": false,
+                                "url": null,
+                                "validate_type_error": null,
+                                "validate_type_error_footer": null,
+                                "validate_url": null
                             },
                             {
                                 "type": "form-menu",
+                                "name": "step2",
+                                "description": "Choose your city:\nUK\nLondon\nManchester\nFR\nParis\nNice",
+                                "header": "SETUP CITY",
+                                "footer": "Reply A-D",
                                 "body": [
                                     {
-                                        "type": "content",
-                                        "description": "Choose your city:",
-                                        "text_search": null,
-                                        "value": null
-                                    },
-                                    {
-                                        "type": "content",
+                                        "type": "option",
                                         "description": "UK",
-                                        "text_search": null,
-                                        "value": null
+                                        "value": null,
+                                        "text_search": null
                                     },
                                     {
                                         "type": "option",
                                         "description": "London",
-                                        "text_search": null,
-                                        "value": "london"
+                                        "value": "london",
+                                        "text_search": null
                                     },
                                     {
                                         "type": "option",
                                         "description": "Manchester",
-                                        "text_search": null,
-                                        "value": "manchester"
+                                        "value": "manchester",
+                                        "text_search": null
                                     },
                                     {
-                                        "type": "content",
+                                        "type": "option",
                                         "description": "FR",
-                                        "text_search": null,
-                                        "value": null
+                                        "value": null,
+                                        "text_search": null
                                     },
                                     {
                                         "type": "option",
                                         "description": "Paris",
-                                        "text_search": null,
-                                        "value": "paris"
+                                        "value": "paris",
+                                        "text_search": null
                                     },
                                     {
                                         "type": "option",
                                         "description": "Nice",
-                                        "text_search": null,
-                                        "value": "nice"
+                                        "value": "nice",
+                                        "text_search": null
                                     }
                                 ],
-                                "name": "step2",
-                                "header": "SETUP CITY",
-                                "footer": "Reply A-D",
+                                "value": null,
+                                "chunking_footer": null,
+                                "confirmation_label": null,
+                                "min_length": null,
+                                "min_length_error": null,
+                                "max_length": null,
+                                "max_length_error": null,
+                                "min_value": null,
+                                "min_value_error": null,
+                                "max_value": null,
+                                "max_value_error": null,
                                 "meta": {
                                     "auto_select": true,
                                     "multi_select": false,
                                     "numbered": true
-                                }
+                                },
+                                "method": null,
+                                "required": true,
+                                "status_exclude": false,
+                                "status_prepend": false,
+                                "url": null,
+                                "validate_type_error": null,
+                                "validate_type_error_footer": null,
+                                "validate_url": null
                             }
                         ],
                         "method": "POST",
@@ -288,7 +327,7 @@ describe('Test schema', function () {
                         "footer": "Form footer",
                         "meta": {
                             "completion_status_show": false,
-                            "completion_status_in_header": false,
+                            "completion_status_in_header": true,
                             "confirmation_needed": false
                         }
                     }
@@ -301,17 +340,18 @@ describe('Test schema', function () {
     describe('Response', function () {
         it('should return the correct Response object', function () {
 
-            const html = '<form header="Form header" method="PATCH" action="/route">' +
-                '<section name="first-step" multi-select>' +
+            const html = '<form header="Form header" confirmation-needed method="PATCH" action="/route">' +
+                '<section name="step1" numbered required auto-select>' +
                 '   <ul>' +
-                '       <li value="first" text-search="first item and some more">First item</li>' +
+                '       <li value="first" text-search="Context for first item">First item</li>' +
                 '       <li value="second">Second item</li>' +
                 '   </ul>' +
                 '</section>' +
-                '<section name="second-step">' +
+                '<section name="step2" method="POST" confirmation-label="confirmation label" required>' +
                 '   <label>A question</label>' +
-                '   <input type="text"/>' +
-                '</section></form>';
+                '   <input type="number" step="1" />' +
+                '</section>' +
+                '</form>';
 
             const formTag = parser.loadHtml(undefined, html);
             const response = Response.fromTag(formTag, 'alabama');
@@ -322,35 +362,80 @@ describe('Test schema', function () {
                     "body": [
                         {
                             "type": "form-menu",
+                            "name": "step1",
+                            "description": "First item\nSecond item",
+                            "header": null,
+                            "footer": null,
                             "body": [
                                 {
                                     "type": "option",
                                     "description": "First item",
-                                    "text_search": "first item and some more",
-                                    "value": "first"
+                                    "value": "first",
+                                    "text_search": "Context for first item"
                                 },
                                 {
                                     "type": "option",
                                     "description": "Second item",
-                                    "text_search": null,
-                                    "value": "second"
+                                    "value": "second",
+                                    "text_search": null
                                 }
                             ],
-                            "name": "first-step",
-                            "header": null,
-                            "footer": null,
+                            "value": null,
+                            "chunking_footer": null,
+                            "confirmation_label": null,
+                            "min_length": null,
+                            "min_length_error": null,
+                            "max_length": null,
+                            "max_length_error": null,
+                            "min_value": null,
+                            "min_value_error": null,
+                            "max_value": null,
+                            "max_value_error": null,
                             "meta": {
-                                "auto_select": false,
-                                "multi_select": true,
-                                "numbered": false
-                            }
+                                "auto_select": true,
+                                "multi_select": false,
+                                "numbered": true
+                            },
+                            "method": null,
+                            "required": true,
+                            "status_exclude": false,
+                            "status_prepend": false,
+                            "url": null,
+                            "validate_type_error": null,
+                            "validate_type_error_footer": null,
+                            "validate_url": null
                         },
                         {
-                            "type": "string",
-                            "name": "second-step",
+                            "type": "int",
+                            "name": "step2",
                             "description": "A question",
                             "header": null,
-                            "footer": null
+                            "footer": null,
+                            "body": null,
+                            "value": null,
+                            "chunking_footer": null,
+                            "confirmation_label": "confirmation label",
+                            "min_length": null,
+                            "min_length_error": null,
+                            "max_length": null,
+                            "max_length_error": null,
+                            "min_value": null,
+                            "min_value_error": null,
+                            "max_value": null,
+                            "max_value_error": null,
+                            "meta": {
+                                "auto_select": false,
+                                "multi_select": false,
+                                "numbered": false
+                            },
+                            "method": "POST",
+                            "required": true,
+                            "status_exclude": false,
+                            "status_prepend": false,
+                            "url": null,
+                            "validate_type_error": null,
+                            "validate_type_error_footer": null,
+                            "validate_url": null
                         }
                     ],
                     "method": "PATCH",
@@ -360,7 +445,7 @@ describe('Test schema', function () {
                     "meta": {
                         "completion_status_show": false,
                         "completion_status_in_header": false,
-                        "confirmation_needed": false
+                        "confirmation_needed": true
                     }
                 }
             };

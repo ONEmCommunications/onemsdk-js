@@ -18,7 +18,7 @@ const UlTag = tags.UlTag,
  * @property {FormMeta} meta
  * @property {('get'|'post'|'put'|'delete')} method
  * @property {string} path
- * @property {FormItemContent | FormItemMenu} body form body object
+ * @property {Array<FormItem>} body form body object
  */
 
 /**
@@ -29,7 +29,7 @@ const UlTag = tags.UlTag,
  */
 
 /**
- * @typedef {object} FormItemContent
+ * @typedef {object} FormItem
  * @property {('string'|'date'|'datetime')} type
  * @property {string} name
  * @property {string} description
@@ -38,24 +38,14 @@ const UlTag = tags.UlTag,
  */
 
 /**
- * @typedef {Object} FormItemMenu
- * @property {('form-menu')} type
- * @property {Array<FormItemMenuItem>} body
- * @property {string} name
- * @property {string|undefined} header
- * @property {string|undefined} footer
- * @property {FormItemMenuMeta|undefined} meta
- */
-
-/**
- * @typedef {Object} FormItemMenuMeta
+ * @typedef {Object} MenuFormItemMeta
  * @property {boolean} autoSelect
  * @property {boolean} multiSelect
  * @property {boolean} numbered
  */
 
 /**
- * @typedef {object} FormItemMenuItem
+ * @typedef {object} MenuItemFormItem
  * @property {('option'|'content')} type
  * @property {string} description
  * @property {string|undefined} value
@@ -91,7 +81,7 @@ const UlTag = tags.UlTag,
 
 /**
  * Instantiates a new Form
- * @param {Array<FormItemContent|FormItemMenu>} body
+ * @param {Array<FormItem>} body
  * @param {('GET'|'POST'|'PUT'|'DELETE')} method='POST'
  * @param {string} path
  * @param {string|undefined} header
@@ -119,16 +109,9 @@ function Form(body, method, path, header, footer, meta) {
  */
 Form.fromTag = function (formTag) {
     let body = [];
-    formTag.children.forEach(function (sectionTag) {
-        let childType = FormItemContent;
-        for (let i = 0; i < sectionTag.children.length; i++) {
-            if (sectionTag.children[i] instanceof UlTag) {
-                childType = FormItemMenu;
-                break;
-            }
-        }
-        body.push(childType.fromTag(sectionTag));
-    });
+    for (const sectionTag of formTag.children) {
+        body.push(FormItem.fromTag(sectionTag));
+    }
 
     return new Form(
         body,
@@ -172,54 +155,143 @@ function FormMeta(completionStatusShow, completionStatusInHeader, confirmationNe
 }
 
 /**
- * Instantiates a new FormItemContent
- * @param {('string'|'date'|'datetime')} type
+ * Instantiates a new FormItem
+ * @param {('string'|'date'|'datetime'|'int'|'float'|'hidden'|'form-menu')} type
  * @param {string} name
  * @param {string} description
  * @param {string|undefined} header
  * @param {string|undefined} footer
+ * @param {Array<MenuItemFormItem>} [body]
+ * @param {string} [value]
+ * @param {string} [chunkingFooter]
+ * @param {string} [confirmationLabel]
+ * @param {number} [minLength] must be int
+ * @param {string} [minLengthError]
+ * @param {number} [maxLength] must be int
+ * @param {string} [maxLengthError]
+ * @param {number} [minValue]
+ * @param {string} [minValueError]
+ * @param {number} [maxValue]
+ * @param {string} [maxValueError]
+ * @param {MenuFormItemMeta} [meta]
+ * @param {string} [method]
+ * @param {boolean} [required=false]
+ * @param {boolean} [statusExclude=false]
+ * @param {boolean} [statusPrepend=false]
+ * @param {string} [url]
+ * @param {string} [validateTypeError]
+ * @param {string} [validateTypeErrorFooter]
+ * @param {string} [validateUrl]
  * @constructor
  */
-function FormItemContent(type, name, description, header, footer) {
+function FormItem(type, name, description, header, footer, body, value, chunkingFooter,
+                  confirmationLabel, minLength, minLengthError, maxLength,
+                  maxLengthError, minValue, minValueError, maxValue, maxValueError,
+                  meta, method, required, statusExclude, statusPrepend, url,
+                  validateTypeError, validateTypeErrorFooter, validateUrl) {
     this.type = type;
     this.name = name;
     this.description = description;
     this.header = header || null;
     this.footer = footer || null;
+    this.body = body || null;
+    this.value = value || null;
+    this.chunkingFooter = chunkingFooter || null;
+    this.confirmationLabel = confirmationLabel || null;
+    this.minLength = minLength || null;
+    this.minLengthError = minLengthError || null;
+    this.maxLength = maxLength || null;
+    this.maxLengthError = maxLengthError || null;
+    this.minValue = minValue || null;
+    this.minValueError = minValueError || null;
+    this.maxValue = maxValue || null;
+    this.maxValueError = maxValueError || null;
+    this.meta = meta || null;
+    this.method = method || null;
+    this.required = required || false;
+    this.statusExclude = statusExclude || false;
+    this.statusPrepend = statusPrepend || false;
+    this.url = url || null;
+    this.validateTypeError = validateTypeError || null;
+    this.validateTypeErrorFooter = validateTypeErrorFooter || null;
+    this.validateUrl = validateUrl || null;
 }
 
 /**
- * Creates a FormItemContent from a SectionTag
+ * Creates a FormItem from a SectionTag
  * @param {SectionTag} sectionTag
- * @returns {FormItemContent}
+ * @returns {FormItem}
  */
-FormItemContent.fromTag = function (sectionTag) {
-    let type,
-        header,
-        footer;
+FormItem.fromTag = function (sectionTag) {
+    let header,
+        footer,
+        body = [],
+        value,
+        minValue,
+        minValueError,
+        minLength,
+        minLengthError,
+        maxValue,
+        maxValueError,
+        maxLength,
+        maxLengthError,
+        formItemType;
 
-    sectionTag.children.forEach(function (child) {
+    for (const child of sectionTag.children) {
         if (child instanceof InputTag) {
-            type = child.attrs.type;
-        }
-    });
+            const inputType = child.attrs.type;
+            if (inputType === 'number') {
+                if (child.attrs.step === 1) {
+                    formItemType = 'int';
+                } else {
+                    formItemType = 'float';
+                }
+            } else if (inputType === 'hidden') {
+                value = child.attrs.value;
+                formItemType = 'hidden';
+                if (value === undefined) {
+                    throw Error('value attribute is required for input type="hidden"');
+                }
+            } else {
+                switch (inputType) {
+                    case 'text':
+                        formItemType = 'string';
+                        break;
+                    case 'date':
+                        formItemType = 'date';
+                        break;
+                    case 'datetime':
+                        formItemType = 'datetime';
+                        break;
+                    default:
+                        throw Error(`<input/> type "#{type}" is not supported`);
+                }
+            }
 
-    if (!type) {
-        throw Error('When <section> plays the role of a form item content, ' +
-            'it must contain a <input/>')
+            minValue = child.attrs.min;
+            minValueError = child.attrs.minError;
+            minLength = child.attrs.minlength;
+            minLengthError = child.attrs.minlengthError;
+            maxValue = child.attrs.max;
+            maxValueError = child.attrs.maxError;
+            maxLength = child.attrs.maxlength;
+            maxLengthError = child.attrs.maxlengthError;
+
+            break; // ignore other <input> tags if exist
+        }
+        if (child instanceof UlTag) {
+            formItemType = 'form-menu';
+            for (const li of child.children) {
+                body.push(MenuItemFormItem.fromTag(li));
+            }
+            break;
+        }
     }
 
-    // Translate the InputTag type to FormItemContent type
-    switch (type) {
-        case 'text':
-            type = 'string';
-            break;
-        case 'date':
-        case 'datetime':
-            // These are the same
-            break;
-        default:
-            throw Error(`<input/> type "#{type}" is not supported`);
+    if (!formItemType) {
+        throw Error('When <section> plays the role of a form item, ' +
+            'it must contain a <input/> or <ul></ul>'
+        )
     }
 
     if (sectionTag.children[0] instanceof HeaderTag) {
@@ -229,112 +301,80 @@ FormItemContent.fromTag = function (sectionTag) {
         footer = sectionTag.children[sectionTag.children.length - 1].toString();
     }
 
-    return new FormItemContent(
-        type,
+    return new FormItem(
+        formItemType,
         sectionTag.attrs.name,
         sectionTag.toString(true, true),
         header || sectionTag.attrs.header,
         footer || sectionTag.attrs.footer,
-    );
-};
-
-/**
- * Instantiates a new FormItemMenu
- * @param {Array<FormItemMenuItem>} body
- * @param {string} name
- * @param {string|undefined} header
- * @param {string|undefined} footer
- * @param {FormItemMenuMeta|undefined} meta
- * @constructor
- */
-function FormItemMenu(body, name, header, footer, meta) {
-    this.type = 'form-menu';
-    this.body = body;
-    this.name = name;
-    this.header = header || null;
-    this.footer = footer || null;
-    this.meta = meta || null;
-}
-
-/**
- * Creates a FormItemMenu from a SectionTag
- * @param {SectionTag} sectionTag
- * @returns {FormItemMenu}
- */
-FormItemMenu.fromTag = function (sectionTag) {
-    let body = [],
-        header,
-        footer;
-
-    sectionTag.children.forEach(function (child) {
-        if (child instanceof UlTag) {
-            child.children.forEach(function (liTag) {
-                body.push(FormItemMenuItem.fromTag(liTag));
-            })
-        } else if (child instanceof HeaderTag) {
-            header = child.toString();
-        } else if (child instanceof FooterTag) {
-            footer = child.toString();
-        } else {
-            body.push(FormItemMenuItem.fromTag(child));
-        }
-    });
-
-    // Discard all the menu items evaluated to false (eg: those with no description)
-    body = body.filter(function (menuItem) {
-        return menuItem;
-    });
-
-    return new FormItemMenu(
-        body,
-        sectionTag.attrs.name,
-        header || sectionTag.attrs.header,
-        footer || sectionTag.attrs.footer,
-        new FormItemMenuMeta(
+        body.length === 0 ? undefined : body,
+        value,
+        sectionTag.attrs.chunkingFooter,
+        sectionTag.attrs.confirmationLabel,
+        minLength,
+        minLengthError,
+        maxLength,
+        maxLengthError,
+        minValue,
+        minValueError,
+        maxValue,
+        maxValueError,
+        new MenuFormItemMeta(
             sectionTag.attrs.autoSelect,
             sectionTag.attrs.multiSelect,
-            sectionTag.attrs.numbered,
-        )
+            sectionTag.attrs.numbered
+        ),
+        sectionTag.attrs.method,
+        sectionTag.attrs.required,
+        sectionTag.attrs.statusExclude,
+        sectionTag.attrs.statusPrepend,
+        sectionTag.attrs.url,
+        sectionTag.attrs.validateTypeError,
+        sectionTag.attrs.validateTypeErrorFooter,
+        sectionTag.attrs.validateUrl
     );
 };
 
+
 /**
- * Instantiates a new FormItemMenuMeta
- * @param {boolean} autoSelect
- * @param {boolean} multiSelect
- * @param {boolean} numbered
+ * Instantiates a new MenuFormItemMeta
+ * @param {boolean} [autoSelect=false]
+ * @param {boolean} [multiSelect=false]
+ * @param {boolean} [numbered=false]
  * @constructor
  */
-function FormItemMenuMeta(autoSelect, multiSelect, numbered) {
-    this.autoSelect = autoSelect;
-    this.multiSelect = multiSelect;
-    this.numbered = numbered;
+function MenuFormItemMeta(autoSelect, multiSelect, numbered) {
+    this.autoSelect = autoSelect || false;
+    this.multiSelect = multiSelect || false;
+    this.numbered = numbered || false;
 }
 
 /**
- * Instantiates a new FormItemMenuItem
- * @param {('option'|'content')} type
+ * Instantiates a new MenuItemFormItem
  * @param {string} description
- * @param {string|undefined} textSearch
- * @param {string|undefined} value
+ * @param {string} [textSearch]
+ * @param {string} [value]
  * @constructor
  */
-function FormItemMenuItem(type, description, textSearch, value) {
-    this.type = type;
+function MenuItemFormItem(description, value, textSearch) {
+    if (value !== undefined) {
+        this.type = 'option';
+    } else {
+        this.type = 'content';
+    }
     this.description = description;
-    this.textSearch = textSearch || null;
     this.value = value || null;
+    this.textSearch = textSearch || null;
 }
 
 /**
- * Creates a FormItemMenuItem from a SectionTag's child
+ * Creates a MenuItemFormItem from a SectionTag's child
  * @param tag
- * @returns {FormItemMenuItem}
+ * @returns {MenuItemFormItem}
  */
-FormItemMenuItem.fromTag = function (tag) {
+MenuItemFormItem.fromTag = function (tag) {
     let description,
         textSearch,
-        type = 'content',
         value;
 
     if (typeof tag === 'string') {
@@ -348,13 +388,12 @@ FormItemMenuItem.fromTag = function (tag) {
         return undefined;
     }
 
-    if (tag instanceof LiTag && tag.attrs.value) {
-        type = 'option';
+    if (tag instanceof LiTag) {
         value = tag.attrs.value;
         textSearch = tag.attrs.textSearch;
     }
 
-    return new FormItemMenuItem(type, description, textSearch, value);
+    return new MenuItemFormItem(description, value, textSearch);
 };
 
 /**
@@ -412,24 +451,27 @@ Menu.fromTag = function (sectionTag) {
 
 /**
  * Instantiates a new MenuMeta
- * @param {boolean} autoSelect
+ * @param {boolean} [autoSelect=false]
  * @constructor
  */
 function MenuMeta(autoSelect) {
-    this.autoSelect = autoSelect;
+    this.autoSelect = autoSelect || false;
 }
 
 /**
  * Instantiates a new MenuItem
- * @param {('option'|'content')} type
  * @param {string} description
- * @param {string|undefined} textSearch
- * @param {('GET'|'POST'|'PUT'|'DELETE'|undefined)} method
- * @param {string|undefined} path
+ * @param {string} [textSearch]
+ * @param {('GET'|'POST'|'PUT'|'PATCH'|'DELETE'|'HEAD'|'OPTIONS'|'TRACE')} [method]
+ * @param {string} [path]
  * @constructor
  */
-function MenuItem(type, description, textSearch, method, path) {
-    this.type = type;
+function MenuItem(description, textSearch, method, path) {
+    if (path !== undefined) {
+        this.type = 'option';
+    } else {
+        this.type = 'content';
+    }
     this.description = description;
     this.textSearch = textSearch || null;
     this.method = method || null;
@@ -445,8 +487,7 @@ MenuItem.fromTag = function (tag) {
     let description,
         method,
         textSearch,
-        path,
-        type = 'content';
+        path;
 
     if (typeof tag === 'string') {
         description = tag;
@@ -463,11 +504,10 @@ MenuItem.fromTag = function (tag) {
         const aTag = tag.children[0];
         method = aTag.attrs.method;
         path = aTag.attrs.href;
-        type = 'option';
         textSearch = tag.attrs.textSearch;
     }
 
-    return new MenuItem(type, description, textSearch, method, path);
+    return new MenuItem(description, textSearch, method, path);
 };
 
 /**
@@ -517,12 +557,11 @@ exports.Form = Form;
 exports.Response = Response;
 exports.Menu = Menu;
 exports.MenuItem = MenuItem;
-exports.FormItemMenu = FormItemMenu;
-exports.FormItemMenuItem = FormItemMenuItem;
-exports.FormItemContent = FormItemContent;
+exports.MenuItemFormItem = MenuItemFormItem;
+exports.FormItem = FormItem;
 exports.FormMeta = FormMeta;
 exports.MenuMeta = MenuMeta;
-exports.FormItemMenuMeta = FormItemMenuMeta;
+exports.MenuFormItemMeta = MenuFormItemMeta;
 
 exports.parser = require('./parser');
 exports.tags = require('./tag');
