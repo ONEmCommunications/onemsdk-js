@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>
+      Home - Documentation
+  </title>
+
+  <link href="https://www.braintreepayments.com/images/favicon-ccda0b14.png" rel="icon" type="image/png">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+  <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+  <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+  
+  <link type="text/css" rel="stylesheet" href="styles/collapse.css">
+  
+
+  
+
+  <!-- start Mixpanel -->
+  <script type="text/javascript">(function(e,a){if(!a.__SV){var b=window;try{var c,l,i,j=b.location,g=j.hash;c=function(a,b){return(l=a.match(RegExp(b+"=([^&]*)")))?l[1]:null};g&&c(g,"state")&&(i=JSON.parse(decodeURIComponent(c(g,"state"))),"mpeditor"===i.action&&(b.sessionStorage.setItem("_mpcehash",g),history.replaceState(i.desiredHash||"",e.title,j.pathname+j.search)))}catch(m){}var k,h;window.mixpanel=a;a._i=[];a.init=function(b,c,f){function e(b,a){var c=a.split(".");2==c.length&&(b=b[c[0]],a=c[1]);b[a]=function(){b.push([a].concat(Array.prototype.slice.call(arguments,
+  0)))}}var d=a;"undefined"!==typeof f?d=a[f]=[]:f="mixpanel";d.people=d.people||[];d.toString=function(b){var a="mixpanel";"mixpanel"!==f&&(a+="."+f);b||(a+=" (stub)");return a};d.people.toString=function(){return d.toString(1)+".people (stub)"};k="disable time_event track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config reset people.set people.set_once people.increment people.append people.union people.track_charge people.clear_charges people.delete_user".split(" ");
+  for(h=0;h<k.length;h++)e(d,k[h]);a._i.push([b,c,f])};a.__SV=1.2;b=e.createElement("script");b.type="text/javascript";b.async=!0;b.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?MIXPANEL_CUSTOM_LIB_URL:"file:"===e.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";c=e.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c)}})(document,window.mixpanel||[]);
+  mixpanel.init("1919205b2da72e4da3b9b6639b444d59");</script>
+  <!-- end Mixpanel -->
+</head>
+
+<body>
+  <svg style="display: none;">
+    <defs>
+      <symbol id="linkIcon" fill="#706d77" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0h24v24H0z" fill="none"/>
+          <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+  <label for="nav-trigger" class="navicon-button x">
+    <div class="navicon"></div>
+  </label>
+
+  <label for="nav-trigger" class="overlay"></label>
+
+  <div class="top-nav-wrapper">
+    <ul>
+      <li  class="active" >
+        <a href="index.html">
+          
+          
+            <svg fill="#0095dd" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              <path d="M0 0h24v24H0z" fill="none"/>
+            </svg>
+          
+        </a>
+      </li>
+
+      
+
+    </ul>
+  </div>
+
+  <nav>
+    <h3 class="reference-title">
+      ONEm Node.js SDK
+    </h3>
+
+    
+
+    <h3>Classes</h3><ul><li id="ATag-nav"><a href="global.html#ATag">ATag</a><ul class='methods'><li data-type="method" id="ATag-getAttributes-nav"><a href="global.html#ATag#.getAttributes">getAttributes</a></li></ul></li><li id="ATagAttrs-nav"><a href="ATagAttrs.html">ATagAttrs</a></li><li id="BrTag-nav"><a href="global.html#BrTag">BrTag</a></li><li id="FooterTag-nav"><a href="global.html#FooterTag">FooterTag</a></li><li id="Form-nav"><a href="global.html#Form">Form</a><ul class='methods'><li data-type="method" id="Form-fromTag-nav"><a href="global.html#Form#.fromTag">fromTag</a></li></ul></li><li id="FormItem-nav"><a href="global.html#FormItem">FormItem</a><ul class='methods'><li data-type="method" id="FormItem-fromTag-nav"><a href="global.html#FormItem#.fromTag">fromTag</a></li></ul></li><li id="FormMeta-nav"><a href="global.html#FormMeta">FormMeta</a></li><li id="FormTag-nav"><a href="global.html#FormTag">FormTag</a></li><li id="FormTagAttrs-nav"><a href="FormTagAttrs.html">FormTagAttrs</a></li><li id="HeaderTag-nav"><a href="global.html#HeaderTag">HeaderTag</a></li><li id="InputTag-nav"><a href="global.html#InputTag">InputTag</a><ul class='methods'><li data-type="method" id="InputTag-getAttributes-nav"><a href="global.html#InputTag#.getAttributes">getAttributes</a></li></ul></li><li id="InputTagAttrs-nav"><a href="InputTagAttrs.html">InputTagAttrs</a></li><li id="LiTag-nav"><a href="global.html#LiTag">LiTag</a></li><li id="LiTagAttrs-nav"><a href="LiTagAttrs.html">LiTagAttrs</a></li><li id="Menu-nav"><a href="global.html#Menu">Menu</a><ul class='methods'><li data-type="method" id="Menu-fromTag-nav"><a href="global.html#Menu#.fromTag">fromTag</a></li></ul></li><li id="MenuFormItemMeta-nav"><a href="global.html#MenuFormItemMeta">MenuFormItemMeta</a></li><li id="MenuItem-nav"><a href="global.html#MenuItem">MenuItem</a><ul class='methods'><li data-type="method" id="MenuItem-fromTag-nav"><a href="global.html#MenuItem#.fromTag">fromTag</a></li></ul></li><li id="MenuItemFormItem-nav"><a href="global.html#MenuItemFormItem">MenuItemFormItem</a><ul class='methods'><li data-type="method" id="MenuItemFormItem-fromTag-nav"><a href="global.html#MenuItemFormItem#.fromTag">fromTag</a></li></ul></li><li id="MenuMeta-nav"><a href="global.html#MenuMeta">MenuMeta</a></li><li id="PTag-nav"><a href="global.html#PTag">PTag</a></li><li id="Response-nav"><a href="global.html#Response">Response</a><ul class='methods'><li data-type="method" id="Response-fromTag-nav"><a href="global.html#Response#.fromTag">fromTag</a></li></ul></li><li id="SectionTag-nav"><a href="global.html#SectionTag">SectionTag</a></li><li id="SectionTagAttrs-nav"><a href="SectionTagAttrs.html">SectionTagAttrs</a></li><li id="Tag-nav"><a href="global.html#Tag">Tag</a><ul class='methods'><li data-type="method" id="Tag-fromNode-nav"><a href="global.html#Tag#.fromNode">fromNode</a></li><li data-type="method" id="Tag-getAttributes-nav"><a href="global.html#Tag#.getAttributes">getAttributes</a></li></ul></li><li id="UlTag-nav"><a href="global.html#UlTag">UlTag</a></li></ul><h3 id="global-nav">Global</h3><ul><li><a href="global.html#loadHtml">loadHtml</a></li><li><a href="global.html#loadTemplate">loadTemplate</a></li></ul>
+  </nav>
+
+  <div id="main">
+    
+
+    
+      
+
+
+
+    
+
+      
+
+
+  <section class="readme">
+    <article>
+      <h2>Classes</h2>
+<dl>
+<dt><a href="#ATagAttrs">ATagAttrs</a></dt>
+<dd></dd>
+<dt><a href="#ATag">ATag</a></dt>
+<dd></dd>
+<dt><a href="#BrTag">BrTag</a></dt>
+<dd></dd>
+<dt><a href="#FooterTag">FooterTag</a></dt>
+<dd></dd>
+<dt><a href="#FormTagAttrs">FormTagAttrs</a></dt>
+<dd></dd>
+<dt><a href="#FormTag">FormTag</a></dt>
+<dd></dd>
+<dt><a href="#HeaderTag">HeaderTag</a></dt>
+<dd></dd>
+<dt><a href="#InputTagAttrs">InputTagAttrs</a></dt>
+<dd></dd>
+<dt><a href="#InputTag">InputTag</a></dt>
+<dd></dd>
+<dt><a href="#LiTagAttrs">LiTagAttrs</a></dt>
+<dd></dd>
+<dt><a href="#LiTag">LiTag</a></dt>
+<dd></dd>
+<dt><a href="#PTag">PTag</a></dt>
+<dd></dd>
+<dt><a href="#SectionTagAttrs">SectionTagAttrs</a></dt>
+<dd></dd>
+<dt><a href="#SectionTag">SectionTag</a></dt>
+<dd></dd>
+<dt><a href="#Tag">Tag</a></dt>
+<dd></dd>
+<dt><a href="#UlTag">UlTag</a></dt>
+<dd></dd>
+</dl>
+<h2>Typedefs</h2>
+<dl>
+<dt><a href="#ATag">ATag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
+<dd></dd>
+<dt><a href="#BrTag">BrTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
+<dd></dd>
+<dt><a href="#FooterTag">FooterTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
+<dd></dd>
+<dt><a href="#FormTag">FormTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
+<dd></dd>
+<dt><a href="#HeaderTag">HeaderTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
+<dd></dd>
+<dt><a href="#InputTag">InputTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
+<dd></dd>
+<dt><a href="#LabelTag">LabelTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
+<dd></dd>
+<dt><a href="#LiTag">LiTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
+<dd></dd>
+<dt><a href="#PTag">PTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
+<dd></dd>
+<dt><a href="#SectionTag">SectionTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
+<dd></dd>
+<dt><a href="#Tag">Tag</a></dt>
+<dd></dd>
+<dt><a href="#UlTag">UlTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
+<dd></dd>
+</dl>
+<p><a name="ATagAttrs"></a></p>
+<h2>ATagAttrs</h2>
+<p><strong>Kind</strong>: global class<br>
+<a name="new_ATagAttrs_new"></a></p>
+<h3>new ATagAttrs(href, method)</h3>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>href</td>
+<td><code>string</code></td>
+<td></td>
+</tr>
+<tr>
+<td>method</td>
+<td><code>'GET'</code> | <code>'POST'</code></td>
+<td>default 'GET'</td>
+</tr>
+</tbody>
+</table>
+<p><a name="ATag"></a></p>
+<h2>ATag</h2>
+<p><strong>Kind</strong>: global class</p>
+<ul>
+<li><a href="#ATag">ATag</a>
+<ul>
+<li><a href="#new_ATag_new">new ATag(children, attrs)</a></li>
+<li><a href="#ATag.getAttributes">.getAttributes(node)</a></li>
+</ul>
+</li>
+</ul>
+<p><a name="new_ATag_new"></a></p>
+<h3>new ATag(children, attrs)</h3>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><code>Array.&lt;string&gt;</code></td>
+</tr>
+<tr>
+<td>attrs</td>
+<td><a href="#ATagAttrs"><code>ATagAttrs</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a name="ATag.getAttributes"></a></p>
+<h3>ATag.getAttributes(node)</h3>
+<p><strong>Kind</strong>: static method of <a href="#ATag"><code>ATag</code></a></p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>node</td>
+<td><code>HTMLAnchorElement</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="BrTag"></a></p>
+<h2>BrTag</h2>
+<p><strong>Kind</strong>: global class<br>
+<a name="FooterTag"></a></p>
+<h2>FooterTag</h2>
+<p><strong>Kind</strong>: global class<br>
+<a name="new_FooterTag_new"></a></p>
+<h3>new FooterTag(children)</h3>
+<p>Instantiates a new FooterTag</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><code>Array.&lt;string&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="FormTagAttrs"></a></p>
+<h2>FormTagAttrs</h2>
+<p><strong>Kind</strong>: global class<br>
+<a name="new_FormTagAttrs_new"></a></p>
+<h3>new FormTagAttrs(action, method, header, footer, completionStatusShow, completionStatusInHeader, confirmationNeeded)</h3>
+<p>Instantiates a new FormTagAttrs</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>action</td>
+<td><code>string</code></td>
+<td>the path where the form data is sent to after the user finishes the form</td>
+</tr>
+<tr>
+<td>method</td>
+<td><code>string</code></td>
+<td>the method use to send the form data</td>
+</tr>
+<tr>
+<td>header</td>
+<td><code>string</code> | <code>undefined</code></td>
+<td>the global form header which can be overwritten at the SectionTag level</td>
+</tr>
+<tr>
+<td>footer</td>
+<td><code>string</code> | <code>undefined</code></td>
+<td>the global form footer which can be overwritten at the SectionTag level</td>
+</tr>
+<tr>
+<td>completionStatusShow</td>
+<td><code>boolean</code> | <code>undefined</code></td>
+<td>whether to display the progress the user made in a form</td>
+</tr>
+<tr>
+<td>completionStatusInHeader</td>
+<td><code>boolean</code> | <code>undefined</code></td>
+<td>whether to display that progress in header (if false it will be displayed in body)</td>
+</tr>
+<tr>
+<td>confirmationNeeded</td>
+<td><code>boolean</code> | <code>undefined</code></td>
+<td>whether the user will receive a form confirmation at the end of the form</td>
+</tr>
+</tbody>
+</table>
+<p><a name="FormTag"></a></p>
+<h2>FormTag</h2>
+<p><strong>Kind</strong>: global class<br>
+<a name="new_FormTag_new"></a></p>
+<h3>new FormTag(children, attrs)</h3>
+<p>Instantiates a new FormTag. It is the equivalent of the HTML <form> tag and
+it is always the root (it cannot be placed inside of another tag). The
+FormTag is be used in all the situations where some data is expected from the
+user. The FormTag can have only SectionTag children and each SectionTag
+deals with one piece of data from the user.</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><a href="#SectionTag"><code>Array.&lt;SectionTag&gt;</code></a></td>
+</tr>
+<tr>
+<td>attrs</td>
+<td><a href="#FormTagAttrs"><code>FormTagAttrs</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a name="HeaderTag"></a></p>
+<h2>HeaderTag</h2>
+<p><strong>Kind</strong>: global class<br>
+<a name="new_HeaderTag_new"></a></p>
+<h3>new HeaderTag(children)</h3>
+<p>Instantiates a new HeaderTag</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><code>Array.&lt;string&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="InputTagAttrs"></a></p>
+<h2>InputTagAttrs</h2>
+<p><strong>Kind</strong>: global class<br>
+<a name="new_InputTagAttrs_new"></a></p>
+<h3>new InputTagAttrs(type, [min], [minError], [minlength must be an integer], [minlengthError], [max], [maxError], [maxlength must be an integer], [maxlengthError], [step must be an integer], [value])</h3>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td><code>'text'</code> | <code>'date'</code> | <code>'datetime'</code> | <code>'number'</code> | <code>'hidden'</code></td>
+<td></td>
+</tr>
+<tr>
+<td>[min]</td>
+<td><code>number</code></td>
+<td></td>
+</tr>
+<tr>
+<td>[minError]</td>
+<td><code>string</code></td>
+<td></td>
+</tr>
+<tr>
+<td>[minlength must be an integer]</td>
+<td><code>number</code></td>
+<td></td>
+</tr>
+<tr>
+<td>[minlengthError]</td>
+<td><code>string</code></td>
+<td></td>
+</tr>
+<tr>
+<td>[max]</td>
+<td><code>number</code></td>
+<td></td>
+</tr>
+<tr>
+<td>[maxError]</td>
+<td><code>string</code></td>
+<td></td>
+</tr>
+<tr>
+<td>[maxlength must be an integer]</td>
+<td><code>number</code></td>
+<td></td>
+</tr>
+<tr>
+<td>[maxlengthError]</td>
+<td><code>string</code></td>
+<td></td>
+</tr>
+<tr>
+<td>[step must be an integer]</td>
+<td><code>number</code></td>
+<td></td>
+</tr>
+<tr>
+<td>[value]</td>
+<td><code>string</code></td>
+<td>required if type=&quot;hidden&quot;</td>
+</tr>
+</tbody>
+</table>
+<p><a name="InputTag"></a></p>
+<h2>InputTag</h2>
+<p><strong>Kind</strong>: global class</p>
+<ul>
+<li><a href="#InputTag">InputTag</a>
+<ul>
+<li><a href="#new_InputTag_new">new InputTag(children, attrs)</a></li>
+<li><a href="#InputTag.getAttributes">.getAttributes(node)</a> ⇒ <a href="#InputTagAttrs"><code>InputTagAttrs</code></a></li>
+</ul>
+</li>
+</ul>
+<p><a name="new_InputTag_new"></a></p>
+<h3>new InputTag(children, attrs)</h3>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><code>undefined</code></td>
+</tr>
+<tr>
+<td>attrs</td>
+<td><a href="#InputTagAttrs"><code>InputTagAttrs</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a name="InputTag.getAttributes"></a></p>
+<h3>InputTag.getAttributes(node) ⇒ <a href="#InputTagAttrs"><code>InputTagAttrs</code></a></h3>
+<p><strong>Kind</strong>: static method of <a href="#InputTag"><code>InputTag</code></a></p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>node</td>
+<td><code>HTMLInputElement</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="LiTagAttrs"></a></p>
+<h2>LiTagAttrs</h2>
+<p><strong>Kind</strong>: global class<br>
+<a name="new_LiTagAttrs_new"></a></p>
+<h3>new LiTagAttrs(value, textSearch)</h3>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>value</td>
+<td><code>string</code> | <code>undefined</code></td>
+</tr>
+<tr>
+<td>textSearch</td>
+<td><code>string</code> | <code>undefined</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="LiTag"></a></p>
+<h2>LiTag</h2>
+<p><strong>Kind</strong>: global class<br>
+<a name="new_LiTag_new"></a></p>
+<h3>new LiTag(children, attrs)</h3>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><code>Array.&lt;(ATag|string)&gt;</code></td>
+</tr>
+<tr>
+<td>attrs</td>
+<td><a href="#LiTagAttrs"><code>LiTagAttrs</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a name="PTag"></a></p>
+<h2>PTag</h2>
+<p><strong>Kind</strong>: global class<br>
+<a name="new_PTag_new"></a></p>
+<h3>new PTag(children)</h3>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><code>Array.&lt;string&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="SectionTagAttrs"></a></p>
+<h2>SectionTagAttrs</h2>
+<p><strong>Kind</strong>: global class<br>
+<a name="new_SectionTagAttrs_new"></a></p>
+<h3>new SectionTagAttrs([name], [header], [footer], [autoSelect], [multiSelect], [numbered], [chunkingFooter], [confirmationLabel], [method], [required], [statusExclude], [statusPrepend], [url], [validateTypeError], [validateTypeErrorFooter], [validateUrl])</h3>
+<p>Instantiates a new SectionTagAttrs</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[name]</td>
+<td><code>string</code></td>
+<td></td>
+<td>this attribute is relevant only if the SectionTag is part of a FormTag</td>
+</tr>
+<tr>
+<td>[header]</td>
+<td><code>string</code></td>
+<td></td>
+<td>text that will be included in header</td>
+</tr>
+<tr>
+<td>[footer]</td>
+<td><code>string</code></td>
+<td></td>
+<td>text that will be included in footer</td>
+</tr>
+<tr>
+<td>[autoSelect]</td>
+<td><code>boolean</code></td>
+<td><code>false</code></td>
+<td></td>
+</tr>
+<tr>
+<td>[multiSelect]</td>
+<td><code>boolean</code></td>
+<td><code>false</code></td>
+<td></td>
+</tr>
+<tr>
+<td>[numbered]</td>
+<td><code>boolean</code></td>
+<td><code>false</code></td>
+<td></td>
+</tr>
+<tr>
+<td>[chunkingFooter]</td>
+<td><code>string</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>[confirmationLabel]</td>
+<td><code>string</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>[method]</td>
+<td><code>string</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>[required]</td>
+<td><code>boolean</code></td>
+<td><code>false</code></td>
+<td></td>
+</tr>
+<tr>
+<td>[statusExclude]</td>
+<td><code>boolean</code></td>
+<td><code>false</code></td>
+<td></td>
+</tr>
+<tr>
+<td>[statusPrepend]</td>
+<td><code>boolean</code></td>
+<td><code>false</code></td>
+<td></td>
+</tr>
+<tr>
+<td>[url]</td>
+<td><code>string</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>[validateTypeError]</td>
+<td><code>string</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>[validateTypeErrorFooter]</td>
+<td><code>string</code></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>[validateUrl]</td>
+<td><code>string</code></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><a name="SectionTag"></a></p>
+<h2>SectionTag</h2>
+<p><strong>Kind</strong>: global class<br>
+<a name="new_SectionTag_new"></a></p>
+<h3>new SectionTag(children, attrs)</h3>
+<p>Instantiates a new SectionTag. A SectionTag may represent a step in a form,
+a menu or a block of text. A user will always receive the content of a
+SectionTag at a time.</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><code>Array.&lt;(PTag|BrTag|UlTag|LabelTag|HeaderTag|FooterTag|InputTag)&gt;</code></td>
+</tr>
+<tr>
+<td>attrs</td>
+<td><a href="#SectionTagAttrs"><code>SectionTagAttrs</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a name="Tag"></a></p>
+<h2>Tag</h2>
+<p><strong>Kind</strong>: global class</p>
+<ul>
+<li><a href="#Tag">Tag</a>
+<ul>
+<li><a href="#new_Tag_new">new Tag(children, attrs)</a></li>
+<li><a href="#Tag.fromNode">.fromNode(node)</a> ⇒ <a href="#FormTag"><code>FormTag</code></a> | <a href="#SectionTag"><code>SectionTag</code></a> | <a href="#UlTag"><code>UlTag</code></a> | <a href="#LiTag"><code>LiTag</code></a> | <a href="#ATag"><code>ATag</code></a> | <a href="#PTag"><code>PTag</code></a> | <a href="#BrTag"><code>BrTag</code></a> | <a href="#HeaderTag"><code>HeaderTag</code></a> | <a href="#FooterTag"><code>FooterTag</code></a> | <a href="#InputTag"><code>InputTag</code></a> | <a href="#LabelTag"><code>LabelTag</code></a></li>
+<li><a href="#Tag.getAttributes">.getAttributes(node)</a> ⇒ <code>Object</code> | <code>undefined</code></li>
+</ul>
+</li>
+</ul>
+<p><a name="new_Tag_new"></a></p>
+<h3>new Tag(children, attrs)</h3>
+<p>Instantiates a Tag</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><a href="#Tag"><code>Array.&lt;Tag&gt;</code></a> | <code>undefined</code></td>
+</tr>
+<tr>
+<td>attrs</td>
+<td><code>Object</code> | <code>undefined</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="Tag.fromNode"></a></p>
+<h3>Tag.fromNode(node) ⇒ <a href="#FormTag"><code>FormTag</code></a> | <a href="#SectionTag"><code>SectionTag</code></a> | <a href="#UlTag"><code>UlTag</code></a> | <a href="#LiTag"><code>LiTag</code></a> | <a href="#ATag"><code>ATag</code></a> | <a href="#PTag"><code>PTag</code></a> | <a href="#BrTag"><code>BrTag</code></a> | <a href="#HeaderTag"><code>HeaderTag</code></a> | <a href="#FooterTag"><code>FooterTag</code></a> | <a href="#InputTag"><code>InputTag</code></a> | <a href="#LabelTag"><code>LabelTag</code></a></h3>
+<p><strong>Kind</strong>: static method of <a href="#Tag"><code>Tag</code></a></p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>node</td>
+<td><code>HTMLElement</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="Tag.getAttributes"></a></p>
+<h3>Tag.getAttributes(node) ⇒ <code>Object</code> | <code>undefined</code></h3>
+<p>Returns the attributes specific to a certain tag</p>
+<p><strong>Kind</strong>: static method of <a href="#Tag"><code>Tag</code></a></p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>node</td>
+<td><code>HTMLElement</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="UlTag"></a></p>
+<h2>UlTag</h2>
+<p><strong>Kind</strong>: global class<br>
+<a name="new_UlTag_new"></a></p>
+<h3>new UlTag(children)</h3>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><a href="#LiTag"><code>Array.&lt;LiTag&gt;</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a name="ATag"></a></p>
+<h2>ATag ⇐ <a href="#Tag"><code>Tag</code></a></h2>
+<p><strong>Kind</strong>: global typedef<br>
+<strong>Extends</strong>: <a href="#Tag"><code>Tag</code></a><br>
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><code>Array.&lt;string&gt;</code></td>
+</tr>
+<tr>
+<td>attrs</td>
+<td><a href="#ATagAttrs"><code>ATagAttrs</code></a></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><a href="#ATag">ATag</a> ⇐ <a href="#Tag"><code>Tag</code></a>
+<ul>
+<li><a href="#new_ATag_new">new ATag(children, attrs)</a></li>
+<li><a href="#ATag.getAttributes">.getAttributes(node)</a></li>
+</ul>
+</li>
+</ul>
+<p><a name="new_ATag_new"></a></p>
+<h3>new ATag(children, attrs)</h3>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><code>Array.&lt;string&gt;</code></td>
+</tr>
+<tr>
+<td>attrs</td>
+<td><a href="#ATagAttrs"><code>ATagAttrs</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a name="ATag.getAttributes"></a></p>
+<h3>ATag.getAttributes(node)</h3>
+<p><strong>Kind</strong>: static method of <a href="#ATag"><code>ATag</code></a></p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>node</td>
+<td><code>HTMLAnchorElement</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="BrTag"></a></p>
+<h2>BrTag ⇐ <a href="#Tag"><code>Tag</code></a></h2>
+<p><strong>Kind</strong>: global typedef<br>
+<strong>Extends</strong>: <a href="#Tag"><code>Tag</code></a><br>
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><code>undefined</code></td>
+</tr>
+<tr>
+<td>attrs</td>
+<td><code>undefined</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="FooterTag"></a></p>
+<h2>FooterTag ⇐ <a href="#Tag"><code>Tag</code></a></h2>
+<p><strong>Kind</strong>: global typedef<br>
+<strong>Extends</strong>: <a href="#Tag"><code>Tag</code></a><br>
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><code>Array.&lt;string&gt;</code></td>
+</tr>
+<tr>
+<td>attrs</td>
+<td><code>undefined</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="new_FooterTag_new"></a></p>
+<h3>new FooterTag(children)</h3>
+<p>Instantiates a new FooterTag</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><code>Array.&lt;string&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="FormTag"></a></p>
+<h2>FormTag ⇐ <a href="#Tag"><code>Tag</code></a></h2>
+<p><strong>Kind</strong>: global typedef<br>
+<strong>Extends</strong>: <a href="#Tag"><code>Tag</code></a><br>
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><a href="#SectionTag"><code>Array.&lt;SectionTag&gt;</code></a></td>
+</tr>
+<tr>
+<td>attrs</td>
+<td><a href="#FormTagAttrs"><code>FormTagAttrs</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a name="new_FormTag_new"></a></p>
+<h3>new FormTag(children, attrs)</h3>
+<p>Instantiates a new FormTag. It is the equivalent of the HTML <form> tag and
+it is always the root (it cannot be placed inside of another tag). The
+FormTag is be used in all the situations where some data is expected from the
+user. The FormTag can have only SectionTag children and each SectionTag
+deals with one piece of data from the user.</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><a href="#SectionTag"><code>Array.&lt;SectionTag&gt;</code></a></td>
+</tr>
+<tr>
+<td>attrs</td>
+<td><a href="#FormTagAttrs"><code>FormTagAttrs</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a name="HeaderTag"></a></p>
+<h2>HeaderTag ⇐ <a href="#Tag"><code>Tag</code></a></h2>
+<p><strong>Kind</strong>: global typedef<br>
+<strong>Extends</strong>: <a href="#Tag"><code>Tag</code></a><br>
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><code>Array.&lt;string&gt;</code></td>
+</tr>
+<tr>
+<td>attrs</td>
+<td><code>undefined</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="new_HeaderTag_new"></a></p>
+<h3>new HeaderTag(children)</h3>
+<p>Instantiates a new HeaderTag</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><code>Array.&lt;string&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="InputTag"></a></p>
+<h2>InputTag ⇐ <a href="#Tag"><code>Tag</code></a></h2>
+<p><strong>Kind</strong>: global typedef<br>
+<strong>Extends</strong>: <a href="#Tag"><code>Tag</code></a><br>
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><code>undefined</code></td>
+</tr>
+<tr>
+<td>attrs</td>
+<td><a href="#InputTagAttrs"><code>InputTagAttrs</code></a></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><a href="#InputTag">InputTag</a> ⇐ <a href="#Tag"><code>Tag</code></a>
+<ul>
+<li><a href="#new_InputTag_new">new InputTag(children, attrs)</a></li>
+<li><a href="#InputTag.getAttributes">.getAttributes(node)</a> ⇒ <a href="#InputTagAttrs"><code>InputTagAttrs</code></a></li>
+</ul>
+</li>
+</ul>
+<p><a name="new_InputTag_new"></a></p>
+<h3>new InputTag(children, attrs)</h3>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><code>undefined</code></td>
+</tr>
+<tr>
+<td>attrs</td>
+<td><a href="#InputTagAttrs"><code>InputTagAttrs</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a name="InputTag.getAttributes"></a></p>
+<h3>InputTag.getAttributes(node) ⇒ <a href="#InputTagAttrs"><code>InputTagAttrs</code></a></h3>
+<p><strong>Kind</strong>: static method of <a href="#InputTag"><code>InputTag</code></a></p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>node</td>
+<td><code>HTMLInputElement</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="LabelTag"></a></p>
+<h2>LabelTag ⇐ <a href="#Tag"><code>Tag</code></a></h2>
+<p><strong>Kind</strong>: global typedef<br>
+<strong>Extends</strong>: <a href="#Tag"><code>Tag</code></a><br>
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><code>Array.&lt;string&gt;</code></td>
+</tr>
+<tr>
+<td>attrs</td>
+<td><code>undefined</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="LiTag"></a></p>
+<h2>LiTag ⇐ <a href="#Tag"><code>Tag</code></a></h2>
+<p><strong>Kind</strong>: global typedef<br>
+<strong>Extends</strong>: <a href="#Tag"><code>Tag</code></a><br>
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><code>Array.&lt;(ATag|string)&gt;</code></td>
+</tr>
+<tr>
+<td>attrs</td>
+<td><a href="#LiTagAttrs"><code>LiTagAttrs</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a name="new_LiTag_new"></a></p>
+<h3>new LiTag(children, attrs)</h3>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><code>Array.&lt;(ATag|string)&gt;</code></td>
+</tr>
+<tr>
+<td>attrs</td>
+<td><a href="#LiTagAttrs"><code>LiTagAttrs</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a name="PTag"></a></p>
+<h2>PTag ⇐ <a href="#Tag"><code>Tag</code></a></h2>
+<p><strong>Kind</strong>: global typedef<br>
+<strong>Extends</strong>: <a href="#Tag"><code>Tag</code></a><br>
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><code>Array.&lt;string&gt;</code></td>
+</tr>
+<tr>
+<td>attrs</td>
+<td><code>undefined</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="new_PTag_new"></a></p>
+<h3>new PTag(children)</h3>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><code>Array.&lt;string&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="SectionTag"></a></p>
+<h2>SectionTag ⇐ <a href="#Tag"><code>Tag</code></a></h2>
+<p><strong>Kind</strong>: global typedef<br>
+<strong>Extends</strong>: <a href="#Tag"><code>Tag</code></a><br>
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><code>Array.&lt;(HeaderTag|FooterTag|UlTag|PTag|BrTag|InputTag|LabelTag)&gt;</code></td>
+</tr>
+<tr>
+<td>attrs</td>
+<td><a href="#SectionTagAttrs"><code>SectionTagAttrs</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a name="new_SectionTag_new"></a></p>
+<h3>new SectionTag(children, attrs)</h3>
+<p>Instantiates a new SectionTag. A SectionTag may represent a step in a form,
+a menu or a block of text. A user will always receive the content of a
+SectionTag at a time.</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><code>Array.&lt;(PTag|BrTag|UlTag|LabelTag|HeaderTag|FooterTag|InputTag)&gt;</code></td>
+</tr>
+<tr>
+<td>attrs</td>
+<td><a href="#SectionTagAttrs"><code>SectionTagAttrs</code></a></td>
+</tr>
+</tbody>
+</table>
+<p><a name="Tag"></a></p>
+<h2>Tag</h2>
+<p><strong>Kind</strong>: global typedef<br>
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><a href="#Tag"><code>Array.&lt;Tag&gt;</code></a> | <code>undefined</code></td>
+</tr>
+<tr>
+<td>attrs</td>
+<td><code>Object</code> | <code>undefined</code></td>
+</tr>
+<tr>
+<td>tagName</td>
+<td><code>string</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><a href="#Tag">Tag</a>
+<ul>
+<li><a href="#new_Tag_new">new Tag(children, attrs)</a></li>
+<li><a href="#Tag.fromNode">.fromNode(node)</a> ⇒ <a href="#FormTag"><code>FormTag</code></a> | <a href="#SectionTag"><code>SectionTag</code></a> | <a href="#UlTag"><code>UlTag</code></a> | <a href="#LiTag"><code>LiTag</code></a> | <a href="#ATag"><code>ATag</code></a> | <a href="#PTag"><code>PTag</code></a> | <a href="#BrTag"><code>BrTag</code></a> | <a href="#HeaderTag"><code>HeaderTag</code></a> | <a href="#FooterTag"><code>FooterTag</code></a> | <a href="#InputTag"><code>InputTag</code></a> | <a href="#LabelTag"><code>LabelTag</code></a></li>
+<li><a href="#Tag.getAttributes">.getAttributes(node)</a> ⇒ <code>Object</code> | <code>undefined</code></li>
+</ul>
+</li>
+</ul>
+<p><a name="new_Tag_new"></a></p>
+<h3>new Tag(children, attrs)</h3>
+<p>Instantiates a Tag</p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><a href="#Tag"><code>Array.&lt;Tag&gt;</code></a> | <code>undefined</code></td>
+</tr>
+<tr>
+<td>attrs</td>
+<td><code>Object</code> | <code>undefined</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="Tag.fromNode"></a></p>
+<h3>Tag.fromNode(node) ⇒ <a href="#FormTag"><code>FormTag</code></a> | <a href="#SectionTag"><code>SectionTag</code></a> | <a href="#UlTag"><code>UlTag</code></a> | <a href="#LiTag"><code>LiTag</code></a> | <a href="#ATag"><code>ATag</code></a> | <a href="#PTag"><code>PTag</code></a> | <a href="#BrTag"><code>BrTag</code></a> | <a href="#HeaderTag"><code>HeaderTag</code></a> | <a href="#FooterTag"><code>FooterTag</code></a> | <a href="#InputTag"><code>InputTag</code></a> | <a href="#LabelTag"><code>LabelTag</code></a></h3>
+<p><strong>Kind</strong>: static method of <a href="#Tag"><code>Tag</code></a></p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>node</td>
+<td><code>HTMLElement</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="Tag.getAttributes"></a></p>
+<h3>Tag.getAttributes(node) ⇒ <code>Object</code> | <code>undefined</code></h3>
+<p>Returns the attributes specific to a certain tag</p>
+<p><strong>Kind</strong>: static method of <a href="#Tag"><code>Tag</code></a></p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>node</td>
+<td><code>HTMLElement</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="UlTag"></a></p>
+<h2>UlTag ⇐ <a href="#Tag"><code>Tag</code></a></h2>
+<p><strong>Kind</strong>: global typedef<br>
+<strong>Extends</strong>: <a href="#Tag"><code>Tag</code></a><br>
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><a href="#LiTag"><code>Array.&lt;LiTag&gt;</code></a></td>
+</tr>
+<tr>
+<td>attrs</td>
+<td><code>undefined</code></td>
+</tr>
+</tbody>
+</table>
+<p><a name="new_UlTag_new"></a></p>
+<h3>new UlTag(children)</h3>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>children</td>
+<td><a href="#LiTag"><code>Array.&lt;LiTag&gt;</code></a></td>
+</tr>
+</tbody>
+</table>
+    </article>
+  </section>
+
+
+    
+
+
+  </div>
+
+  <br class="clear">
+
+  <footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a>
+  </footer>
+
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/pagelocation.js"></script>
+
+  
+
+</body>
+</html>
