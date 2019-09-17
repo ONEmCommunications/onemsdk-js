@@ -1,10 +1,16 @@
 {
     "tags": {
         "allowUnknownTags": true,
-        "dictionaries": ["jsdoc"]
+        "dictionaries": [
+            "jsdoc"
+        ]
     },
     "source": {
-        "include": ["src", "package.json", "README.md"],
+        "include": [
+            "src/index.js",
+            "package.json",
+            "README.md"
+        ],
         "includePattern": ".js$",
         "excludePattern": "(node_modules/|docs)"
     },
@@ -14,7 +20,7 @@
     "templates": {
         "cleverLinks": true,
         "monospaceLinks": true,
-        "referenceTitle": "ONEm Node.js SDK",
+        "referenceTitle": "NodeJS ONEm SDK",
         "disableSort": false,
         "collapse": true
     },
