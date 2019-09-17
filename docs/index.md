@@ -59,4 +59,3 @@
     - `MenuMeta` can contain `autoSelect`
     - `FormItemMenuMeta` can contain `autoSelect`, `multiSelect` and `numbered`
     - these attributes have origin in `<section>` tag
----
