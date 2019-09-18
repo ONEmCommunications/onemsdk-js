@@ -10,7 +10,7 @@ const Tag = require('./tag').Tag;
 
 /**
  *
- * @param {('text'|'date'|'datetime'|'number'|'hidden')} type
+ * @param {('text'|'date'|'datetime'|'number'|'hidden'|'email'|'url'|'location')} type
  * @param {number} [min]
  * @param {string} [minError]
  * @param {number} [minlength must be an integer]
@@ -26,9 +26,6 @@ const Tag = require('./tag').Tag;
 function InputTagAttrs(type, min, minError, minlength, minlengthError,
                        max, maxError, maxlength, maxlengthError, step, value) {
     this.type = type;
-    if (this.type === 'hidden' && value === undefined) {
-        throw Error('value is required when type="hidden"');
-    }
     this.min = min;
     this.minError = minError;
     this.minlength = minlength;
@@ -39,7 +36,6 @@ function InputTagAttrs(type, min, minError, minlength, minlengthError,
     this.maxlengthError = maxlengthError;
     this.step = step;
     this.value = value;
-
 }
 
 /**

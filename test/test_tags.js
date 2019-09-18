@@ -302,19 +302,4 @@ describe('Test tags', function () {
             });
         });
     });
-
-    describe('InputTag', function () {
-        describe('InputTag.fromNode()', function () {
-            it('should throw error for type="hidden" and no value', function () {
-                const html = '<input type="hidden"/>';
-                const parsedHtml = parser.parse(html);
-
-                function iThrow() {
-                    return InputTag.fromNode(parsedHtml.childNodes[0]);
-                }
-
-                assert.throws(iThrow, Error, 'value is required when type="hidden"');
-            })
-        })
-    })
 });

@@ -6,6 +6,12 @@
 
 ## History
 
+- HTML API:
+    - Added new `<input>` types: "email", "location", "url".
+- NodeJS API:
+    - Added new `FormItem` types: "email", "location", "url".
+- Added tests
+
 ---
 ### 0.7.0
 - NodeJS API

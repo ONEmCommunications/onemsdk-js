@@ -5,6 +5,7 @@ const tags = require("../src/tag");
 
 const schema = require("../src/index");
 const Form = schema.Form,
+    FormItem = schema.FormItem,
     Response = schema.Response;
 
 const parser = require("../src/parser");
@@ -335,6 +336,68 @@ describe('Test schema', function () {
                 assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
             });
         });
+    });
+
+    describe('FormItem', function () {
+        describe('FormItem.fromTag', function () {
+            it('should raise error for invalid type in fromTag()', function () {
+                const html = '' +
+                    '<section name="name">' +
+                    '   <input type="blabla"/>' +
+                    '</section>';
+                const sectionTag = parser.loadHtml(undefined, html);
+
+                function iThrow() {
+                    return FormItem.fromTag(sectionTag);
+                }
+
+                assert.throws(iThrow, Error, '<input/> type "blabla" is not supported');
+            });
+
+            it('should correctly parse int and float from number', function () {
+                let html = '' +
+                    '<section name="something">' +
+                    '   <input type="number" step="1"/>' +
+                    '</section>';
+                let sectionTag = parser.loadHtml(undefined, html);
+                let formItem = FormItem.fromTag(sectionTag);
+
+                assert.equal(formItem.type, 'int');
+
+                html = '' +
+                    '<section name="something">' +
+                    '   <input type="number"/>' +
+                    '</section>';
+                sectionTag = parser.loadHtml(undefined, html);
+                formItem = FormItem.fromTag(sectionTag);
+
+                assert.equal(formItem.type, 'float');
+            });
+
+            it('should throw error for type="hidden" and no value', function () {
+                const html = '' +
+                    '<section name="name">' +
+                    '   <input type="hidden"/>' +
+                    '</section>';
+                const sectionTag = parser.loadHtml(undefined, html);
+
+                function iThrow() {
+                    return FormItem.fromTag(sectionTag);
+                }
+
+                assert.throws(iThrow, Error, 'value attribute is required for input type="hidden"');
+            })
+        });
+
+        describe('FormItem.constructor', function () {
+            it('should raise error for invalid type in constructor', function () {
+                function iThrow() {
+                    return new FormItem({type: 'blabla'});
+                }
+
+                assert.throws(iThrow, Error, 'FormItem type="blabla" is not supported. Supported types: date,datetime,email,form-menu,float,hidden,int,location,string,url');
+            })
+        })
     });
 
     describe('Response', function () {

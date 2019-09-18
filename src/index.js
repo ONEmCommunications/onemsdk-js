@@ -158,7 +158,8 @@ function FormMeta(props) {
  * @classdesc A FormItem object as defined in the JSON schema
  *
  * @param {object} props - Properties to initialize the form item with
- * @param {('string'|'date'|'datetime'|'int'|'float'|'hidden'|'form-menu')} props.type - Sets {@link FormItem#type}
+ * @param {('string'|'date'|'datetime'|'int'|'float'|'hidden'|'form-menu'|
+ * 'email'|'url'|'location')} props.type - Sets {@link FormItem#type}
  * @param {string} props.name - Sets {@link FormItem#name}
  * @param {string} props.description - Sets {@link FormItem#description}
  * @param {string} [props.header] - Sets {@link FormItem#header}
@@ -194,6 +195,16 @@ function FormItem(props) {
      @type {string}
      */
     this.type = props.type;
+
+    const supportedTypes = [
+        'date', 'datetime', 'email', 'form-menu', 'float', 'hidden', 'int',
+        'location', 'string', 'url'
+    ];
+
+    if (supportedTypes.indexOf(this.type) === -1) {
+        throw Error(`FormItem type="${this.type}" is not supported. Supported types: ${supportedTypes}`);
+    }
+
     /**
      This is the FormItem's name. Each form item name must be unique within the same form.
 
@@ -236,6 +247,13 @@ function FormItem(props) {
      @type {string}
      */
     this.value = props.value || null;
+
+    if (this.value == null) {
+        if (this.type === 'hidden') {
+            throw Error('value is required when type="hidden"');
+        }
+    }
+
     /**
      This is the FormItem's chunking footer.
 
@@ -424,8 +442,17 @@ FormItem.fromTag = function (sectionTag) {
                     case 'datetime':
                         formItemType = 'datetime';
                         break;
+                    case 'url':
+                        formItemType = 'url';
+                        break;
+                    case 'email':
+                        formItemType = 'email';
+                        break;
+                    case 'location':
+                        formItemType = 'location';
+                        break;
                     default:
-                        throw Error(`<input/> type "#{type}" is not supported`);
+                        throw Error(`<input/> type "${inputType}" is not supported`);
                 }
             }
 
