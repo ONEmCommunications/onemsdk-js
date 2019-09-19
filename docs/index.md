@@ -2,10 +2,13 @@
 
 ## Versions
 
+- [0.8.0](0.8.0)
 - [0.7.0](0.7.0)
 
 ## History
 
+---
+### 0.8.0
 - HTML API:
     - Added new `<input>` types: "email", "location", "url".
 - NodeJS API:
