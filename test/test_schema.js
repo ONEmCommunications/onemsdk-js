@@ -386,6 +386,66 @@ describe('Test schema', function () {
                 }
 
                 assert.throws(iThrow, Error, 'value attribute is required for input type="hidden"');
+            });
+
+            it('should correctly parse complex section tag', function () {
+                const html = '' +
+                    '<section name="first-step"' +
+                    '         header="The header"' +
+                    '         footer="The footer"' +
+                    '         chunking-footer="Chunking footer"' +
+                    '         confirmation-label="Conf label"' +
+                    '         method="PATCH"' +
+                    '         status-exclude' +
+                    '         url="https://url.url"' +
+                    '         validate-type-error="The validate type err"' +
+                    '         validate-type-error-footer="The val type err footer"' +
+                    '         validate-url="The val url"' +
+                    '         auto-select' +
+                    '         numbered' +
+                    '         required>' +
+                    '   <input type="email"' +
+                    '          minlength="3"' +
+                    '          minlength-error="The minlen error"' +
+                    '          maxlength="100"' +
+                    '          maxlength-error="The maxlen error" />' +
+                    '</section>';
+                const sectionTag = parser.loadHtml(undefined, html);
+                const formItem = FormItem.fromTag(sectionTag);
+                const expected = {
+                    "type": "email",
+                    "name": "first-step",
+                    "description": "",
+                    "header": "The header",
+                    "footer": "The footer",
+                    "body": null,
+                    "value": null,
+                    "chunking_footer": "Chunking footer",
+                    "confirmation_label": "Conf label",
+                    "min_length": 3,
+                    "min_length_error": "The minlen error",
+                    "max_length": 100,
+                    "max_length_error": "The maxlen error",
+                    "min_value": null,
+                    "min_value_error": null,
+                    "max_value": null,
+                    "max_value_error": null,
+                    "meta": {
+                        "auto_select": true,
+                        "multi_select": false,
+                        "numbered": true
+                    },
+                    "method": "PATCH",
+                    "required": true,
+                    "status_exclude": true,
+                    "status_prepend": false,
+                    "url": "https://url.url",
+                    "validate_type_error": "The validate type err",
+                    "validate_type_error_footer": "The val type err footer",
+                    "validate_url": "The val url"
+                };
+
+                assert.equal(JSON.stringify(snakecase(formItem)), JSON.stringify(expected));
             })
         });
 
