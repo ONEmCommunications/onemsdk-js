@@ -218,7 +218,7 @@ function FormItem(props) {
      @name FormItem#description
      @type {string}
      */
-    this.description = props.description;
+    this.description = props.description || "";  // description is required so it cannot be null
     /**
      This is the FormItem's header. If defined, it overrides {@link Form#header}.
 
@@ -414,7 +414,8 @@ FormItem.fromTag = function (sectionTag) {
         maxValueError,
         maxLength,
         maxLengthError,
-        formItemType;
+        formItemType,
+        description;
 
     for (const child of sectionTag.children) {
         if (child instanceof InputTag) {
@@ -464,13 +465,25 @@ FormItem.fromTag = function (sectionTag) {
             maxValueError = child.attrs.maxError;
             maxLength = child.attrs.maxlength;
             maxLengthError = child.attrs.maxlengthError;
+            description = sectionTag.toString(true, true);
 
             break; // ignore other <input> tags if exist
         }
         if (child instanceof UlTag) {
             formItemType = 'form-menu';
-            for (const li of child.children) {
-                body.push(MenuItemFormItem.fromTag(li));
+            // reiterate through the section's children to render them in body
+            for (const child2 of sectionTag.children) {
+                if (child2 instanceof UlTag) {
+                    for (const li of child2.children) {
+                        body.push(MenuItemFormItem.fromTag(li));
+                    }
+                } else if (child2 instanceof HeaderTag) {
+
+                } else if (child2 instanceof FooterTag) {
+
+                } else {
+                    body.push(MenuItemFormItem.fromTag(child2));
+                }
             }
             break;
         }
@@ -492,7 +505,7 @@ FormItem.fromTag = function (sectionTag) {
     return new FormItem({
         type: formItemType,
         name: sectionTag.attrs.name,
-        description: sectionTag.toString(true, true),
+        description: description,
         header: header || sectionTag.attrs.header,
         footer: footer || sectionTag.attrs.footer,
         body: body.length === 0 ? undefined : body,
@@ -521,7 +534,8 @@ FormItem.fromTag = function (sectionTag) {
         validateTypeErrorFooter: sectionTag.attrs.validateTypeErrorFooter,
         validateUrl: sectionTag.attrs.validateUrl
     });
-};
+}
+;
 
 
 /**
@@ -597,7 +611,7 @@ function MenuItemFormItem(props) {
      @name MenuItemFormItem#description
      @type {string}
      */
-    this.description = props.description;
+    this.description = (props.description === undefined) ? null : props.description;
 
     /**
      The value of this MenuItemFormItem, used in form serialization.

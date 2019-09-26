@@ -255,10 +255,16 @@ describe('Test schema', function () {
                             {
                                 "type": "form-menu",
                                 "name": "step2",
-                                "description": "Choose your city:\nUK\nLondon\nManchester\nFR\nParis\nNice",
+                                "description": "",
                                 "header": "SETUP CITY",
                                 "footer": "Reply A-D",
                                 "body": [
+                                    {
+                                        "type": "content",
+                                        "description": "Choose your city:",
+                                        "value": null,
+                                        "text_search": null
+                                    },
                                     {
                                         "type": "option",
                                         "description": "UK",
@@ -486,7 +492,7 @@ describe('Test schema', function () {
                         {
                             "type": "form-menu",
                             "name": "step1",
-                            "description": "First item\nSecond item",
+                            "description": "",
                             "header": null,
                             "footer": null,
                             "body": [
