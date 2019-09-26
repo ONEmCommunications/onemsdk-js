@@ -2,11 +2,17 @@
 
 ## Versions
 
+- [0.8.2](0.8.2)
 - [0.8.1](0.8.1)
 - [0.8.0](0.8.0)
 - [0.7.0](0.7.0)
 
 ## History
+
+---
+#### 0.8.2
+- Bug fixes:
+    - `FormItem` could contain null body items for HTML tags
 
 ---
 #### 0.8.1
