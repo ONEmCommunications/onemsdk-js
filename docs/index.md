@@ -2,10 +2,16 @@
 
 ## Versions
 
+- [0.8.1](0.8.1)
 - [0.8.0](0.8.0)
 - [0.7.0](0.7.0)
 
 ## History
+
+---
+#### 0.8.1
+- Bug fixes:
+    - `FormItem` of type `form-menu` was rendering the options twice
 
 ---
 ### 0.8.0
