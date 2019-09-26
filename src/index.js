@@ -471,18 +471,25 @@ FormItem.fromTag = function (sectionTag) {
         }
         if (child instanceof UlTag) {
             formItemType = 'form-menu';
+            let menuItemFormItem;
             // reiterate through the section's children to render them in body
             for (const child2 of sectionTag.children) {
                 if (child2 instanceof UlTag) {
                     for (const li of child2.children) {
-                        body.push(MenuItemFormItem.fromTag(li));
+                        menuItemFormItem = MenuItemFormItem.fromTag(li);
+                        if (menuItemFormItem !== undefined) {
+                            body.push(menuItemFormItem);
+                        }
                     }
                 } else if (child2 instanceof HeaderTag) {
 
                 } else if (child2 instanceof FooterTag) {
 
                 } else {
-                    body.push(MenuItemFormItem.fromTag(child2));
+                    menuItemFormItem = MenuItemFormItem.fromTag(child2);
+                    if (menuItemFormItem !== undefined) {
+                        body.push(menuItemFormItem);
+                    }
                 }
             }
             break;

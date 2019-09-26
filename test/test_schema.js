@@ -471,10 +471,12 @@ describe('Test schema', function () {
 
             const html = '<form header="Form header" confirmation-needed method="PATCH" action="/route">' +
                 '<section name="step1" numbered required auto-select>' +
+                '   <p></p>' +
                 '   <ul>' +
                 '       <li value="first" text-search="Context for first item">First item</li>' +
                 '       <li value="second">Second item</li>' +
                 '   </ul>' +
+                '   <p></p>' +
                 '</section>' +
                 '<section name="step2" method="POST" confirmation-label="confirmation label" required>' +
                 '   <label>A question</label>' +
