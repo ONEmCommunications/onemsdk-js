@@ -23,10 +23,16 @@ describe('Test schema', function () {
                 const html = '' +
                     '<section header="Some header" footer="Some footer" name="some-name" auto-select>' +
                     '   <ul>' +
-                    '       <li text-search="route1 route 1"><a href="/route1" method="POST">Route 1</a></li>' +
-                    '       <li text-search="route2 route 2"><a href="/route2">Route 2</a></li>' +
+                    '       <li text-search="route1 route 1">' +
+                    '           <a href="/route1" method="POST">Route 1</a>' +
+                    '       </li>' +
+                    '       <li text-search="route2 route 2">' +
+                    '           <a href="/route2">Route 2</a>' +
+                    '       </li>' +
                     '       <li>Separator</li>' +
-                    '       <li text-search="route 3 route3"><a href="/route3">Route 3</a></li>' +
+                    '       <li text-search="route 3 route3">' +
+                    '           <a href="/route3">Route 3</a>' +
+                    '       </li>' +
                     '   </ul>' +
                     '</section>';
                 const rootTag = parser.loadHtml(undefined, html);
@@ -78,7 +84,8 @@ describe('Test schema', function () {
 
             it('should recognize header/footer as attrs and as children', function () {
                 let html = '' +
-                    '<section header="header attr" footer="footer attr"><p></p>' +
+                    '<section header="header attr" footer="footer attr">' +
+                    '   <p></p>' +
                     '</section>';
                 let rootTag = parser.loadHtml(undefined, html);
                 let response = Response.fromTag(rootTag);
@@ -98,8 +105,8 @@ describe('Test schema', function () {
 
                 html = '' +
                     '<section>' +
-                    '<header>header child</header>' +
-                    '<footer>footer child</footer>' +
+                    '   <header>header child</header>' +
+                    '   <footer>footer child</footer>' +
                     '</section>';
                 rootTag = parser.loadHtml(undefined, html);
                 response = Response.fromTag(rootTag);
@@ -121,7 +128,7 @@ describe('Test schema', function () {
             it('should ignore attr header/footer if they are present in children', function () {
                 let html = '' +
                     '<section header="header attr" footer="footer attr">' +
-                    '<header>header child</header>' +
+                    '   <header>header child</header>' +
                     '</section>';
                 let rootTag = parser.loadHtml(undefined, html);
                 let response = Response.fromTag(rootTag);
@@ -204,7 +211,9 @@ describe('Test schema', function () {
                     '<form action="/route">' +
                     '   <section name="name">' +
                     '       <p>This is paragraph</p>' +
+                    '       <p></p>' +
                     '       <input type="text"/>' +
+                    '       <p></p>' +
                     '   </section>' +
                     '</form>';
                 const formTag = parser.loadHtml(undefined, html);
@@ -480,12 +489,15 @@ describe('Test schema', function () {
                 '</section>' +
                 '<section name="step2" method="POST" confirmation-label="confirmation label" required>' +
                 '   <label>A question</label>' +
+                '   <p></p>' +
                 '   <input type="number" step="1" />' +
+                '   <p></p>' +
+                '   <input type="location" />' +
                 '</section>' +
                 '</form>';
 
             const formTag = parser.loadHtml(undefined, html);
-            const response = Response.fromTag(formTag, 'alabama');
+            const response = Response.fromTag(formTag);
             const expected = {
                 "content_type": "form",
                 "content": {
