@@ -16,7 +16,7 @@ const UlTag = tags.UlTag,
  @class Form
  @classdesc A Form object as defined in the JSON schema
 
- @param {object} props - Properties to initialize the Form with
+ @param {object} props - Properties to initialize the `Form` with
  @param {Array<FormItem>} props.body - Sets {@link Form#body}
  @param {('GET'|'POST'|'PUT'|'PATCH'|'DELETE'|'HEAD'|'OPTIONS'|'TRACE')} props.method='POST' - Sets {@link Form#method}
  @param {string} props.path - Sets {@link Form#path}
@@ -28,8 +28,9 @@ function Form(props) {
     if (!props.body || !props.path) {
         throw Error('(body, path) are mandatory');
     }
+
     /**
-     This is the Form's type
+     Indicates the type of the object, defaults to `"form"`
 
      @name Form#type
      @type {string}
@@ -37,46 +38,50 @@ function Form(props) {
      @readonly
      */
     this.type = 'form';
+
     /**
-     This is the Form's body
+     Sequence of {@link `FormItem`} objects used to acquire information from user
 
      @name Form#body
      @type {Array<FormItem>}
      */
     this.body = props.body;
+
     /**
-     This is the Form's method
+     HTTP method indicating how to trigger the callback path. Defaults to `"POST"`.
 
      @name Form#method
      @type {string}
      @default "POST"
      */
     this.method = props.method || 'POST';
+
     /**
-     This is the Form's path
+     The callback path used to send the serialized form data.
 
      @name Form#path
      @type {string}
      */
     this.path = props.path;
+
     /**
-     This is the Form's generic header. It is used in those `FormItem`s
-     which don't define a header.
+     The header of the form. It can be overwritten by each body component.
 
      @name Form#header
      @type {string}
      */
     this.header = props.header || null;
+
     /**
-     This is the Form's footer. It is inherited by those `FormItem`s
-     which don't define a footer.
+     The footer of the form. It can be overwritten by each body component.
 
      @name Form#footer
      @type {string}
      */
     this.footer = props.footer || null;
+
     /**
-     This is the Form's meta. It contains the form configuration
+     {@link FormMeta`} object. Contains configuration flags.
 
      @name Form#meta
      @type {FormMeta}
@@ -113,7 +118,7 @@ Form.fromTag = function (formTag) {
  Instantiates a new FormMeta
 
  @class FormMeta
- @classdesc A FormMeta object as defined in the JSON schema
+ @classdesc {@link Form} related component holding configuration fields for the form. A FormMeta object as defined in the JSON schema.
 
  @param {object} props - Properties to initialize the FormMeta with
  @param {boolean} [props.completionStatusShow] - Sets {@link FormMeta#completionStatusShow}
@@ -122,7 +127,7 @@ Form.fromTag = function (formTag) {
  */
 function FormMeta(props) {
     /**
-     Whether to show or not the completion status in each {@link FormItem}.
+     If `true` will show a completion status. Defaults to `false`.
 
      @name FormMeta#completionStatusShow
      @type {boolean}
@@ -131,8 +136,8 @@ function FormMeta(props) {
     this.completionStatusShow = props.completionStatusShow;
 
     /**
-     Whether to show or not the completion status in header. It has effect
-     only if {@link FormMeta#completionStatusShow} is `true`.
+     If `true` will indicate the status in the header. Defaults to `false`, which means it will be shown below
+     header if the completion status is shown.
 
      @name FormMeta#completionStatusInHeader
      @type {boolean}
@@ -141,7 +146,7 @@ function FormMeta(props) {
     this.completionStatusInHeader = props.completionStatusInHeader;
 
     /**
-     If `true` will not ask for confirmation.
+     If `true` will not ask for confirmation. Defaults to `false`.
 
      @name FormMeta#skipConfirmation
      @type {boolean}
@@ -189,7 +194,7 @@ function FormMeta(props) {
  */
 function FormItem(props) {
     /**
-     This is the FormItem's type
+     Indicates the type of the object.
 
      @name FormItem#type
      @type {string}
@@ -206,14 +211,15 @@ function FormItem(props) {
     }
 
     /**
-     This is the FormItem's name. Each form item name must be unique within the same form.
+     The name of this `FormItem`, used in form serialization.
 
      @name FormItem#name
      @type {string}
      */
     this.name = props.name;
+
     /**
-     This is the FormItem's displayed text.
+     The description of this `FormItem`.
 
      @name FormItem#description
      @type {string}
@@ -221,28 +227,31 @@ function FormItem(props) {
     this.description = props.description || null;
 
     /**
-     This is the FormItem's header. If defined, it overrides {@link Form#header}.
+     If provided will overwrite the {@link Form#header}.
 
      @name FormItem#header
      @type {string}
      */
     this.header = props.header || null;
+
     /**
-     This is the FormItem's footer. If defined, it overrides {@link Form#footer}.
+     If provided will overwrite the {@link Form#footer}.
 
      @name FormItem#footer
      @type {string}
      */
     this.footer = props.footer || null;
+
     /**
-     This is the FormItem's body.
+     Composed of {@link MenuItemFormItem} objects <br> _required only for `type=form-menu`_.
 
      @name FormItem#body
      @type {Array<MenuItemFormItem>}
      */
     this.body = props.body || null;
+
     /**
-     `value` must be set only if {@link FormItem#type} is `hidden`.
+     Value to pass in the form serialization data <br> _applies only for `type=hidden`_.
 
      @name FormItem#value
      @type {string}
@@ -256,95 +265,103 @@ function FormItem(props) {
     }
 
     /**
-     This is the FormItem's chunking footer.
+     Shown in the footer of the sms chunks.
 
      @name FormItem#chunkingFooter
      @type {string}
      */
     this.chunkingFooter = props.chunkingFooter || null;
+
     /**
-     This is the FormItem's confirmation label.
+     Shown in the confirmation menu.
 
      @name FormItem#confirmationLabel
      @type {string}
      */
     this.confirmationLabel = props.confirmationLabel || null;
+
     /**
-     This defines the minimum length of the input if {@link FormItem#type}
-     is `string`. It must be an integer.
+     Validates the user input <br> _applies only for `type=string`_.
 
      @name FormItem#minLength
      @type {number}
      */
     this.minLength = props.minLength || null;
+
     /**
-     This is the error for {@link FormItem#minLength}.
+     Message to be shown on `minLength` error.
 
      @name FormItem#minLengthError
      @type {string}
      */
     this.minLengthError = props.minLengthError || null;
+
     /**
-     This defines the maximum length of the input if {@link FormItem#type}
-     is `string`. It must be an integer.
+     Validates the user input <br> _applies only for `type=string`_.
 
      @name FormItem#maxLength
      @type {number}
      */
     this.maxLength = props.maxLength || null;
+
     /**
-     This is the error for {@link FormItem#maxLength}.
+     Message to be shown on `maxLength` error.
 
      @name FormItem#maxLengthError
      @type {string}
      */
     this.maxLengthError = props.maxLengthError || null;
+
     /**
-     This defines the minimum value of the input if {@link FormItem#type}
-     is `int` or `float`.
+     Validates the user input <br> _applies only for `type=int|float`_.
 
      @name FormItem#minValue
      @type {number}
      */
     this.minValue = props.minValue || null;
+
     /**
-     This is the error for {@link FormItem#minValue}.
+     Message to be shown on `minValue` error.
 
      @name FormItem#minValueError
      @type {string}
      */
     this.minValueError = props.minValueError || null;
+
     /**
-     This defines the maximum value of the input if {@link FormItem#type}
-     is `int` or `float`.
+     Validates the user input <br> _applies only for `type=int|float`_.
 
      @name FormItem#maxValue
      @type {number}
      */
     this.maxValue = props.maxValue || null;
-    /**
-     This is the error for {@link FormItem#maxValue}.
 
-     @name FormItem#minValueError
+    /**
+     Message to be shown on `maxValue` error.
+
+     @name FormItem#maxValueError
      @type {string}
      */
     this.maxValueError = props.maxValueError || null;
+
     /**
-     This must be defined if {@link FormItem#type} is `form-item`.
+     {@link MenuFormItemMeta} object <br> _applies only for `type=form-menu`_.
 
      @name FormItem#meta
      @type {MenuFormItemMeta}
      */
     this.meta = props.meta || null;
+
     /**
-     This is the FormItem's method.
+     HTTP method, how the callback url should be triggered.
 
      @name FormItem#method
      @type {string}
      */
     this.method = props.method || null;
+
     /**
-     Whether the form item is required to be answered or not.
+     User can `SKIP` this `FormItem` if set to `false`
 
      @name FormItem#required
      @type {boolean}
@@ -353,7 +370,7 @@ function FormItem(props) {
     this.required = props.required || false;
 
     /**
-     ECMAScript regex to validate user's input against
+     ECMA Script regex pattern string <br> _applies only for `type=regex`_.
 
      @name FormItem#pattern
      @type {string|null}
@@ -364,44 +381,53 @@ function FormItem(props) {
     "".match(new RegExp(this.pattern));
 
     /**
-     Whether the form item's status should be excluded or not.
+     If `true` this step will be excluded from the form completion status.
 
      @name FormItem#statusExclude
      @type {boolean}
      @default false
      */
     this.statusExclude = props.statusExclude || false;
+
     /**
-     Whether the form item's status should be prepended or not.
+     If `true` this step will be prepended to the body of the response. Appended otherwise.
 
      @name FormItem#statusPrepend
      @type {boolean}
      @default false
      */
     this.statusPrepend = props.statusPrepend || false;
+
     /**
-     This is the FormItem's url.
+     Callback url triggered right after the choice has been set for this form item.
 
      @name FormItem#url
      @type {string}
      */
     this.url = props.url || null;
+
     /**
-     This is the FormItem's validation type error.
+     An error message to be shown on basic type validation.
 
      @name FormItem#validateTypeError
      @type {string}
      */
     this.validateTypeError = props.validateTypeError || null;
+
     /**
-     This is the FormItem's validation type error footer.
+     Shown in the error message footer.
 
      @name FormItem#validateTypeErrorFooter
      @type {string}
      */
     this.validateTypeErrorFooter = props.validateTypeErrorFooter || null;
+
     /**
-     This is the FormItem's validation url.
+     The callback url path `"GET"` triggered to validate user input.
+     <br> A query string is sent by ONEm: `?form_item_name=user_input`
+     <br> The validate_url must return a json response:
+     `{"valid": true/false, "error": "Some message in case of
+     validation errors"}`.
 
      @name FormItem#validateUrl
      @type {string}
@@ -903,10 +929,9 @@ MenuItem.fromTag = function (tag) {
  *
  * @class Response
  * @classdesc A Response object as defined in the JSON schema. It can be
- * built only from a top level object (Menu, Form).
+ * built only from a top level object ({@link Menu}, {@link Form}).
  *
- * @param {Form|Menu} content - A {@link Menu} or a {@link Form} to
- * initialize the response with.
+ * @param {Form|Menu} content - The content of the response. Either {@link Form} or a {@link Menu}.
  */
 function Response(content) {
     if (!content) {
