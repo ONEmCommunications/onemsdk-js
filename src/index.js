@@ -104,7 +104,7 @@ Form.fromTag = function (formTag) {
         meta: new FormMeta({
             completionStatusShow: formTag.attrs.completionStatusShow,
             completionStatusInHeader: formTag.attrs.completionStatusInHeader,
-            confirmationNeeded: formTag.attrs.confirmationNeeded
+            skipConfirmation: formTag.attrs.skipConfirmation
         })
     });
 };
@@ -118,7 +118,7 @@ Form.fromTag = function (formTag) {
  @param {object} props - Properties to initialize the FormMeta with
  @param {boolean} [props.completionStatusShow] - Sets {@link FormMeta#completionStatusShow}
  @param {boolean} [props.completionStatusInHeader] - Sets {@link FormMeta#completionStatusInHeader}
- @param {boolean} [props.confirmationNeeded] - Sets {@link FormMeta#confirmationNeeded}
+ @param {boolean} [props.skipConfirmation] - Sets {@link FormMeta#skipConfirmation}
  */
 function FormMeta(props) {
     /**
@@ -141,14 +141,13 @@ function FormMeta(props) {
     this.completionStatusInHeader = props.completionStatusInHeader;
 
     /**
-     Whether to show an extra step at the end of the {@link Form} to visualize
-     and check the form responses.
+     If `true` will not ask for confirmation.
 
-     @name FormMeta#confirmationNeeded
+     @name FormMeta#skipConfirmation
      @type {boolean}
      @default false
      */
-    this.confirmationNeeded = props.confirmationNeeded;
+    this.skipConfirmation = props.skipConfirmation;
 }
 
 /**

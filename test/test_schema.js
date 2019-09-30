@@ -346,7 +346,7 @@ describe('Test schema', function () {
                         "meta": {
                             "completion_status_show": false,
                             "completion_status_in_header": true,
-                            "confirmation_needed": false
+                            "skip_confirmation": false
                         }
                     }
                 };
@@ -482,7 +482,7 @@ describe('Test schema', function () {
     describe('Response', function () {
         it('should return the correct Response object', function () {
 
-            const html = '<form header="Form header" confirmation-needed method="PATCH" action="/route">' +
+            const html = '<form header="Form header" skip-confirmation method="PATCH" action="/route">' +
                 '<section name="step1" numbered required auto-select>' +
                 '   <p></p>' +
                 '   <ul>' +
@@ -594,7 +594,7 @@ describe('Test schema', function () {
                     "meta": {
                         "completion_status_show": false,
                         "completion_status_in_header": false,
-                        "confirmation_needed": true
+                        "skip_confirmation": true
                     }
                 }
             };

@@ -32,24 +32,24 @@ describe('Test tags', function () {
             });
 
             it('should work with camelCase and dash attributes', function () {
-                const html = '<form action="/route" completionStatusShow="true" confirmation-needed="false">' +
+                const html = '<form action="/route" completionStatusShow="true" skip-confirmation="false">' +
                     '<section name="name"><p>Some content</p></section></form>';
                 const parsedHtml = parser.parse(html);
                 const form = FormTag.fromNode(parsedHtml.childNodes[0]);
 
                 assert.strictEqual(form.attrs.completionStatusShow, true);
-                assert.strictEqual(form.attrs.confirmationNeeded, true);
+                assert.strictEqual(form.attrs.skipConfirmation, true);
                 assert.strictEqual(form.attrs.completionStatusInHeader, false);
             });
 
             it('should evaluate to true the present attributes, and to false the absent ones', function () {
-                const html = '<form action="/route" completionStatusShow="non-boolean" confirmation-needed="True">' +
+                const html = '<form action="/route" completionStatusShow="non-boolean" skip-confirmation="True">' +
                     '<section name="name"><p>Some content</p></section></form>';
                 const parsedHtml = parser.parse(html);
                 const form = FormTag.fromNode(parsedHtml.childNodes[0]);
 
                 assert.strictEqual(form.attrs.completionStatusShow, true);
-                assert.strictEqual(form.attrs.confirmationNeeded, true);
+                assert.strictEqual(form.attrs.skipConfirmation, true);
                 assert.strictEqual(form.attrs.completionStatusInHeader, false);
             });
 

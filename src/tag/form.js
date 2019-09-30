@@ -21,12 +21,12 @@ const SectionTag = require("./section").SectionTag;
  * progress the user made in a form
  * @param {boolean|undefined} completionStatusInHeader whether to display
  * that progress in header (if false it will be displayed in body)
- * @param {boolean|undefined} confirmationNeeded whether the user will receive
- * a form confirmation at the end of the form
+ * @param {boolean|undefined} skipConfirmation whether the additional confirmation
+ * step at the end of the form will be skipped
  * @constructor
  */
 function FormTagAttrs(action, method, header, footer, completionStatusShow,
-                      completionStatusInHeader, confirmationNeeded) {
+                      completionStatusInHeader, skipConfirmation) {
     if (!action) {
         throw Error('(action) is a required attribute for <form>');
     }
@@ -37,7 +37,7 @@ function FormTagAttrs(action, method, header, footer, completionStatusShow,
     this.footer = null;
     this.completionStatusInHeader = completionStatusInHeader;
     this.completionStatusShow = completionStatusShow;
-    this.confirmationNeeded = confirmationNeeded;
+    this.skipConfirmation = skipConfirmation;
 
     if (typeof header === 'string') {
         this.header = header;
@@ -84,8 +84,8 @@ FormTag.getAttributes = function (node) {
         node.attributes.hasOwnProperty('completion-status-show');
     const completionStatusInHeader = node.attributes.hasOwnProperty('completionStatusInHeader') ||
         node.attributes.hasOwnProperty('completion-status-in-header');
-    const confirmationNeeded = node.attributes.hasOwnProperty('confirmationNeeded') ||
-        node.attributes.hasOwnProperty('confirmation-needed');
+    const skipConfirmation = node.attributes.hasOwnProperty('skipConfirmation') ||
+        node.attributes.hasOwnProperty('skip-confirmation');
 
     return new FormTagAttrs(
         node.attributes.action,
@@ -94,7 +94,7 @@ FormTag.getAttributes = function (node) {
         node.attributes.footer,
         completionStatusShow,
         completionStatusInHeader,
-        confirmationNeeded,
+        skipConfirmation,
     );
 };
 

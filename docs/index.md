@@ -11,8 +11,10 @@
 
 - HTML API:
     - Support for `pattern` attribute for `<input>` tag
+    - Renamed `<form>`'s attribute `confirmation-needed` to `skip-confirmation`, which defaults to `false`.
 - NodeJS API & schema JSON:
     - Added `FormItem.pattern` attribute
+    - Renamed `FormItem.confirmationNeeded` to `FormItem.skipConfirmation`, which says the opposite and defaults to `false`.
 
 ---
 #### 0.8.2
