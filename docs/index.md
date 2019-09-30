@@ -15,6 +15,7 @@
 - NodeJS API & schema JSON:
     - Added `FormItem.pattern` attribute
     - Renamed `FormItem.confirmationNeeded` to `FormItem.skipConfirmation`, which says the opposite and defaults to `false`.
+    - Make `FormItem.description` optional
 
 ---
 #### 0.8.2

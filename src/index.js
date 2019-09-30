@@ -160,7 +160,7 @@ function FormMeta(props) {
  * @param {('string'|'date'|'datetime'|'int'|'float'|'hidden'|'form-menu'|
  * 'email'|'url'|'location')} props.type - Sets {@link FormItem#type}
  * @param {string} props.name - Sets {@link FormItem#name}
- * @param {string} props.description - Sets {@link FormItem#description}
+ * @param {string} [props.description] - Sets {@link FormItem#description}
  * @param {string} [props.header] - Sets {@link FormItem#header}
  * @param {string} [props.footer] - Sets {@link FormItem#footer}
  * @param {Array<MenuItemFormItem>} [props.body] - Sets {@link FormItem#body}
@@ -218,7 +218,8 @@ function FormItem(props) {
      @name FormItem#description
      @type {string}
      */
-    this.description = props.description || "";  // description is required so it cannot be null
+    this.description = props.description || null;
+
     /**
      This is the FormItem's header. If defined, it overrides {@link Form#header}.
 

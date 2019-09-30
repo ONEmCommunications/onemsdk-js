@@ -265,7 +265,7 @@ describe('Test schema', function () {
                             {
                                 "type": "form-menu",
                                 "name": "step2",
-                                "description": "",
+                                "description": null,
                                 "header": "SETUP CITY",
                                 "footer": "Reply A-D",
                                 "body": [
@@ -433,7 +433,7 @@ describe('Test schema', function () {
                 const expected = {
                     "type": "email",
                     "name": "first-step",
-                    "description": "",
+                    "description": null,
                     "header": "The header",
                     "footer": "The footer",
                     "body": null,
@@ -510,7 +510,7 @@ describe('Test schema', function () {
                         {
                             "type": "form-menu",
                             "name": "step1",
-                            "description": "",
+                            "description": null,
                             "header": null,
                             "footer": null,
                             "body": [
