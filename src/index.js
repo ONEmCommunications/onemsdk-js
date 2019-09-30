@@ -179,6 +179,7 @@ function FormMeta(props) {
  * @param {MenuFormItemMeta} [props.meta] - Sets {@link FormItem#meta}
  * @param {string} [props.method] - Sets {@link FormItem#method}
  * @param {boolean} [props.required=false] - Sets {@link FormItem#required}
+ * @param {string} [props.pattern] - Sets {@link FormItem#pattern}
  * @param {boolean} [props.statusExclude=false] - Sets {@link FormItem#statusExclude}
  * @param {boolean} [props.statusPrepend=false] - Sets {@link FormItem#statusPrepend}
  * @param {string} [props.url] - Sets {@link FormItem#url}
@@ -350,6 +351,18 @@ function FormItem(props) {
      @default false
      */
     this.required = props.required || false;
+
+    /**
+     ECMAScript regex to validate user's input against
+
+     @name FormItem#pattern
+     @type {string|null}
+     */
+    this.pattern = props.pattern || null;
+
+    // Check if the pattern is valid. This will raise a SyntaxError if not.
+    "".match(new RegExp(this.pattern));
+
     /**
      Whether the form item's status should be excluded or not.
 
@@ -415,7 +428,8 @@ FormItem.fromTag = function (sectionTag) {
         maxLength,
         maxLengthError,
         formItemType,
-        description;
+        description,
+        pattern;
 
     for (const child of sectionTag.children) {
         if (child instanceof InputTag) {
@@ -466,6 +480,7 @@ FormItem.fromTag = function (sectionTag) {
             maxLength = child.attrs.maxlength;
             maxLengthError = child.attrs.maxlengthError;
             description = sectionTag.toString(true, true);
+            pattern = child.attrs.pattern;
 
             break; // ignore other <input> tags if exist
         }
@@ -482,9 +497,9 @@ FormItem.fromTag = function (sectionTag) {
                         }
                     }
                 } else if (child2 instanceof HeaderTag) {
-
+                    // Header is not rendered in section's tag body
                 } else if (child2 instanceof FooterTag) {
-
+                    // Footer is not rendered in section's tag body
                 } else {
                     menuItemFormItem = MenuItemFormItem.fromTag(child2);
                     if (menuItemFormItem !== undefined) {
@@ -534,6 +549,7 @@ FormItem.fromTag = function (sectionTag) {
         }),
         method: sectionTag.attrs.method,
         required: sectionTag.attrs.required,
+        pattern: pattern,
         statusExclude: sectionTag.attrs.statusExclude,
         statusPrepend: sectionTag.attrs.statusPrepend,
         url: sectionTag.attrs.url,

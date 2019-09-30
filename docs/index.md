@@ -9,6 +9,11 @@
 
 ## History
 
+- HTML API:
+    - Support for `pattern` attribute for `<input>` tag
+- NodeJS API & schema JSON:
+    - Added `FormItem.pattern` attribute
+
 ---
 #### 0.8.2
 - Bug fixes:

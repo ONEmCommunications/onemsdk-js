@@ -21,21 +21,26 @@ const Tag = require('./tag').Tag;
  * @param {string} [maxlengthError]
  * @param {number} [step must be an integer]
  * @param {string} [value] required if type="hidden"
+ * @param {string} [pattern]
  * @constructor
  */
 function InputTagAttrs(type, min, minError, minlength, minlengthError,
-                       max, maxError, maxlength, maxlengthError, step, value) {
+                       max, maxError, maxlength, maxlengthError, step, value, pattern) {
+    // standard HTML5 attributes
     this.type = type;
     this.min = min;
-    this.minError = minError;
     this.minlength = minlength;
-    this.minlengthError = minlengthError;
     this.max = max;
-    this.maxError = maxError;
     this.maxlength = maxlength;
-    this.maxlengthError = maxlengthError;
     this.step = step;
     this.value = value;
+    this.pattern = pattern;
+
+    // non standard
+    this.minError = minError;
+    this.minlengthError = minlengthError;
+    this.maxError = maxError;
+    this.maxlengthError = maxlengthError;
 }
 
 /**
@@ -67,7 +72,8 @@ InputTag.getAttributes = function (node) {
         parseInt(node.attributes.maxlength) || undefined,
         node.attributes['maxlength-error'] || node.attributes.maxlengthError,
         parseInt(node.attributes.step) || undefined,
-        node.attributes.value
+        node.attributes.value,
+        node.attributes.pattern
     );
 };
 

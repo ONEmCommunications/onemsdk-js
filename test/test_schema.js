@@ -254,6 +254,7 @@ describe('Test schema', function () {
                                 },
                                 "method": null,
                                 "required": true,
+                                "pattern": null,
                                 "status_exclude": false,
                                 "status_prepend": false,
                                 "url": null,
@@ -329,6 +330,7 @@ describe('Test schema', function () {
                                 },
                                 "method": null,
                                 "required": true,
+                                "pattern": null,
                                 "status_exclude": false,
                                 "status_prepend": false,
                                 "url": null,
@@ -420,6 +422,7 @@ describe('Test schema', function () {
                     '         numbered' +
                     '         required>' +
                     '   <input type="email"' +
+                    '          pattern="somepattern"' +
                     '          minlength="3"' +
                     '          minlength-error="The minlen error"' +
                     '          maxlength="100"' +
@@ -452,6 +455,7 @@ describe('Test schema', function () {
                     },
                     "method": "PATCH",
                     "required": true,
+                    "pattern": "somepattern",
                     "status_exclude": true,
                     "status_prepend": false,
                     "url": "https://url.url",
@@ -490,7 +494,7 @@ describe('Test schema', function () {
                 '<section name="step2" method="POST" confirmation-label="confirmation label" required>' +
                 '   <label>A question</label>' +
                 '   <p></p>' +
-                '   <input type="number" step="1" />' +
+                '   <input type="number" step="1" pattern="[1-2]*" />' +
                 '   <p></p>' +
                 '   <input type="location" />' +
                 '</section>' +
@@ -541,6 +545,7 @@ describe('Test schema', function () {
                             },
                             "method": null,
                             "required": true,
+                            "pattern": null,
                             "status_exclude": false,
                             "status_prepend": false,
                             "url": null,
@@ -573,6 +578,7 @@ describe('Test schema', function () {
                             },
                             "method": "POST",
                             "required": true,
+                            "pattern": "[1-2]*",
                             "status_exclude": false,
                             "status_prepend": false,
                             "url": null,
