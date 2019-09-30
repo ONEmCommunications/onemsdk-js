@@ -2,6 +2,7 @@
 
 ## Versions
 
+- [0.9.0](0.9.0)
 - [0.8.2](0.8.2)
 - [0.8.1](0.8.1)
 - [0.8.0](0.8.0)
@@ -9,6 +10,8 @@
 
 ## History
 
+---
+### 0.9.0
 - HTML API:
     - Support for `pattern` attribute for `<input>` tag
     - Renamed `<form>`'s attribute `confirmation-needed` to `skip-confirmation`, which defaults to `false`.
