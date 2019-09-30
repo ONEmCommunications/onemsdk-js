@@ -16,6 +16,7 @@
     - Added `FormItem.pattern` attribute
     - Renamed `FormItem.confirmationNeeded` to `FormItem.skipConfirmation`, which says the opposite and defaults to `false`.
     - Make `FormItem.description` optional
+    - Added new `FormItem` type: `regex`. It must be used (only) when pattern is defined
 
 ---
 #### 0.8.2

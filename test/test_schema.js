@@ -371,6 +371,49 @@ describe('Test schema', function () {
                 assert.throws(iThrow, Error, '<input/> type "blabla" is not supported');
             });
 
+            it('should be type string if the input has no type', function () {
+                const html = '' +
+                    '<section name=""name>' +
+                    '   <input />' +
+                    '</section>';
+                const sectionTag = parser.loadHtml(undefined, html);
+                const formItem = FormItem.fromTag(sectionTag);
+                const expected = {
+                    "type": "string",
+                    "name": null,
+                    "description": null,
+                    "header": null,
+                    "footer": null,
+                    "body": null,
+                    "value": null,
+                    "chunking_footer": null,
+                    "confirmation_label": null,
+                    "min_length": null,
+                    "min_length_error": null,
+                    "max_length": null,
+                    "max_length_error": null,
+                    "min_value": null,
+                    "min_value_error": null,
+                    "max_value": null,
+                    "max_value_error": null,
+                    "meta": {
+                        "auto_select": false,
+                        "multi_select": false,
+                        "numbered": false
+                    },
+                    "method": null,
+                    "required": false,
+                    "pattern": null,
+                    "status_exclude": false,
+                    "status_prepend": false,
+                    "url": null,
+                    "validate_type_error": null,
+                    "validate_type_error_footer": null,
+                    "validate_url": null
+                };
+                assert.equal(JSON.stringify(snakecase(formItem)), JSON.stringify(expected));
+            });
+
             it('should correctly parse int and float from number', function () {
                 let html = '' +
                     '<section name="something">' +
@@ -431,7 +474,7 @@ describe('Test schema', function () {
                 const sectionTag = parser.loadHtml(undefined, html);
                 const formItem = FormItem.fromTag(sectionTag);
                 const expected = {
-                    "type": "email",
+                    "type": "regex",
                     "name": "first-step",
                     "description": null,
                     "header": "The header",
@@ -474,7 +517,7 @@ describe('Test schema', function () {
                     return new FormItem({type: 'blabla'});
                 }
 
-                assert.throws(iThrow, Error, 'FormItem type="blabla" is not supported. Supported types: date,datetime,email,form-menu,float,hidden,int,location,string,url');
+                assert.throws(iThrow, Error, 'FormItem type="blabla" is not supported. Supported types: date,datetime,email,form-menu,float,hidden,int,location,regex,string,url');
             })
         })
     });
@@ -494,7 +537,7 @@ describe('Test schema', function () {
                 '<section name="step2" method="POST" confirmation-label="confirmation label" required>' +
                 '   <label>A question</label>' +
                 '   <p></p>' +
-                '   <input type="number" step="1" pattern="[1-2]*" />' +
+                '   <input type="number" step="1" />' +
                 '   <p></p>' +
                 '   <input type="location" />' +
                 '</section>' +
@@ -578,7 +621,7 @@ describe('Test schema', function () {
                             },
                             "method": "POST",
                             "required": true,
-                            "pattern": "[1-2]*",
+                            "pattern": null,
                             "status_exclude": false,
                             "status_prepend": false,
                             "url": null,

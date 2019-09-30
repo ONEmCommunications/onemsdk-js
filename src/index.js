@@ -163,7 +163,7 @@ function FormMeta(props) {
  *
  * @param {object} props - Properties to initialize the form item with
  * @param {('string'|'date'|'datetime'|'int'|'float'|'hidden'|'form-menu'|
- * 'email'|'url'|'location')} props.type - Sets {@link FormItem#type}
+ * 'email'|'url'|'location'|'regex')} props.type - Sets {@link FormItem#type}
  * @param {string} props.name - Sets {@link FormItem#name}
  * @param {string} [props.description] - Sets {@link FormItem#description}
  * @param {string} [props.header] - Sets {@link FormItem#header}
@@ -203,7 +203,7 @@ function FormItem(props) {
 
     const supportedTypes = [
         'date', 'datetime', 'email', 'form-menu', 'float', 'hidden', 'int',
-        'location', 'string', 'url'
+        'location', 'regex', 'string', 'url'
     ];
 
     if (supportedTypes.indexOf(this.type) === -1) {
@@ -377,6 +377,16 @@ function FormItem(props) {
      */
     this.pattern = props.pattern || null;
 
+    if (this.pattern == null) {
+        if (this.type === 'regex') {
+            throw Error('pattern is required when type is "regex"');
+        }
+    } else {
+        if (this.type !== 'regex') {
+            throw Error('type must be set to "regex" when pattern is defined');
+        }
+    }
+
     // Check if the pattern is valid. This will raise a SyntaxError if not.
     "".match(new RegExp(this.pattern));
 
@@ -477,6 +487,9 @@ FormItem.fromTag = function (sectionTag) {
                     case 'text':
                         formItemType = 'string';
                         break;
+                    case undefined:
+                        formItemType = 'string';
+                        break;
                     case 'date':
                         formItemType = 'date';
                         break;
@@ -495,6 +508,11 @@ FormItem.fromTag = function (sectionTag) {
                     default:
                         throw Error(`<input/> type "${inputType}" is not supported`);
                 }
+            }
+
+            const forceRegexType = child.attrs.pattern !== undefined;
+            if (forceRegexType) {
+                formItemType = 'regex';
             }
 
             minValue = child.attrs.min;
