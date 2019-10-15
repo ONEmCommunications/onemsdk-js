@@ -11,6 +11,11 @@
 ## History
 
 ---
+### 0.9.1
+- HTML
+    - Strip leading and trailing whitespaces from text nodes
+
+---
 ### 0.9.0
 - HTML API:
     - Support for `pattern` attribute for `<input>` tag

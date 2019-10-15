@@ -39,7 +39,7 @@ Tag.fromNode = function (node) {
         const childCls = index.getTagCls(childNode.tagName);
 
         if (childNode instanceof parser.TextNode) {
-            children.push(childNode.text);
+            children.push(childNode.text.trim());
         } else {
             children.push(childCls.fromNode(childNode));
         }
