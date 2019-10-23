@@ -2,6 +2,7 @@
 
 ## Versions
 
+- [0.10.0](0.10.0)
 - [0.9.0](0.9.0)
 - [0.8.2](0.8.2)
 - [0.8.1](0.8.1)
@@ -10,6 +11,8 @@
 
 ## History
 
+---
+### 0.10.0
 - HTML API:
     - Added `default` attribute on `<section>` tag (available only in a <form> context)
 - NodeJS API & schema JSON:
