@@ -10,6 +10,11 @@
 
 ## History
 
+- HTML API:
+    - Added `default` attribute on `<section>` tag (available only in a <form> context)
+- NodeJS API & schema JSON:
+    - Added `FormItem.default` field of type `string`, inherited from HTML tag `<section>`. Its purpose is to provide a default value for not skipped not required form items.
+
 ---
 ### 0.9.1
 - HTML

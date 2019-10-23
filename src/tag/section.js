@@ -16,44 +16,45 @@ const UlTag = require("./ul").UlTag;
 
 /**
  * Instantiates a new SectionTagAttrs
- * @param {string} [name] this attribute is relevant only if the
- * SectionTag is part of a FormTag
- * @param {string} [header] text that will be included in header
- * @param {string} [footer] text that will be included in footer
- * @param {boolean} [autoSelect=false]
- * @param {boolean} [multiSelect=false]
- * @param {boolean} [numbered=false]
- * @param {string} [chunkingFooter]
- * @param {string} [confirmationLabel]
- * @param {string} [method]
- * @param {boolean} [required=false]
- * @param {boolean} [statusExclude=false]
- * @param {boolean} [statusPrepend=false]
- * @param {string} [url]
- * @param {string} [validateTypeError]
- * @param {string} [validateTypeErrorFooter]
- * @param {string} [validateUrl]
+ * @param {object} [props]
+ * @param {string} [props.name] this attribute is relevant only if the
+ *                              SectionTag is part of a FormTag
+ * @param {string} [props.header] text that will be included in header
+ * @param {string} [props.footer] text that will be included in footer
+ * @param {boolean} [props.autoSelect=false]
+ * @param {boolean} [props.multiSelect=false]
+ * @param {boolean} [props.numbered=false]
+ * @param {string} [props.chunkingFooter]
+ * @param {string} [props.confirmationLabel]
+ * @param {string} [props.method]
+ * @param {boolean} [props.required=false]
+ * @param {string} [props.default]
+ * @param {boolean} [props.statusExclude=false]
+ * @param {boolean} [props.statusPrepend=false]
+ * @param {string} [props.url]
+ * @param {string} [props.validateTypeError]
+ * @param {string} [props.validateTypeErrorFooter]
+ * @param {string} [props.validateUrl]
  * @constructor
  */
-function SectionTagAttrs(name, header, footer, autoSelect, multiSelect, numbered, chunkingFooter,
-                         confirmationLabel, method, required, statusExclude, statusPrepend, url,
-                         validateTypeError, validateTypeErrorFooter, validateUrl) {
-    this.header = header || null;
-    this.footer = footer || null;
-    this.name = name || null;
-    this.autoSelect = autoSelect || false;
-    this.multiSelect = multiSelect || false;
-    this.numbered = numbered || false;
-    this.chunkingFooter = chunkingFooter;
-    this.confirmationLabel = confirmationLabel;
-    this.method = method;
-    this.required = required || false;
-    this.statusExclude = statusExclude || false;
-    this.statusPrepend = statusPrepend || false;
-    this.url = url;
-    this.validateTypeError = validateTypeError;
-    this.validateTypeErrorFooter = validateTypeErrorFooter;
-    this.validateUrl = validateUrl;
+function SectionTagAttrs(props) {
+    this.header = props.header || null;
+    this.footer = props.footer || null;
+    this.name = props.name || null;
+    this.autoSelect = props.autoSelect || false;
+    this.multiSelect = props.multiSelect || false;
+    this.numbered = props.numbered || false;
+    this.chunkingFooter = props.chunkingFooter;
+    this.confirmationLabel = props.confirmationLabel;
+    this.method = props.method;
+    this.required = props.required || false;
+    this.default = props.default || null;
+    this.statusExclude = props.statusExclude || false;
+    this.statusPrepend = props.statusPrepend || false;
+    this.url = props.url;
+    this.validateTypeError = props.validateTypeError;
+    this.validateTypeErrorFooter = props.validateTypeErrorFooter;
+    this.validateUrl = props.validateUrl;
 }
 
 /**
@@ -118,24 +119,25 @@ SectionTag.getAttributes = function (node) {
     const validateUrl = node.attributes['validate-url'] ||
         node.attributes.validateUrl;
 
-    return new SectionTagAttrs(
-        node.attributes.name,
-        node.attributes.header,
-        node.attributes.footer,
-        autoSelect,
-        multiSelect,
-        numbered,
-        chunkingFooter,
-        confirmationLabel,
-        node.attributes.method,
-        required,
-        statusExclude,
-        statusPrepend,
-        node.attributes.url,
-        validateTypeError,
-        validateTypeErrorFooter,
-        validateUrl
-    );
+    return new SectionTagAttrs({
+        name: node.attributes.name,
+        header: node.attributes.header,
+        footer: node.attributes.footer,
+        autoSelect: autoSelect,
+        multiSelect: multiSelect,
+        numbered: numbered,
+        chunkingFooter: chunkingFooter,
+        confirmationLabel: confirmationLabel,
+        method: node.attributes.method,
+        required: required,
+        default: node.attributes.default,
+        statusExclude: statusExclude,
+        statusPrepend: statusPrepend,
+        url: node.attributes.url,
+        validateTypeError: validateTypeError,
+        validateTypeErrorFooter: validateTypeErrorFooter,
+        validateUrl: validateUrl,
+    });
 };
 
 SectionTag.prototype.toString = function sectionTagToString(excludeHeader, excludeFooter) {

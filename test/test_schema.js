@@ -254,6 +254,7 @@ describe('Test schema', function () {
                                 },
                                 "method": null,
                                 "required": true,
+                                "default":null,
                                 "pattern": null,
                                 "status_exclude": false,
                                 "status_prepend": false,
@@ -330,6 +331,7 @@ describe('Test schema', function () {
                                 },
                                 "method": null,
                                 "required": true,
+                                "default": null,
                                 "pattern": null,
                                 "status_exclude": false,
                                 "status_prepend": false,
@@ -373,14 +375,14 @@ describe('Test schema', function () {
 
             it('should be type string if the input has no type', function () {
                 const html = '' +
-                    '<section name=""name>' +
+                    '<section name="name">' +
                     '   <input />' +
                     '</section>';
                 const sectionTag = parser.loadHtml(undefined, html);
                 const formItem = FormItem.fromTag(sectionTag);
                 const expected = {
                     "type": "string",
-                    "name": null,
+                    "name": "name",
                     "description": null,
                     "header": null,
                     "footer": null,
@@ -403,6 +405,7 @@ describe('Test schema', function () {
                     },
                     "method": null,
                     "required": false,
+                    "default": null,
                     "pattern": null,
                     "status_exclude": false,
                     "status_prepend": false,
@@ -463,7 +466,8 @@ describe('Test schema', function () {
                     '         validate-url="The val url"' +
                     '         auto-select' +
                     '         numbered' +
-                    '         required>' +
+                    '         required ' +
+                    '         default="useless-default-because-it-is-required">' +
                     '   <input type="email"' +
                     '          pattern="somepattern"' +
                     '          minlength="3"' +
@@ -498,6 +502,7 @@ describe('Test schema', function () {
                     },
                     "method": "PATCH",
                     "required": true,
+                    "default": "useless-default-because-it-is-required",
                     "pattern": "somepattern",
                     "status_exclude": true,
                     "status_prepend": false,
@@ -534,7 +539,7 @@ describe('Test schema', function () {
                 '   </ul>' +
                 '   <p></p>' +
                 '</section>' +
-                '<section name="step2" method="POST" confirmation-label="confirmation label" required>' +
+                '<section name="step2" method="POST" confirmation-label="confirmation label" default="22">' +
                 '   <label>A question</label>' +
                 '   <p></p>' +
                 '   <input type="number" step="1" />' +
@@ -588,6 +593,7 @@ describe('Test schema', function () {
                             },
                             "method": null,
                             "required": true,
+                            "default": null,
                             "pattern": null,
                             "status_exclude": false,
                             "status_prepend": false,
@@ -620,7 +626,8 @@ describe('Test schema', function () {
                                 "numbered": false
                             },
                             "method": "POST",
-                            "required": true,
+                            "required": false,
+                            "default": "22",
                             "pattern": null,
                             "status_exclude": false,
                             "status_prepend": false,

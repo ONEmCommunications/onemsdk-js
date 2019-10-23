@@ -183,6 +183,7 @@ function FormMeta(props) {
  * @param {MenuFormItemMeta} [props.meta] - Sets {@link FormItem#meta}
  * @param {string} [props.method] - Sets {@link FormItem#method}
  * @param {boolean} [props.required=false] - Sets {@link FormItem#required}
+ * @param {string} [props.default] - Sets {@link FormItem#default}
  * @param {string} [props.pattern] - Sets {@link FormItem#pattern}
  * @param {boolean} [props.statusExclude=false] - Sets {@link FormItem#statusExclude}
  * @param {boolean} [props.statusPrepend=false] - Sets {@link FormItem#statusPrepend}
@@ -368,6 +369,14 @@ function FormItem(props) {
      @default false
      */
     this.required = props.required || false;
+
+    /**
+     * A default value in case of non required form items
+     *
+     * @name FormItem#default
+     * @type {string}
+     */
+    this.default = props.default || null;
 
     /**
      ECMA Script regex pattern string <br> _applies only for `type=regex`_.
@@ -593,6 +602,7 @@ FormItem.fromTag = function (sectionTag) {
         }),
         method: sectionTag.attrs.method,
         required: sectionTag.attrs.required,
+        default: sectionTag.attrs.default,
         pattern: pattern,
         statusExclude: sectionTag.attrs.statusExclude,
         statusPrepend: sectionTag.attrs.statusPrepend,
