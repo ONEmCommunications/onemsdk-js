@@ -180,6 +180,7 @@ function FormMeta(props) {
  * @param {string} [props.minValueError] - Sets {@link FormItem#minValueError}
  * @param {number} [props.maxValue] - Sets {@link FormItem#maxValue}
  * @param {string} [props.maxValueError] - Sets {@link FormItem#maxValueError}
+ * @param {number} [props.step] - Sets {@link FormItem#step}
  * @param {MenuFormItemMeta} [props.meta] - Sets {@link FormItem#meta}
  * @param {string} [props.method] - Sets {@link FormItem#method}
  * @param {boolean} [props.required=false] - Sets {@link FormItem#required}
@@ -346,6 +347,13 @@ function FormItem(props) {
     this.maxValueError = props.maxValueError || null;
 
     /**
+     specifies the legal number intervals for input field
+     @name FormItem#step
+     @type {number}
+     */
+    this.step = props.step || null;
+
+    /**
      {@link MenuFormItemMeta} object <br> _applies only for `type=form-menu`_.
 
      @name FormItem#meta
@@ -474,13 +482,14 @@ FormItem.fromTag = function (sectionTag) {
         maxLengthError,
         formItemType,
         description,
-        pattern;
+        pattern,
+        step;
 
     for (const child of sectionTag.children) {
         if (child instanceof InputTag) {
             const inputType = child.attrs.type;
             if (inputType === 'number') {
-                if (child.attrs.step === 1) {
+                if (child.attrs.step) {
                     formItemType = 'int';
                 } else {
                     formItemType = 'float';
@@ -530,6 +539,7 @@ FormItem.fromTag = function (sectionTag) {
             minLengthError = child.attrs.minlengthError;
             maxValue = child.attrs.max;
             maxValueError = child.attrs.maxError;
+            step = child.attrs.step;
             maxLength = child.attrs.maxlength;
             maxLengthError = child.attrs.maxlengthError;
             description = sectionTag.toString(true, true);
@@ -590,6 +600,7 @@ FormItem.fromTag = function (sectionTag) {
         minLength: minLength,
         minLengthError: minLengthError,
         maxLength: maxLength,
+        step: step,
         maxLengthError: maxLengthError,
         minValue: minValue,
         minValueError: minValueError,
