@@ -10,7 +10,7 @@ const Tag = require('./tag').Tag;
 
 /**
  *
- * @param {('text'|'date'|'datetime'|'number'|'hidden'|'email'|'url'|'location')} type
+ * @param {('date'|'datetime'|'email'|'hidden'|'location'|'number'|'phone'|'tel'|'text'|'url')} type
  * @param {number} [min]
  * @param {string} [minError]
  * @param {number} [minlength must be an integer]

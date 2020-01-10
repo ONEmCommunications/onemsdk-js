@@ -1,6 +1,13 @@
 # History
 
 ---
+## 0.12.0
+  - Support for phone and tel input types 
+---
+## 0.11.0
+- Step:
+  - Fixes for step attribute for input tag
+---
 ## 0.6.0
 - HTML API:
   - Added a bunch of new attributes on `<input>`: `min`, `min-error`,
