@@ -9,6 +9,8 @@ const LiTag = require("./li").LiTag;
 const PTag = require("./p").PTag;
 const SectionTag = require("./section").SectionTag;
 const UlTag = require("./ul").UlTag;
+const TextareaTag = require("./textarea").TextareaTag;
+
 // const Tag = require("./tag").Tag;
 
 const tagClsMap = {
@@ -22,6 +24,7 @@ const tagClsMap = {
     li: LiTag,
     p: PTag,
     section: SectionTag,
+    textarea: TextareaTag,
     ul: UlTag,
 };
 
@@ -41,5 +44,6 @@ exports.LiTag = LiTag;
 exports.PTag = PTag;
 exports.SectionTag = SectionTag;
 exports.UlTag = UlTag;
+exports.TextareaTag = TextareaTag;
 // exports.Tag = Tag;
 exports.getTagCls = getTagCls;

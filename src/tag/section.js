@@ -6,11 +6,12 @@ const InputTag = require("./input").InputTag;
 const LabelTag = require("./label").LabelTag;
 const PTag = require("./p").PTag;
 const UlTag = require("./ul").UlTag;
+const TextareaTag = require("./textarea").TextareaTag;
 
 /**
  * @typedef SectionTag
  * @extends Tag
- * @property {Array<HeaderTag|FooterTag|UlTag|PTag|BrTag|InputTag|LabelTag>} children
+ * @property {Array<HeaderTag|FooterTag|UlTag|PTag|BrTag|InputTag|TextareaTag|LabelTag>} children
  * @property {SectionTagAttrs} attrs
  */
 
@@ -61,7 +62,7 @@ function SectionTagAttrs(props) {
  * Instantiates a new SectionTag. A SectionTag may represent a step in a form,
  * a menu or a block of text. A user will always receive the content of a
  * SectionTag at a time.
- * @param {Array<PTag | BrTag | UlTag | LabelTag | HeaderTag | FooterTag | InputTag>} children
+ * @param {Array<PTag | BrTag | UlTag | LabelTag | HeaderTag | FooterTag | TextareaTag | InputTag>} children
  * @param {SectionTagAttrs} attrs
  * @constructor
  */
@@ -79,6 +80,7 @@ function SectionTag(children, attrs) {
             case 'label':
             case 'header':
             case 'footer':
+            case 'textarea':
                 break;
             default:
                 if (typeof child !== 'string') {
@@ -163,7 +165,9 @@ SectionTag.prototype.toString = function sectionTagToString(excludeHeader, exclu
             text = child.toString();
         }
         if (text) {
-            if (child instanceof PTag || child instanceof UlTag) {
+            if (child instanceof PTag ||
+                child instanceof TextareaTag ||
+                child instanceof UlTag) {
                 if (renderedChildren[renderedChildren.length - 1] !== '\n') {
                     renderedChildren.push('\n');
                 }

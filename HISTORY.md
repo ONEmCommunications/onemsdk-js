@@ -1,6 +1,9 @@
 # History
 
 ---
+## 0.13.0
+  - Support for textarea tag
+---
 ## 0.12.0
   - Support for phone and tel input types 
 ---
