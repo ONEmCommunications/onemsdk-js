@@ -1,6 +1,9 @@
 # History
 
 ---
+## 0.14.0
+  - Support for img and video tags in type=menu
+---
 ## 0.13.0
   - Support for textarea tag
 ---

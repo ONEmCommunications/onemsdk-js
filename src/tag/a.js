@@ -1,5 +1,6 @@
 const Tag = require('./tag').Tag;
-
+const ImgTag = require("./img").ImgTag;
+const VideoTag = require("./video").VideoTag;
 /**
  * @typedef ATag
  * @extends Tag
@@ -27,8 +28,19 @@ function ATagAttrs(href, method) {
  * @constructor
  */
 function ATag(children, attrs) {
-    if (children.length !== 1 || typeof children[0] !== 'string') {
-        throw Error('<a> must have 1 text child')
+    if (children.length === 0 || children.length > 2) {
+        throw Error('<a> must have 1 or 2 children')
+    }
+    if (children.length >= 1 &&
+        typeof children[0] !== 'string' &&
+        !(children[0] instanceof ImgTag) &&
+        !(children[0] instanceof VideoTag) ) {
+        throw Error('Child of <a> must be one of string, img or video')
+    }
+    if (children.length === 2 && typeof children[1] !== 'string' &&
+        !(children[1] instanceof ImgTag) &&
+        !(children[1] instanceof VideoTag) ) {
+        throw Error('Child of <a> must be one of string, img or video')
     }
     this.children = children;
     this.attrs = attrs;
