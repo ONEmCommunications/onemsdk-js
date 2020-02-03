@@ -5,6 +5,7 @@ const UlTag = tags.UlTag,
     FormTag = tags.FormTag,
     LiTag = tags.LiTag,
     ATag = tags.ATag,
+    PTag = tags.PTag,
     HeaderTag = tags.HeaderTag,
     FooterTag = tags.FooterTag,
     InputTag = tags.InputTag,
@@ -966,7 +967,7 @@ function MenuItem(props) {
  * @returns {MenuItem}
  */
 MenuItem.fromTag = function (tag) {
-    let description,
+    let description = null,
         method,
         textSearch,
         path,
@@ -975,9 +976,10 @@ MenuItem.fromTag = function (tag) {
 
     if (typeof tag === 'string') {
         description = tag;
-    } else {
+    } else if (tag instanceof PTag || tag instanceof LiTag) {
         description = tag.toString();
     }
+
 
     // if (!description) {
     //     // Ignore the menu items without text
@@ -989,18 +991,27 @@ MenuItem.fromTag = function (tag) {
         method = aTag.attrs.method;
         path = aTag.attrs.href;
         textSearch = tag.attrs.textSearch;
-        if (aTag.children.length > 1 && 
-            ( aTag.children[1] instanceof ImgTag || 
-              aTag.children[1] instanceof VideoTag )) {
+        if (aTag.children.length == 1 &&
+            (aTag.children[0] instanceof ImgTag ||
+                aTag.children[0] instanceof VideoTag)) {
+            src = aTag.children[0].attrs.src;
+            alt = aTag.children[0].attrs.alt;
+        } else if (aTag.children.length == 1 &&
+            typeof aTag.children[0] === 'string') {
+            description = aTag.children[0];
+        } else if (aTag.children.length > 1 &&
+            (aTag.children[1] instanceof ImgTag ||
+                aTag.children[1] instanceof VideoTag)) {
             src = aTag.children[1].attrs.src;
             alt = aTag.children[1].attrs.alt;
+            description = aTag.children[0]
         }
     } else if (tag instanceof ImgTag || tag instanceof VideoTag) {
         src = tag.attrs.src;
-        alt = tag.attrs.alt; 
+        alt = tag.attrs.alt;
     }
 
-    // if everything is null, return undefined
+    //if everything is null, return undefined
     if (!description && !src) {
         return undefined;
     }
