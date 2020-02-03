@@ -45,21 +45,27 @@ describe('Test parser', function () {
                             "description": "This is some text",
                             "text_search": null,
                             "method": null,
-                            "path": null
+                            "path": null,
+                            "src": null,
+                            "alt": null
                         },
                         {
                             "type": "content",
                             "description": "Paragraph",
                             "text_search": null,
                             "method": null,
-                            "path": null
+                            "path": null,
+                            "src": null,
+                            "alt": null
                         },
                         {
                             "type": "content",
                             "description": "Another text",
                             "text_search": null,
                             "method": null,
-                            "path": null
+                            "path": null,
+                            "src": null,
+                            "alt": null
                         }
                     ],
                     "header": null,
@@ -112,42 +118,54 @@ describe('Test parser', function () {
                             "description": "This is pre body",
                             "text_search": null,
                             "method": null,
-                            "path": null
+                            "path": null,
+                            "src": null,
+                            "alt": null
                         },
                         {
                             "type": "option",
                             "description": "My points: 30",
                             "text_search": null,
                             "method": 'GET',
-                            "path": "/points/"
+                            "path": "/points/",
+                            "src": null,
+                            "alt": null
                         },
                         {
                             "type": "option",
                             "description": "News & info (10)",
                             "text_search": null,
                             "method": 'GET',
-                            "path": "/newsInfos/Past"
+                            "path": "/newsInfos/Past",
+                            "src": null,
+                            "alt": null
                         },
                         {
                             "type": "option",
                             "description": "Surveys (2)",
                             "text_search": null,
                             "method": 'GET',
-                            "path": "/surveys/Past"
+                            "path": "/surveys/Past",
+                            "src": null,
+                            "alt": null
                         },
                         {
                             "type": "option",
                             "description": "Classifieds (2)",
                             "text_search": null,
                             "method": 'GET',
-                            "path": "/classifieds/Past"
+                            "path": "/classifieds/Past",
+                            "src": null,
+                            "alt": null
                         },
                         {
                             "type": "option",
                             "description": "Profile: 20%",
                             "text_search": null,
                             "method": 'GET',
-                            "path": "/profile/"
+                            "path": "/profile/",
+                            "src": null,
+                            "alt": null
                         }
                     ],
                     "header": "some header",

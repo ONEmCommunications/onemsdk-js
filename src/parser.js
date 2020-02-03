@@ -42,7 +42,7 @@ function getAbsoluteStaticFilePath(filename) {
  * Turns a HTML content (from file or from variable) to a Tag object
  * @param {string|undefined} htmlFile
  * @param {string|undefined} htmlText
- * @returns {FormTag|SectionTag|UlTag|LiTag|ATag|PTag|*}
+ * @returns {FormTag|SectionTag|UlTag|LiTag|ATag|PTag|TextareaTag|ImgTag|VideoTag|*}
  */
 function loadHtml(htmlFile, htmlText) {
     if (htmlFile) {
