@@ -1000,6 +1000,11 @@ MenuItem.fromTag = function (tag) {
         alt = tag.attrs.alt; 
     }
 
+    // if everything is null, return undefined
+    if (!description && !src) {
+        return undefined;
+    }
+
     return new MenuItem({
         description: description,
         textSearch: textSearch,

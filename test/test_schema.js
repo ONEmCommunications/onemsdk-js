@@ -48,28 +48,36 @@ describe('Test schema', function () {
                                 "description": "Route 1",
                                 "text_search": "route1 route 1",
                                 "method": "POST",
-                                "path": "/route1"
+                                "path": "/route1",
+                                "src": null,
+                                "alt": null
                             },
                             {
                                 "type": "option",
                                 "description": "Route 2",
                                 "text_search": "route2 route 2",
                                 "method": 'GET',
-                                "path": "/route2"
+                                "path": "/route2",
+                                "src": null,
+                                "alt": null
                             },
                             {
                                 "type": "content",
                                 "description": "Separator",
                                 "text_search": null,
                                 "method": null,
-                                "path": null
+                                "path": null,
+                                "src": null,
+                                "alt": null
                             },
                             {
                                 "type": "option",
                                 "description": "Route 3",
                                 "text_search": "route 3 route3",
                                 "method": 'GET',
-                                "path": "/route3"
+                                "path": "/route3",
+                                "src": null,
+                                "alt": null
                             }
                         ],
                         "header": "Some header",
@@ -168,28 +176,36 @@ describe('Test schema', function () {
                                 "description": "This is prebody",
                                 "text_search": null,
                                 "method": null,
-                                "path": null
+                                "path": null,
+                                "src": null,
+                                "alt": null                                
                             },
                             {
                                 "type": "content",
                                 "description": "Title: This is title",
                                 "text_search": null,
                                 "method": null,
-                                "path": null
+                                "path": null,
+                                "src": null,
+                                "alt": null
                             },
                             {
                                 "type": "content",
                                 "description": "Date: This is the date",
                                 "text_search": null,
                                 "method": null,
-                                "path": null
+                                "path": null,
+                                "src": null,
+                                "alt": null
                             },
                             {
                                 "type": "content",
                                 "description": "Article: This is the article",
                                 "text_search": null,
                                 "method": null,
-                                "path": null
+                                "path": null,
+                                "src": null,
+                                "alt": null
                             }
                         ],
                         "header": null,
@@ -247,6 +263,7 @@ describe('Test schema', function () {
                                 "min_value_error": "Are you a baby?",
                                 "max_value": 2.5,
                                 "max_value_error": "Too high",
+                                "step": null,
                                 "meta": {
                                     "auto_select": false,
                                     "multi_select": false,
@@ -324,6 +341,7 @@ describe('Test schema', function () {
                                 "min_value_error": null,
                                 "max_value": null,
                                 "max_value_error": null,
+                                "step": null,
                                 "meta": {
                                     "auto_select": true,
                                     "multi_select": false,
@@ -398,6 +416,7 @@ describe('Test schema', function () {
                     "min_value_error": null,
                     "max_value": null,
                     "max_value_error": null,
+                    "step": null,
                     "meta": {
                         "auto_select": false,
                         "multi_select": false,
@@ -495,6 +514,7 @@ describe('Test schema', function () {
                     "min_value_error": null,
                     "max_value": null,
                     "max_value_error": null,
+                    "step": null,
                     "meta": {
                         "auto_select": true,
                         "multi_select": false,
@@ -522,7 +542,7 @@ describe('Test schema', function () {
                     return new FormItem({type: 'blabla'});
                 }
 
-                assert.throws(iThrow, Error, 'FormItem type="blabla" is not supported. Supported types: date,datetime,email,form-menu,float,hidden,int,location,regex,string,url');
+                assert.throws(iThrow, Error, 'FormItem type="blabla" is not supported. Supported types: date,datetime,email,form-menu,float,hidden,int,location,regex,string,tel,phone,url,textarea');
             })
         })
     });
@@ -586,6 +606,7 @@ describe('Test schema', function () {
                             "min_value_error": null,
                             "max_value": null,
                             "max_value_error": null,
+                            "step": null,
                             "meta": {
                                 "auto_select": true,
                                 "multi_select": false,
@@ -620,6 +641,7 @@ describe('Test schema', function () {
                             "min_value_error": null,
                             "max_value": null,
                             "max_value_error": null,
+                            "step": 1,
                             "meta": {
                                 "auto_select": false,
                                 "multi_select": false,

@@ -225,7 +225,7 @@ describe('Test tags', function () {
                     return ATag.fromNode(parsedHtml.childNodes[0]);
                 }
 
-                assert.throws(iThrow, Error, '<a> must have 1 text child')
+                assert.throws(iThrow, Error, 'Child of <a> must be one of string, img or video')
             });
 
             it('should not work with non text node', function () {
@@ -236,7 +236,7 @@ describe('Test tags', function () {
                     return ATag.fromNode(parsedHtml.childNodes[0]);
                 }
 
-                assert.throws(iThrow, Error, '<a> must have 1 text child');
+                assert.throws(iThrow, Error, 'Child of <a> must be one of string, img or video');
             });
 
             it('should not work without href', function () {
