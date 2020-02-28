@@ -24,7 +24,7 @@ Tag.tagName = undefined;
 
 /**
  * @param {HTMLElement} node
- * @returns {FormTag | SectionTag | UlTag | LiTag | LoginTag | ATag | PTag | BrTag | HeaderTag | FooterTag | InputTag | LabelTag | TextareaTag | ImgTag | VideoTag}
+ * @returns {FormTag | SectionTag | UlTag | LiTag | LoginTag | LogoutTag | ATag | PTag | BrTag | HeaderTag | FooterTag | InputTag | LabelTag | TextareaTag | ImgTag | VideoTag}
  */
 Tag.fromNode = function (node) {
     if (this.tagName !== node.tagName) {

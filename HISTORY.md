@@ -2,7 +2,7 @@
 
 ---
 ## 0.16.0
-  - Support for login
+  - Support for login/logout
 ---
 ## 0.15.0
   - Support for input type=range

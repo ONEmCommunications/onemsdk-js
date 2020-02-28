@@ -5,6 +5,7 @@ const HeaderTag = require("./header").HeaderTag;
 const InputTag = require("./input").InputTag;
 const LabelTag = require("./label").LabelTag;
 const LoginTag = require("./login").LoginTag;
+const LogoutTag = require("./login").LogoutTag;
 const PTag = require("./p").PTag;
 const UlTag = require("./ul").UlTag;
 const TextareaTag = require("./textarea").TextareaTag;
@@ -14,7 +15,7 @@ const VideoTag = require("./video").VideoTag;
 /**
  * @typedef SectionTag
  * @extends Tag
- * @property {Array<HeaderTag|FooterTag|UlTag|PTag|BrTag|InputTag|TextareaTag|LabelTag|ImgTag|VideoTag>} children
+ * @property {Array<HeaderTag|FooterTag|UlTag|PTag|BrTag|InputTag|TextareaTag|LabelTag|LoginTag|LogoutTag|ImgTag|VideoTag>} children
  * @property {SectionTagAttrs} attrs
  */
 
@@ -65,7 +66,7 @@ function SectionTagAttrs(props) {
  * Instantiates a new SectionTag. A SectionTag may represent a step in a form,
  * a menu or a block of text. A user will always receive the content of a
  * SectionTag at a time.
- * @param {Array<PTag | BrTag | UlTag | LabelTag | LoginTag | HeaderTag | FooterTag | TextareaTag | InputTag | ImgTag | VideoTag>} children
+ * @param {Array<PTag | BrTag | UlTag | LabelTag | LoginTag | LogoutTag | HeaderTag | FooterTag | TextareaTag | InputTag | ImgTag | VideoTag>} children
  * @param {SectionTagAttrs} attrs
  * @constructor
  */
@@ -82,6 +83,7 @@ function SectionTag(children, attrs) {
             case 'input':
             case 'label':
             case 'login':
+            case 'logout':
             case 'header':
             case 'footer':
             case 'textarea':

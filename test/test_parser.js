@@ -47,6 +47,8 @@ describe('Test parser', function () {
                             "method": null,
                             "on_login_failure":null,
                             "on_login_success":null,
+                            "on_logout_failure":null,
+                            "on_logout_success":null,
                             "path": null,
                             "src": null,
                             "alt": null
@@ -58,6 +60,8 @@ describe('Test parser', function () {
                             "method": null,
                             "on_login_failure":null,
                             "on_login_success":null,
+                            "on_logout_failure":null,
+                            "on_logout_success":null,
                             "path": null,
                             "src": null,
                             "alt": null
@@ -69,6 +73,8 @@ describe('Test parser', function () {
                             "method": null,
                             "on_login_failure":null,
                             "on_login_success":null,
+                            "on_logout_failure":null,
+                            "on_logout_success":null,
                             "path": null,
                             "src": null,
                             "alt": null
@@ -126,6 +132,8 @@ describe('Test parser', function () {
                             "method": null,
                             "on_login_failure":null,
                             "on_login_success":null,
+                            "on_logout_failure":null,
+                            "on_logout_success":null,
                             "path": null,
                             "src": null,
                             "alt": null
@@ -137,6 +145,8 @@ describe('Test parser', function () {
                             "method": 'GET',
                             "on_login_failure":null,
                             "on_login_success":null,
+                            "on_logout_failure":null,
+                            "on_logout_success":null,
                             "path": "/points/",
                             "src": null,
                             "alt": null
@@ -148,6 +158,8 @@ describe('Test parser', function () {
                             "method": 'GET',
                             "on_login_failure":null,
                             "on_login_success":null,
+                            "on_logout_failure":null,
+                            "on_logout_success":null,
                             "path": "/newsInfos/Past",
                             "src": null,
                             "alt": null
@@ -159,6 +171,8 @@ describe('Test parser', function () {
                             "method": 'GET',
                             "on_login_failure":null,
                             "on_login_success":null,
+                            "on_logout_failure":null,
+                            "on_logout_success":null,
                             "path": "/surveys/Past",
                             "src": null,
                             "alt": null
@@ -170,6 +184,8 @@ describe('Test parser', function () {
                             "method": 'GET',
                             "on_login_failure":null,
                             "on_login_success":null,
+                            "on_logout_failure":null,
+                            "on_logout_success":null,
                             "path": "/classifieds/Past",
                             "src": null,
                             "alt": null
@@ -181,6 +197,8 @@ describe('Test parser', function () {
                             "method": 'GET',
                             "on_login_failure":null,
                             "on_login_success":null,
+                            "on_logout_failure":null,
+                            "on_logout_success":null,
                             "path": "/profile/",
                             "src": null,
                             "alt": null

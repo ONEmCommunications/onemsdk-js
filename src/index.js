@@ -10,6 +10,7 @@ const UlTag = tags.UlTag,
     FooterTag = tags.FooterTag,
     InputTag = tags.InputTag,
     LoginTag = tags.LoginTag,
+    LogoutTag = tags.LogoutTag,
     TextareaTag = tags.TextareaTag,
     ImgTag = tags.ImgTag,
     VideoTag = tags.VideoTag;
@@ -168,7 +169,7 @@ function FormMeta(props) {
  *
  * @param {object} props - Properties to initialize the form item with
  * @param {('string'|'date'|'datetime'|'int'|'float'|'hidden'|'form-menu'|
- * 'email'|'url'|'location'|'range'|'regex'|'tel'|'phone'|'textarea'|'login')} props.type - Sets {@link FormItem#type}
+ * 'email'|'url'|'location'|'range'|'regex'|'tel'|'phone'|'textarea'|'login'|'logout')} props.type - Sets {@link FormItem#type}
  * @param {string} props.name - Sets {@link FormItem#name}
  * @param {string} [props.description] - Sets {@link FormItem#description}
  * @param {string} [props.header] - Sets {@link FormItem#header}
@@ -190,6 +191,8 @@ function FormMeta(props) {
  * @param {string} [props.method] - Sets {@link FormItem#method}
  * @param {string} [props.onLoginFailure] - Sets {@link FormItem#onLoginFailure}
  * @param {string} [props.onLoginSuccess] - Sets {@link FormItem#onLoginSuccess}
+ * @param {string} [props.onLogoutFailure] - Sets {@link FormItem#onLogoutFailure}
+ * @param {string} [props.onLogoutSuccess] - Sets {@link FormItem#onLogoutSuccess}
  * @param {boolean} [props.required=false] - Sets {@link FormItem#required}
  * @param {string} [props.default] - Sets {@link FormItem#default}
  * @param {string} [props.pattern] - Sets {@link FormItem#pattern}
@@ -212,7 +215,7 @@ function FormItem(props) {
 
     const supportedTypes = [
         'date', 'datetime', 'email', 'form-menu', 'float', 'hidden', 'int',
-        'location', 'login', 'range', 'regex', 'string', 'tel', 'phone', 'url', 'textarea'
+        'location', 'login', 'logout', 'range', 'regex', 'string', 'tel', 'phone', 'url', 'textarea'
     ];
 
     if (supportedTypes.indexOf(this.type) === -1) {
@@ -362,12 +365,28 @@ function FormItem(props) {
     this.onLoginSuccess = props.onLoginSuccess || null;
 
     /**
- Optional path to redirect on login success, valid when type='login'
+    Optional path to redirect on login failure, valid when type='login'
 
- @name FormItem#onLoginFailure
- @type {string}
- */
+     @name FormItem#onLoginFailure
+    @type {string}
+    */
     this.onLoginFailure = props.onLoginFailure || null;
+
+    /**
+     Optional path to redirect on logout success, valid when type='logout'
+
+     @name FormItem#onLogoutSuccess
+     @type {string}
+     */
+    this.onLogoutSuccess = props.onLogoutSuccess || null;
+
+    /**
+    Optional path to redirect on logout failure, valid when type='logout'
+
+     @name FormItem#onLogoutFailure
+    @type {string}
+    */
+    this.onLogoutFailure = props.onLogoutFailure || null;
 
     /**
      specifies the legal number intervals for input field
@@ -505,6 +524,8 @@ FormItem.fromTag = function (sectionTag) {
         maxLengthError,
         onLoginFailure = null,
         onLoginSuccess = null,
+        onLogoutFailure = null,
+        onLogoutSuccess = null,
         formItemType,
         description,
         pattern,
@@ -619,11 +640,16 @@ FormItem.fromTag = function (sectionTag) {
             onLoginSuccess = child.attrs.onSuccess;
             onLoginFailure = child.attrs.onFailure;
         }
+        if (child instanceof LogoutTag) {
+            formItemType = 'logout';
+            onLogoutSuccess = child.attrs.onSuccess;
+            onLogoutFailure = child.attrs.onFailure;
+        }
     }
 
     if (!formItemType) {
         throw Error('When <section> plays the role of a form item, ' +
-            'it must contain a <input/>, <login/>, <textarea></textarea> or <ul></ul>'
+            'it must contain a <input/>, <login/>, <logout/>, <textarea></textarea> or <ul></ul>'
         )
     }
 
@@ -649,6 +675,8 @@ FormItem.fromTag = function (sectionTag) {
         maxLength: maxLength,
         onLoginFailure: onLoginFailure,
         onLoginSuccess: onLoginSuccess,
+        onLogoutFailure: onLogoutFailure,
+        onLogoutSuccess: onLogoutSuccess,
         step: step,
         maxLengthError: maxLengthError,
         minValue: minValue,
@@ -929,6 +957,8 @@ function MenuMeta(props) {
  @param {string} [props.src] - Sets {@link MenuItem#src}
  @param {string} [props.onLoginFailure] - Sets {@link MenuItem#onLoginFailure}
  @param {string} [props.onLoginSuccess] - Sets {@link MenuItem#onLoginSuccess}
+ @param {string} [props.onLogoutFailure] - Sets {@link MenuItem#onLogoutFailure}
+ @param {string} [props.onLogoutSuccess] - Sets {@link MenuItem#onLogoutSuccess}
  */
 function MenuItem(props) {
     /**
@@ -945,7 +975,7 @@ function MenuItem(props) {
     }
 
     const supportedTypes = [
-        'content', 'option', 'login'
+        'content', 'option', 'login', 'logout'
     ];
 
     if (supportedTypes.indexOf(this.type) === -1) {
@@ -993,6 +1023,23 @@ function MenuItem(props) {
     this.onLoginSuccess = props.onLoginSuccess || null;
 
     /**
+     Optional path to call on logout failure, used when type='login'.
+
+     @name MenuItem#onLogoutFailure
+     @type {string}
+     */
+    this.onLogoutFailure = props.onLogoutFailure || null;
+
+        /**
+     Optional path to call on logout success, used when type='login'.
+
+     @name MenuItem#onLogoutSuccess
+     @type {string}
+     */
+    this.onLogoutSuccess = props.onLogoutSuccess || null;
+
+
+    /**
      The path called when the menu item is selected.
 
      @name MenuItem#path
@@ -1021,7 +1068,7 @@ function MenuItem(props) {
 
 /**
  * Creates a MenuItem from a SectionTag's child
- * @param {LiTag|BrTag|PTag|LoginTag|string} tag
+ * @param {LiTag|BrTag|PTag|LoginTag|LogoutTag|string} tag
  * @returns {MenuItem}
  */
 MenuItem.fromTag = function (tag) {
@@ -1031,6 +1078,8 @@ MenuItem.fromTag = function (tag) {
         path,
         onLoginSuccess = null,
         onLoginFailure = null,
+        onLogoutSuccess = null,
+        onLogoutFailure = null,
         type = null,
         src = null,
         alt = null;
@@ -1047,7 +1096,10 @@ MenuItem.fromTag = function (tag) {
     //     return undefined;
     // }
     
-    if (tag instanceof LiTag && (tag.children[0] instanceof ATag || tag.children[0] instanceof LoginTag)) {
+    if (tag instanceof LiTag &&
+        (tag.children[0] instanceof ATag ||
+         tag.children[0] instanceof LoginTag ||
+         tag.children[0] instanceof LogoutTag)) {
         const theTag = tag.children[0];
         method = theTag.attrs.method;
         path = theTag.attrs.href;
@@ -1056,7 +1108,12 @@ MenuItem.fromTag = function (tag) {
             onLoginFailure = theTag.attrs.onFailure;
             onLoginSuccess = theTag.attrs.onSuccess;
             description = null;
-            type = "login";                
+            type = "login";
+        } else if (theTag instanceof LogoutTag) {
+            onLogoutFailure = theTag.attrs.onFailure;
+            onLogoutSuccess = theTag.attrs.onSuccess;
+            description = null;
+            type = "logout";  
         } else if (theTag.children.length == 1 &&
             (theTag.children[0] instanceof ImgTag ||
                 theTag.children[0] instanceof VideoTag)) {
@@ -1079,10 +1136,14 @@ MenuItem.fromTag = function (tag) {
         onLoginFailure = tag.attrs.onFailure;
         onLoginSuccess = tag.attrs.onSuccess;
         type = "login";
+    } else if (tag instanceof LogoutTag) {
+        onLogoutFailure = tag.attrs.onFailure;
+        onLogoutSuccess = tag.attrs.onSuccess;
+        type = "logout";
     }
 
     //if everything is null, return undefined
-    if (type !== 'login' && !description && !src) {
+    if (type !== 'login' && type !== 'logout' && !description && !src) {
         return undefined;
     }
 
@@ -1095,7 +1156,9 @@ MenuItem.fromTag = function (tag) {
         alt: alt,
         type: type,
         onLoginFailure: onLoginFailure,
-        onLoginSuccess: onLoginSuccess
+        onLoginSuccess: onLoginSuccess,
+        onLogoutFailure: onLogoutFailure,
+        onLogoutSuccess: onLogoutSuccess
     });
 };
 
