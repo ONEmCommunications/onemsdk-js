@@ -22,6 +22,7 @@ describe('Test schema', function () {
             it('should return a navigable Menu', function () {
                 const html = '' +
                     '<section header="Some header" footer="Some footer" name="some-name" auto-select>' +
+                    '   <video src="/videoPath" alt="alt video name"></video>' +
                     '   <ul>' +
                     '       <li text-search="route1 route 1">' +
                     '           <a href="/route1" method="POST">Route 1</a>' +
@@ -30,10 +31,18 @@ describe('Test schema', function () {
                     '           <a href="/route2">Route 2</a>' +
                     '       </li>' +
                     '       <li>Separator</li>' +
+                    '       <li>' +
+                    '           <a href="/form/new/">New todo' +
+                    '               <img src="https://placekitten.com/600/600" alt="alt text 2" />' +
+                    '           </a>' +
+                    '       <li>' +
+                    '           <login on-success="/successPath1" on-failure="/failurePath1" />' +
+                    '       </li>' +
                     '       <li text-search="route 3 route3">' +
                     '           <a href="/route3">Route 3</a>' +
                     '       </li>' +
                     '   </ul>' +
+                    '   <login on-success="/successPath" on-failure="/failurePath" />' +
                     '</section>';
                 const rootTag = parser.loadHtml(undefined, html);
                 const response = Response.fromTag(rootTag);
@@ -44,10 +53,23 @@ describe('Test schema', function () {
                         "type": "menu",
                         "body": [
                             {
+                                "type": "content",
+                                "description": null,
+                                "text_search": null,
+                                "method": null,
+                                "on_login_failure":null,
+                                "on_login_success":null,
+                                "path": null,
+                                "src": "/videoPath",
+                                "alt": "alt video name"
+                            },
+                            {
                                 "type": "option",
                                 "description": "Route 1",
                                 "text_search": "route1 route 1",
                                 "method": "POST",
+                                "on_login_failure":null,
+                                "on_login_success":null,
                                 "path": "/route1",
                                 "src": null,
                                 "alt": null
@@ -57,6 +79,8 @@ describe('Test schema', function () {
                                 "description": "Route 2",
                                 "text_search": "route2 route 2",
                                 "method": 'GET',
+                                "on_login_failure":null,
+                                "on_login_success":null,
                                 "path": "/route2",
                                 "src": null,
                                 "alt": null
@@ -66,6 +90,30 @@ describe('Test schema', function () {
                                 "description": "Separator",
                                 "text_search": null,
                                 "method": null,
+                                "on_login_failure":null,
+                                "on_login_success":null,
+                                "path": null,
+                                "src": null,
+                                "alt": null
+                            },
+                            {
+                                "type": "option",
+                                "description": "New todo",
+                                "text_search": null,
+                                "method": "GET",
+                                "on_login_failure":null,
+                                "on_login_success":null,
+                                "path": "/form/new/",
+                                "src": "https://placekitten.com/600/600",
+                                "alt": "alt text 2"
+                            },
+                            {
+                                "type": "login",
+                                "description": null,
+                                "text_search": null,
+                                "method": null,
+                                "on_login_failure": "/failurePath1",
+                                "on_login_success": "/successPath1",
                                 "path": null,
                                 "src": null,
                                 "alt": null
@@ -75,7 +123,20 @@ describe('Test schema', function () {
                                 "description": "Route 3",
                                 "text_search": "route 3 route3",
                                 "method": 'GET',
+                                "on_login_failure":null,
+                                "on_login_success":null,
                                 "path": "/route3",
+                                "src": null,
+                                "alt": null
+                            },
+                            {
+                                "type": "login",
+                                "description": null,
+                                "text_search": null,
+                                "method": null,
+                                "on_login_failure": '/failurePath',
+                                "on_login_success": '/successPath',
+                                "path": null,
                                 "src": null,
                                 "alt": null
                             }
@@ -176,6 +237,8 @@ describe('Test schema', function () {
                                 "description": "This is prebody",
                                 "text_search": null,
                                 "method": null,
+                                "on_login_failure":null,
+                                "on_login_success":null,
                                 "path": null,
                                 "src": null,
                                 "alt": null                                
@@ -185,6 +248,8 @@ describe('Test schema', function () {
                                 "description": "Title: This is title",
                                 "text_search": null,
                                 "method": null,
+                                "on_login_failure":null,
+                                "on_login_success":null,
                                 "path": null,
                                 "src": null,
                                 "alt": null
@@ -194,6 +259,8 @@ describe('Test schema', function () {
                                 "description": "Date: This is the date",
                                 "text_search": null,
                                 "method": null,
+                                "on_login_failure":null,
+                                "on_login_success":null,
                                 "path": null,
                                 "src": null,
                                 "alt": null
@@ -203,6 +270,8 @@ describe('Test schema', function () {
                                 "description": "Article: This is the article",
                                 "text_search": null,
                                 "method": null,
+                                "on_login_failure":null,
+                                "on_login_success":null,
                                 "path": null,
                                 "src": null,
                                 "alt": null
@@ -263,6 +332,8 @@ describe('Test schema', function () {
                                 "min_value_error": "Are you a baby?",
                                 "max_value": 2.5,
                                 "max_value_error": "Too high",
+                                "on_login_success":null,
+                                "on_login_failure":null,
                                 "step": null,
                                 "meta": {
                                     "auto_select": false,
@@ -341,6 +412,8 @@ describe('Test schema', function () {
                                 "min_value_error": null,
                                 "max_value": null,
                                 "max_value_error": null,
+                                "on_login_success":null,
+                                "on_login_failure":null,
                                 "step": null,
                                 "meta": {
                                     "auto_select": true,
@@ -357,7 +430,44 @@ describe('Test schema', function () {
                                 "validate_type_error": null,
                                 "validate_type_error_footer": null,
                                 "validate_url": null
-                            }
+                            },
+                            {
+                                "type": "login",
+                                "name": "login",
+                                "description": null,
+                                "header": null,
+                                "footer": null,
+                                "body": null,
+                                "value": null,
+                                "chunking_footer": null,
+                                "confirmation_label": null,
+                                "min_length": null,
+                                "min_length_error": null,
+                                "max_length": null,
+                                "max_length_error": null,
+                                "min_value": null,
+                                "min_value_error": null,
+                                "max_value": null,
+                                "max_value_error": null,
+                                "on_login_success": '/successPath',
+                                "on_login_failure": '/failurePath',
+                                "step": null,
+                                "meta": {
+                                    "auto_select": false,
+                                    "multi_select": false,
+                                    "numbered": false
+                                },
+                                "method": null,
+                                "required": false,
+                                "default":null,
+                                "pattern": null,
+                                "status_exclude": false,
+                                "status_prepend": false,
+                                "url": null,
+                                "validate_type_error": null,
+                                "validate_type_error_footer": null,
+                                "validate_url": null
+                            },
                         ],
                         "method": "POST",
                         "path": "/route",
@@ -416,6 +526,8 @@ describe('Test schema', function () {
                     "min_value_error": null,
                     "max_value": null,
                     "max_value_error": null,
+                    "on_login_success":null,
+                    "on_login_failure":null,
                     "step": null,
                     "meta": {
                         "auto_select": false,
@@ -514,6 +626,8 @@ describe('Test schema', function () {
                     "min_value_error": null,
                     "max_value": null,
                     "max_value_error": null,
+                    "on_login_success":null,
+                    "on_login_failure":null,
                     "step": null,
                     "meta": {
                         "auto_select": true,
@@ -542,7 +656,7 @@ describe('Test schema', function () {
                     return new FormItem({type: 'blabla'});
                 }
 
-                assert.throws(iThrow, Error, 'FormItem type="blabla" is not supported. Supported types: date,datetime,email,form-menu,float,hidden,int,location,regex,string,tel,phone,url,textarea');
+                assert.throws(iThrow, Error, 'FormItem type="blabla" is not supported. Supported types: date,datetime,email,form-menu,float,hidden,int,location,login,range,regex,string,tel,phone,url,textarea');
             })
         })
     });
@@ -606,6 +720,8 @@ describe('Test schema', function () {
                             "min_value_error": null,
                             "max_value": null,
                             "max_value_error": null,
+                            "on_login_success":null,
+                            "on_login_failure":null,
                             "step": null,
                             "meta": {
                                 "auto_select": true,
@@ -641,6 +757,8 @@ describe('Test schema', function () {
                             "min_value_error": null,
                             "max_value": null,
                             "max_value_error": null,
+                            "on_login_success":null,
+                            "on_login_failure":null,
                             "step": 1,
                             "meta": {
                                 "auto_select": false,

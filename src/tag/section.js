@@ -4,6 +4,7 @@ const FooterTag = require("./footer").FooterTag;
 const HeaderTag = require("./header").HeaderTag;
 const InputTag = require("./input").InputTag;
 const LabelTag = require("./label").LabelTag;
+const LoginTag = require("./login").LoginTag;
 const PTag = require("./p").PTag;
 const UlTag = require("./ul").UlTag;
 const TextareaTag = require("./textarea").TextareaTag;
@@ -64,7 +65,7 @@ function SectionTagAttrs(props) {
  * Instantiates a new SectionTag. A SectionTag may represent a step in a form,
  * a menu or a block of text. A user will always receive the content of a
  * SectionTag at a time.
- * @param {Array<PTag | BrTag | UlTag | LabelTag | HeaderTag | FooterTag | TextareaTag | InputTag | ImgTag | VideoTag>} children
+ * @param {Array<PTag | BrTag | UlTag | LabelTag | LoginTag | HeaderTag | FooterTag | TextareaTag | InputTag | ImgTag | VideoTag>} children
  * @param {SectionTagAttrs} attrs
  * @constructor
  */
@@ -80,6 +81,7 @@ function SectionTag(children, attrs) {
             case 'ul':
             case 'input':
             case 'label':
+            case 'login':
             case 'header':
             case 'footer':
             case 'textarea':

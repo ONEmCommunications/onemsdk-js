@@ -1,6 +1,12 @@
 # History
 
 ---
+## 0.16.0
+  - Support for login
+---
+## 0.15.0
+  - Support for input type=range
+---
 ## 0.14.0
   - Support for img and video tags in type=menu
 ---

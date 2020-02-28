@@ -6,6 +6,7 @@ const HeaderTag = require("./header").HeaderTag;
 const InputTag = require("./input").InputTag;
 const LabelTag = require("./label").LabelTag;
 const LiTag = require("./li").LiTag;
+const LoginTag = require("./login").LoginTag;
 const PTag = require("./p").PTag;
 const SectionTag = require("./section").SectionTag;
 const UlTag = require("./ul").UlTag;
@@ -24,6 +25,7 @@ const tagClsMap = {
     input: InputTag,
     label: LabelTag,
     li: LiTag,
+    login: LoginTag,
     p: PTag,
     section: SectionTag,
     textarea: TextareaTag,
@@ -45,6 +47,7 @@ exports.HeaderTag = HeaderTag;
 exports.InputTag = InputTag;
 exports.LabelTag = LabelTag;
 exports.LiTag = LiTag;
+exports.LoginTag = LoginTag;
 exports.PTag = PTag;
 exports.SectionTag = SectionTag;
 exports.UlTag = UlTag;

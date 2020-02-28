@@ -1,5 +1,6 @@
 const Tag = require('./tag').Tag;
 const ATag = require('./a').ATag;
+const LoginTag = require('./login').LoginTag;
 
 /**
  * @typedef LiTag
@@ -27,9 +28,9 @@ function LiTagAttrs(value, textSearch) {
 function LiTag(children, attrs) {
     if (
         children.length !== 1 ||
-        !(children[0] instanceof ATag || typeof children[0] === 'string')
+        !(children[0] instanceof ATag || children[0] instanceof LoginTag || typeof children[0] === 'string')
     ) {
-        throw Error('<li> must have 1 child (<a> or text)')
+        throw Error('<li> must have 1 child (<a>, <login> or text)')
     }
     this.children = children;
     this.attrs = attrs;

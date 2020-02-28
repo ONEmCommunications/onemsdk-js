@@ -45,6 +45,8 @@ describe('Test parser', function () {
                             "description": "This is some text",
                             "text_search": null,
                             "method": null,
+                            "on_login_failure":null,
+                            "on_login_success":null,
                             "path": null,
                             "src": null,
                             "alt": null
@@ -54,6 +56,8 @@ describe('Test parser', function () {
                             "description": "Paragraph",
                             "text_search": null,
                             "method": null,
+                            "on_login_failure":null,
+                            "on_login_success":null,
                             "path": null,
                             "src": null,
                             "alt": null
@@ -63,6 +67,8 @@ describe('Test parser', function () {
                             "description": "Another text",
                             "text_search": null,
                             "method": null,
+                            "on_login_failure":null,
+                            "on_login_success":null,
                             "path": null,
                             "src": null,
                             "alt": null
@@ -118,6 +124,8 @@ describe('Test parser', function () {
                             "description": "This is pre body",
                             "text_search": null,
                             "method": null,
+                            "on_login_failure":null,
+                            "on_login_success":null,
                             "path": null,
                             "src": null,
                             "alt": null
@@ -127,6 +135,8 @@ describe('Test parser', function () {
                             "description": "My points: 30",
                             "text_search": null,
                             "method": 'GET',
+                            "on_login_failure":null,
+                            "on_login_success":null,
                             "path": "/points/",
                             "src": null,
                             "alt": null
@@ -136,6 +146,8 @@ describe('Test parser', function () {
                             "description": "News & info (10)",
                             "text_search": null,
                             "method": 'GET',
+                            "on_login_failure":null,
+                            "on_login_success":null,
                             "path": "/newsInfos/Past",
                             "src": null,
                             "alt": null
@@ -145,6 +157,8 @@ describe('Test parser', function () {
                             "description": "Surveys (2)",
                             "text_search": null,
                             "method": 'GET',
+                            "on_login_failure":null,
+                            "on_login_success":null,
                             "path": "/surveys/Past",
                             "src": null,
                             "alt": null
@@ -154,6 +168,8 @@ describe('Test parser', function () {
                             "description": "Classifieds (2)",
                             "text_search": null,
                             "method": 'GET',
+                            "on_login_failure":null,
+                            "on_login_success":null,
                             "path": "/classifieds/Past",
                             "src": null,
                             "alt": null
@@ -163,6 +179,8 @@ describe('Test parser', function () {
                             "description": "Profile: 20%",
                             "text_search": null,
                             "method": 'GET',
+                            "on_login_failure":null,
+                            "on_login_success":null,
                             "path": "/profile/",
                             "src": null,
                             "alt": null
