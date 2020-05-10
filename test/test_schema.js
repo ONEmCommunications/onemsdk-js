@@ -779,7 +779,7 @@ describe('Test schema', function () {
                 '<section name="step2" method="POST" confirmation-label="confirmation label" default="22">' +
                 '   <label>A question</label>' +
                 '   <p></p>' +
-                '   <input type="number" step="1" />' +
+                '   <input type="number" step="0.1" />' +
                 '   <p></p>' +
                 '   <input type="location" />' +
                 '</section>' +
@@ -866,7 +866,7 @@ describe('Test schema', function () {
                             "on_login_failure":null,
                             "on_logout_success":null,
                             "on_logout_failure":null,
-                            "step": 1,
+                            "step": 0.1,
                             "meta": {
                                 "auto_select": false,
                                 "multi_select": false,

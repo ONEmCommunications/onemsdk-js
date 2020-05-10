@@ -1,6 +1,9 @@
 # History
 
 ---
+## 0.17.0
+  - Support type float for step
+---
 ## 0.16.0
   - Support for login/logout
 ---

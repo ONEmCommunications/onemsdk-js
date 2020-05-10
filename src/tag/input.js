@@ -19,7 +19,7 @@ const Tag = require('./tag').Tag;
  * @param {string} [maxError]
  * @param {number} [maxlength must be an integer]
  * @param {string} [maxlengthError]
- * @param {number} [step must be an integer]
+ * @param {number} [step]
  * @param {string} [value] required if type="hidden"
  * @param {string} [pattern]
  * @constructor
@@ -71,7 +71,7 @@ InputTag.getAttributes = function (node) {
         node.attributes['max-error'] || node.attributes.maxError,
         parseInt(node.attributes.maxlength) || undefined,
         node.attributes['maxlength-error'] || node.attributes.maxlengthError,
-        parseInt(node.attributes.step) || undefined,
+        parseFloat(node.attributes.step) || undefined,
         node.attributes.value,
         node.attributes.pattern
     );
