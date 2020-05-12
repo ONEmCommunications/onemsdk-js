@@ -263,18 +263,18 @@ function FormItem(props) {
     this.body = props.body || null;
 
     /**
-     Value to pass in the form serialization data <br> _applies only for `type=hidden`_.
+     Value to pass in the form serialization data _.
 
      @name FormItem#value
      @type {string}
      */
     this.value = props.value || null;
 
-    if (this.value == null) {
-        if (this.type === 'hidden') {
-            throw Error('value is required when type="hidden"');
-        }
-    }
+    // if (this.value == null) {
+    //     if (this.type === 'hidden') {
+    //         throw Error('value is required when type="hidden"');
+    //     }
+    // }
 
     /**
      Shown in the footer of the sms chunks.

@@ -27,6 +27,14 @@
 <dd></dd>
 <dt><a href="#LiTag">LiTag</a></dt>
 <dd></dd>
+<dt><a href="#LoginTagAttrs">LoginTagAttrs</a></dt>
+<dd></dd>
+<dt><a href="#LoginTag">LoginTag</a></dt>
+<dd></dd>
+<dt><a href="#LogoutTagAttrs">LogoutTagAttrs</a></dt>
+<dd></dd>
+<dt><a href="#LogoutTag">LogoutTag</a></dt>
+<dd></dd>
 <dt><a href="#PTag">PTag</a></dt>
 <dd></dd>
 <dt><a href="#SectionTagAttrs">SectionTagAttrs</a></dt>
@@ -65,6 +73,10 @@
 <dt><a href="#LabelTag">LabelTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
 <dd></dd>
 <dt><a href="#LiTag">LiTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
+<dd></dd>
+<dt><a href="#LoginTag">LoginTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
+<dd></dd>
+<dt><a href="#LogoutTag">LogoutTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
 <dd></dd>
 <dt><a href="#PTag">PTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
 <dd></dd>
@@ -237,7 +249,7 @@ Instantiates a new HeaderTag
 **Kind**: global class  
 <a name="new_InputTagAttrs_new"></a>
 
-### new InputTagAttrs(type, [min], [minError], [minlength must be an integer], [minlengthError], [max], [maxError], [maxlength must be an integer], [maxlengthError], [step must be an integer], [value], [pattern])
+### new InputTagAttrs(type, [min], [minError], [minlength must be an integer], [minlengthError], [max], [maxError], [maxlength must be an integer], [maxlengthError], [step], [value], [pattern])
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -250,7 +262,7 @@ Instantiates a new HeaderTag
 | [maxError] | <code>string</code> |  |
 | [maxlength must be an integer] | <code>number</code> |  |
 | [maxlengthError] | <code>string</code> |  |
-| [step must be an integer] | <code>number</code> |  |
+| [step] | <code>number</code> |  |
 | [value] | <code>string</code> | required if type="hidden" |
 | [pattern] | <code>string</code> |  |
 
@@ -306,6 +318,86 @@ Instantiates a new HeaderTag
 | --- | --- |
 | children | <code>Array.&lt;(ATag\|string)&gt;</code> | 
 | attrs | [<code>LiTagAttrs</code>](#LiTagAttrs) | 
+
+<a name="LoginTagAttrs"></a>
+
+## LoginTagAttrs
+**Kind**: global class  
+<a name="new_LoginTagAttrs_new"></a>
+
+### new LoginTagAttrs([onSuccess], [onFailure])
+
+| Param | Type |
+| --- | --- |
+| [onSuccess] | <code>string</code> | 
+| [onFailure] | <code>string</code> | 
+
+<a name="LoginTag"></a>
+
+## LoginTag
+**Kind**: global class  
+
+* [LoginTag](#LoginTag)
+    * [new LoginTag(children, attrs)](#new_LoginTag_new)
+    * [.getAttributes(node)](#LoginTag.getAttributes) ⇒ [<code>LoginTagAttrs</code>](#LoginTagAttrs)
+
+<a name="new_LoginTag_new"></a>
+
+### new LoginTag(children, attrs)
+
+| Param | Type |
+| --- | --- |
+| children | <code>undefined</code> | 
+| attrs | [<code>LoginTagAttrs</code>](#LoginTagAttrs) | 
+
+<a name="LoginTag.getAttributes"></a>
+
+### LoginTag.getAttributes(node) ⇒ [<code>LoginTagAttrs</code>](#LoginTagAttrs)
+**Kind**: static method of [<code>LoginTag</code>](#LoginTag)  
+
+| Param | Type |
+| --- | --- |
+| node | <code>HTMLElement</code> | 
+
+<a name="LogoutTagAttrs"></a>
+
+## LogoutTagAttrs
+**Kind**: global class  
+<a name="new_LogoutTagAttrs_new"></a>
+
+### new LogoutTagAttrs([onSuccess], [onFailure])
+
+| Param | Type |
+| --- | --- |
+| [onSuccess] | <code>string</code> | 
+| [onFailure] | <code>string</code> | 
+
+<a name="LogoutTag"></a>
+
+## LogoutTag
+**Kind**: global class  
+
+* [LogoutTag](#LogoutTag)
+    * [new LogoutTag(children, attrs)](#new_LogoutTag_new)
+    * [.getAttributes(node)](#LogoutTag.getAttributes) ⇒ [<code>LogoutTagAttrs</code>](#LogoutTagAttrs)
+
+<a name="new_LogoutTag_new"></a>
+
+### new LogoutTag(children, attrs)
+
+| Param | Type |
+| --- | --- |
+| children | <code>undefined</code> | 
+| attrs | [<code>LogoutTagAttrs</code>](#LogoutTagAttrs) | 
+
+<a name="LogoutTag.getAttributes"></a>
+
+### LogoutTag.getAttributes(node) ⇒ [<code>LogoutTagAttrs</code>](#LogoutTagAttrs)
+**Kind**: static method of [<code>LogoutTag</code>](#LogoutTag)  
+
+| Param | Type |
+| --- | --- |
+| node | <code>HTMLElement</code> | 
 
 <a name="PTag"></a>
 
@@ -364,7 +456,7 @@ SectionTag at a time.
 
 | Param | Type |
 | --- | --- |
-| children | <code>Array.&lt;(PTag\|BrTag\|UlTag\|LabelTag\|HeaderTag\|FooterTag\|TextareaTag\|InputTag\|ImgTag\|VideoTag)&gt;</code> | 
+| children | <code>Array.&lt;(PTag\|BrTag\|UlTag\|LabelTag\|LoginTag\|LogoutTag\|HeaderTag\|FooterTag\|TextareaTag\|InputTag\|ImgTag\|VideoTag)&gt;</code> | 
 | attrs | [<code>SectionTagAttrs</code>](#SectionTagAttrs) | 
 
 <a name="Tag"></a>
@@ -374,7 +466,7 @@ SectionTag at a time.
 
 * [Tag](#Tag)
     * [new Tag(children, attrs)](#new_Tag_new)
-    * [.fromNode(node)](#Tag.fromNode) ⇒ [<code>FormTag</code>](#FormTag) \| [<code>SectionTag</code>](#SectionTag) \| [<code>UlTag</code>](#UlTag) \| [<code>LiTag</code>](#LiTag) \| [<code>ATag</code>](#ATag) \| [<code>PTag</code>](#PTag) \| [<code>BrTag</code>](#BrTag) \| [<code>HeaderTag</code>](#HeaderTag) \| [<code>FooterTag</code>](#FooterTag) \| [<code>InputTag</code>](#InputTag) \| [<code>LabelTag</code>](#LabelTag) \| [<code>TextareaTag</code>](#TextareaTag) \| [<code>ImgTag</code>](#ImgTag) \| [<code>VideoTag</code>](#VideoTag)
+    * [.fromNode(node)](#Tag.fromNode) ⇒ [<code>FormTag</code>](#FormTag) \| [<code>SectionTag</code>](#SectionTag) \| [<code>UlTag</code>](#UlTag) \| [<code>LiTag</code>](#LiTag) \| [<code>LoginTag</code>](#LoginTag) \| [<code>LogoutTag</code>](#LogoutTag) \| [<code>ATag</code>](#ATag) \| [<code>PTag</code>](#PTag) \| [<code>BrTag</code>](#BrTag) \| [<code>HeaderTag</code>](#HeaderTag) \| [<code>FooterTag</code>](#FooterTag) \| [<code>InputTag</code>](#InputTag) \| [<code>LabelTag</code>](#LabelTag) \| [<code>TextareaTag</code>](#TextareaTag) \| [<code>ImgTag</code>](#ImgTag) \| [<code>VideoTag</code>](#VideoTag)
     * [.getAttributes(node)](#Tag.getAttributes) ⇒ <code>Object</code> \| <code>undefined</code>
 
 <a name="new_Tag_new"></a>
@@ -390,7 +482,7 @@ Instantiates a Tag
 
 <a name="Tag.fromNode"></a>
 
-### Tag.fromNode(node) ⇒ [<code>FormTag</code>](#FormTag) \| [<code>SectionTag</code>](#SectionTag) \| [<code>UlTag</code>](#UlTag) \| [<code>LiTag</code>](#LiTag) \| [<code>ATag</code>](#ATag) \| [<code>PTag</code>](#PTag) \| [<code>BrTag</code>](#BrTag) \| [<code>HeaderTag</code>](#HeaderTag) \| [<code>FooterTag</code>](#FooterTag) \| [<code>InputTag</code>](#InputTag) \| [<code>LabelTag</code>](#LabelTag) \| [<code>TextareaTag</code>](#TextareaTag) \| [<code>ImgTag</code>](#ImgTag) \| [<code>VideoTag</code>](#VideoTag)
+### Tag.fromNode(node) ⇒ [<code>FormTag</code>](#FormTag) \| [<code>SectionTag</code>](#SectionTag) \| [<code>UlTag</code>](#UlTag) \| [<code>LiTag</code>](#LiTag) \| [<code>LoginTag</code>](#LoginTag) \| [<code>LogoutTag</code>](#LogoutTag) \| [<code>ATag</code>](#ATag) \| [<code>PTag</code>](#PTag) \| [<code>BrTag</code>](#BrTag) \| [<code>HeaderTag</code>](#HeaderTag) \| [<code>FooterTag</code>](#FooterTag) \| [<code>InputTag</code>](#InputTag) \| [<code>LabelTag</code>](#LabelTag) \| [<code>TextareaTag</code>](#TextareaTag) \| [<code>ImgTag</code>](#ImgTag) \| [<code>VideoTag</code>](#VideoTag)
 **Kind**: static method of [<code>Tag</code>](#Tag)  
 
 | Param | Type |
@@ -693,6 +785,76 @@ Instantiates a new HeaderTag
 | children | <code>Array.&lt;(ATag\|string)&gt;</code> | 
 | attrs | [<code>LiTagAttrs</code>](#LiTagAttrs) | 
 
+<a name="LoginTag"></a>
+
+## LoginTag ⇐ [<code>Tag</code>](#Tag)
+**Kind**: global typedef  
+**Extends**: [<code>Tag</code>](#Tag)  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| children | <code>undefined</code> | 
+| attrs | [<code>LoginTagAttrs</code>](#LoginTagAttrs) | 
+
+
+* [LoginTag](#LoginTag) ⇐ [<code>Tag</code>](#Tag)
+    * [new LoginTag(children, attrs)](#new_LoginTag_new)
+    * [.getAttributes(node)](#LoginTag.getAttributes) ⇒ [<code>LoginTagAttrs</code>](#LoginTagAttrs)
+
+<a name="new_LoginTag_new"></a>
+
+### new LoginTag(children, attrs)
+
+| Param | Type |
+| --- | --- |
+| children | <code>undefined</code> | 
+| attrs | [<code>LoginTagAttrs</code>](#LoginTagAttrs) | 
+
+<a name="LoginTag.getAttributes"></a>
+
+### LoginTag.getAttributes(node) ⇒ [<code>LoginTagAttrs</code>](#LoginTagAttrs)
+**Kind**: static method of [<code>LoginTag</code>](#LoginTag)  
+
+| Param | Type |
+| --- | --- |
+| node | <code>HTMLElement</code> | 
+
+<a name="LogoutTag"></a>
+
+## LogoutTag ⇐ [<code>Tag</code>](#Tag)
+**Kind**: global typedef  
+**Extends**: [<code>Tag</code>](#Tag)  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| children | <code>undefined</code> | 
+| attrs | [<code>LogoutTagAttrs</code>](#LogoutTagAttrs) | 
+
+
+* [LogoutTag](#LogoutTag) ⇐ [<code>Tag</code>](#Tag)
+    * [new LogoutTag(children, attrs)](#new_LogoutTag_new)
+    * [.getAttributes(node)](#LogoutTag.getAttributes) ⇒ [<code>LogoutTagAttrs</code>](#LogoutTagAttrs)
+
+<a name="new_LogoutTag_new"></a>
+
+### new LogoutTag(children, attrs)
+
+| Param | Type |
+| --- | --- |
+| children | <code>undefined</code> | 
+| attrs | [<code>LogoutTagAttrs</code>](#LogoutTagAttrs) | 
+
+<a name="LogoutTag.getAttributes"></a>
+
+### LogoutTag.getAttributes(node) ⇒ [<code>LogoutTagAttrs</code>](#LogoutTagAttrs)
+**Kind**: static method of [<code>LogoutTag</code>](#LogoutTag)  
+
+| Param | Type |
+| --- | --- |
+| node | <code>HTMLElement</code> | 
+
 <a name="PTag"></a>
 
 ## PTag ⇐ [<code>Tag</code>](#Tag)
@@ -722,7 +884,7 @@ Instantiates a new HeaderTag
 
 | Name | Type |
 | --- | --- |
-| children | <code>Array.&lt;(HeaderTag\|FooterTag\|UlTag\|PTag\|BrTag\|InputTag\|TextareaTag\|LabelTag\|ImgTag\|VideoTag)&gt;</code> | 
+| children | <code>Array.&lt;(HeaderTag\|FooterTag\|UlTag\|PTag\|BrTag\|InputTag\|TextareaTag\|LabelTag\|LoginTag\|LogoutTag\|ImgTag\|VideoTag)&gt;</code> | 
 | attrs | [<code>SectionTagAttrs</code>](#SectionTagAttrs) | 
 
 <a name="new_SectionTag_new"></a>
@@ -735,7 +897,7 @@ SectionTag at a time.
 
 | Param | Type |
 | --- | --- |
-| children | <code>Array.&lt;(PTag\|BrTag\|UlTag\|LabelTag\|HeaderTag\|FooterTag\|TextareaTag\|InputTag\|ImgTag\|VideoTag)&gt;</code> | 
+| children | <code>Array.&lt;(PTag\|BrTag\|UlTag\|LabelTag\|LoginTag\|LogoutTag\|HeaderTag\|FooterTag\|TextareaTag\|InputTag\|ImgTag\|VideoTag)&gt;</code> | 
 | attrs | [<code>SectionTagAttrs</code>](#SectionTagAttrs) | 
 
 <a name="Tag"></a>
@@ -753,7 +915,7 @@ SectionTag at a time.
 
 * [Tag](#Tag)
     * [new Tag(children, attrs)](#new_Tag_new)
-    * [.fromNode(node)](#Tag.fromNode) ⇒ [<code>FormTag</code>](#FormTag) \| [<code>SectionTag</code>](#SectionTag) \| [<code>UlTag</code>](#UlTag) \| [<code>LiTag</code>](#LiTag) \| [<code>ATag</code>](#ATag) \| [<code>PTag</code>](#PTag) \| [<code>BrTag</code>](#BrTag) \| [<code>HeaderTag</code>](#HeaderTag) \| [<code>FooterTag</code>](#FooterTag) \| [<code>InputTag</code>](#InputTag) \| [<code>LabelTag</code>](#LabelTag) \| [<code>TextareaTag</code>](#TextareaTag) \| [<code>ImgTag</code>](#ImgTag) \| [<code>VideoTag</code>](#VideoTag)
+    * [.fromNode(node)](#Tag.fromNode) ⇒ [<code>FormTag</code>](#FormTag) \| [<code>SectionTag</code>](#SectionTag) \| [<code>UlTag</code>](#UlTag) \| [<code>LiTag</code>](#LiTag) \| [<code>LoginTag</code>](#LoginTag) \| [<code>LogoutTag</code>](#LogoutTag) \| [<code>ATag</code>](#ATag) \| [<code>PTag</code>](#PTag) \| [<code>BrTag</code>](#BrTag) \| [<code>HeaderTag</code>](#HeaderTag) \| [<code>FooterTag</code>](#FooterTag) \| [<code>InputTag</code>](#InputTag) \| [<code>LabelTag</code>](#LabelTag) \| [<code>TextareaTag</code>](#TextareaTag) \| [<code>ImgTag</code>](#ImgTag) \| [<code>VideoTag</code>](#VideoTag)
     * [.getAttributes(node)](#Tag.getAttributes) ⇒ <code>Object</code> \| <code>undefined</code>
 
 <a name="new_Tag_new"></a>
@@ -769,7 +931,7 @@ Instantiates a Tag
 
 <a name="Tag.fromNode"></a>
 
-### Tag.fromNode(node) ⇒ [<code>FormTag</code>](#FormTag) \| [<code>SectionTag</code>](#SectionTag) \| [<code>UlTag</code>](#UlTag) \| [<code>LiTag</code>](#LiTag) \| [<code>ATag</code>](#ATag) \| [<code>PTag</code>](#PTag) \| [<code>BrTag</code>](#BrTag) \| [<code>HeaderTag</code>](#HeaderTag) \| [<code>FooterTag</code>](#FooterTag) \| [<code>InputTag</code>](#InputTag) \| [<code>LabelTag</code>](#LabelTag) \| [<code>TextareaTag</code>](#TextareaTag) \| [<code>ImgTag</code>](#ImgTag) \| [<code>VideoTag</code>](#VideoTag)
+### Tag.fromNode(node) ⇒ [<code>FormTag</code>](#FormTag) \| [<code>SectionTag</code>](#SectionTag) \| [<code>UlTag</code>](#UlTag) \| [<code>LiTag</code>](#LiTag) \| [<code>LoginTag</code>](#LoginTag) \| [<code>LogoutTag</code>](#LogoutTag) \| [<code>ATag</code>](#ATag) \| [<code>PTag</code>](#PTag) \| [<code>BrTag</code>](#BrTag) \| [<code>HeaderTag</code>](#HeaderTag) \| [<code>FooterTag</code>](#FooterTag) \| [<code>InputTag</code>](#InputTag) \| [<code>LabelTag</code>](#LabelTag) \| [<code>TextareaTag</code>](#TextareaTag) \| [<code>ImgTag</code>](#ImgTag) \| [<code>VideoTag</code>](#VideoTag)
 **Kind**: static method of [<code>Tag</code>](#Tag)  
 
 | Param | Type |
