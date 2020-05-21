@@ -268,7 +268,7 @@ function FormItem(props) {
      @name FormItem#value
      @type {string}
      */
-    this.value = props.value || null;
+    this.value = typeof props.value === 'undefined' ? null : props.value;
 
     // if (this.value == null) {
     //     if (this.type === 'hidden') {
@@ -298,7 +298,7 @@ function FormItem(props) {
      @name FormItem#minLength
      @type {number}
      */
-    this.minLength = props.minLength || null;
+    this.minLength = typeof props.minLength === 'undefined' ? null : props.minLength;
 
     /**
      Message to be shown on `minLength` error.
@@ -314,7 +314,7 @@ function FormItem(props) {
      @name FormItem#maxLength
      @type {number}
      */
-    this.maxLength = props.maxLength || null;
+    this.maxLength = typeof props.maxLength === 'undefined' ? null : props.maxLength;
 
     /**
      Message to be shown on `maxLength` error.
@@ -330,7 +330,7 @@ function FormItem(props) {
      @name FormItem#minValue
      @type {number}
      */
-    this.minValue = props.minValue || null;
+    this.minValue = typeof props.minValue === 'undefined' ? null : props.minValue;
 
     /**
      Message to be shown on `minValue` error.
@@ -346,7 +346,7 @@ function FormItem(props) {
      @name FormItem#maxValue
      @type {number}
      */
-    this.maxValue = props.maxValue || null;
+    this.maxValue = typeof props.maxValue === 'undefined' ? null : props.maxValue;
 
     /**
      Message to be shown on `maxValue` error.
@@ -393,7 +393,7 @@ function FormItem(props) {
      @name FormItem#step
      @type {number}
      */
-    this.step = props.step || null;
+    this.step = typeof props.step === 'undefined' ? null : props.step;
 
     /**
      {@link MenuFormItemMeta} object <br> _applies only for `type=form-menu`_.
@@ -602,6 +602,7 @@ FormItem.fromTag = function (sectionTag) {
             maxLengthError = child.attrs.maxlengthError;
             description = sectionTag.toString(true, true);
             pattern = child.attrs.pattern;
+            value = child.attrs.value;
 
             break; // ignore other <input> tags if exist
         }

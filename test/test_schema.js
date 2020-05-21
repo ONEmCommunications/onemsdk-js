@@ -669,6 +669,58 @@ describe('Test schema', function () {
                 assert.equal(formItem.type, 'float');
             });
 
+            it('should handle null and zero values for numeric fields', function () {
+                let html = '' +
+                    '<section name="step1" required>' +
+                    '    <input type="number" name="test" min="0" value="0" step=0 minlength=0 max=null/>' +
+                    '</section>';
+                let sectionTag = parser.loadHtml(undefined, html);
+
+                let response = FormItem.fromTag(sectionTag);
+                const expected = {
+                    "type": "float",
+                    "name": "step1",
+                    "description": null,
+                    "header": null,
+                    "footer": null,
+                    "body": null,
+                    "value": "0",
+                    "chunkingFooter": null,
+                    "confirmationLabel": null,
+                    "minLength": 0,
+                    "minLengthError": null,
+                    "maxLength": null,
+                    "maxLengthError": null,
+                    "minValue": 0,
+                    "minValueError": null,
+                    "maxValue": null,
+                    "maxValueError": null,
+                    "onLoginSuccess": null,
+                    "onLoginFailure": null,
+                    "onLogoutSuccess": null,
+                    "onLogoutFailure": null,
+                    "step": 0,
+                    "meta": {
+                        "autoSelect": false,
+                        "multiSelect": false,
+                        "numbered": false
+                    },
+                    "method": null,
+                    "required": true,
+                    "default": null,
+                    "pattern": null,
+                    "statusExclude": false,
+                    "statusPrepend": false,
+                    "url": null,
+                    "validateTypeError": null,
+                    "validateTypeErrorFooter": null,
+                    "validateUrl": null
+                };
+
+                assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
+
+            });
+
             it('should throw error for type="hidden" and no value', function () {
                 const html = '' +
                     '<section name="name">' +
