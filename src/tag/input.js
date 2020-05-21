@@ -61,17 +61,38 @@ InputTag.tagName = 'input';
  * @returns {InputTagAttrs}
  */
 InputTag.getAttributes = function (node) {
+
+    function parseNumber(value, type="int") {
+        if (typeof value === 'number') return value;
+        if (typeof value === 'string') {
+            let parse;
+            if (typeof type === 'string' && type.toLowerCase() === 'int') {
+                parse = parseInt;
+            } else {
+                parse = parseFloat;
+            }
+            const result = parse(value);
+            if (isNaN(result)) {
+                return undefined;
+            } else {
+                return result;
+            }
+        } else {
+            return undefined;
+        }
+    }
+
     return new InputTagAttrs(
         node.attributes.type,
-        parseFloat(node.attributes.min) || undefined,
+        parseNumber(node.attributes.min,'float'),
         node.attributes['min-error'] || node.attributes.minError,
-        parseInt(node.attributes.minlength) || undefined,
+        parseNumber(node.attributes.minlength,'int'),
         node.attributes['minlength-error'] || node.attributes.minlengthError,
-        parseFloat(node.attributes.max) || undefined,
+        parseNumber(node.attributes.max,'float'),
         node.attributes['max-error'] || node.attributes.maxError,
-        parseInt(node.attributes.maxlength) || undefined,
+        parseNumber(node.attributes.maxlength,'int'),
         node.attributes['maxlength-error'] || node.attributes.maxlengthError,
-        parseFloat(node.attributes.step) || undefined,
+        parseNumber(node.attributes.step,'float'),
         node.attributes.value,
         node.attributes.pattern
     );
