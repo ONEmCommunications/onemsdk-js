@@ -72,7 +72,7 @@ describe('Test tags', function () {
                     return FormTag.fromNode(parsedHtml.childNodes[0]);
                 }
 
-                assert.throws(iThrow, Error, '<form> can have only <section> children');
+                assert.throws(iThrow, Error, '<form> can have only <section> or <snackbar> children');
             });
 
             it('should not work without children', function () {
@@ -94,8 +94,7 @@ describe('Test tags', function () {
                     return FormTag.fromNode(parsedHtml.childNodes[0]);
                 }
 
-                assert.throws(iThrow, Error, '<form> can contain only named <section> tags. ' +
-                    'Please add a unique "name" attribute in each form  section.')
+                assert.throws(iThrow, Error, 'Please add a unique "name" attribute in each <section> tag')
             });
         })
     });

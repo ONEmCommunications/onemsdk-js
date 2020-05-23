@@ -191,7 +191,8 @@ describe('Test schema', function () {
                         "footer": "Some footer",
                         "meta": {
                             "auto_select": true
-                        }
+                        },
+                        "snackbar":null
                     }
                 };
                 assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
@@ -213,7 +214,8 @@ describe('Test schema', function () {
                         "footer": "footer attr",
                         "meta": {
                             "auto_select": false
-                        }
+                        },
+                        "snackbar":null
                     }
                 };
                 assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
@@ -234,7 +236,8 @@ describe('Test schema', function () {
                         "footer": "footer child",
                         "meta": {
                             "auto_select": false
-                        }
+                        },
+                        "snackbar":null
                     }
                 };
                 assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
@@ -256,11 +259,63 @@ describe('Test schema', function () {
                         "footer": "footer attr",
                         "meta": {
                             "auto_select": false
+                        },
+                        "snackbar":null
+                    }
+                };
+                assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
+            });
+        });
+        describe('Menu Snackbar.fromTag', function () {
+
+            it('should recognize a snackbar in a menu', function () {
+                let html = '' +
+                    '<section>' +
+                    '   <Snackbar message="error message" action-name="action" action-path="/path" auto-hide-duration=1000 action-method="post"/>' +
+                    '</section>';
+                let rootTag = parser.loadHtml(undefined, html);
+                let response = Response.fromTag(rootTag);
+                let expected = {
+                    "content_type": "menu",
+                    "content": {
+                        "type": "menu",
+                        "body": [],
+                        "header": null,
+                        "footer": null,
+                        "meta": {
+                            "auto_select": false
+                        },
+                        "snackbar": {
+                            "message": "error message",
+                            "severity": "info",
+                            "action_name": "action",
+                            "action_path": "/path",
+                            "action_method": "post",
+                            "meta": {
+                                "auto_hide_duration": 1000
+                            }
                         }
                     }
                 };
                 assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
             });
+
+            it('should throw error in case of subsequent snackbar tags in a menu', function () {
+                let html = '' +
+                    '<section>' +
+                    '   <Snackbar message="error message" severity="warn" auto-hide-duration=8000/>' +
+                    '   <Snackbar message="another error message" />' +
+                    '</section>';
+                let rootTag = parser.loadHtml(undefined, html);
+                function iThrow () {
+                    return Response.fromTag(rootTag);
+                }
+                assert.throws(iThrow, Error, 'Only one <snackbar> tag is allowed in a <menu> or <form>');
+            });
+
+        });
+
+        describe('Menu pug', function () {
 
             it('should render the correct response form pug section file', function () {
                 const data = {
@@ -335,7 +390,8 @@ describe('Test schema', function () {
                         "footer": null,
                         "meta": {
                             "auto_select": true
-                        }
+                        },
+                        "snackbar":null
                     }
                 };
                 assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
@@ -576,11 +632,106 @@ describe('Test schema', function () {
                             "completion_status_show": false,
                             "completion_status_in_header": true,
                             "skip_confirmation": false
+                        },
+                        "snackbar": null
+                    }
+                };
+
+                assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
+            });
+
+            it('should recognize a snackbar in a form section', function () {
+                const html = '' +
+                    '<form action="/route">' +
+                    '   <Snackbar message="error message" />' +
+                    '   <section name="step1">' +
+                    '       <input type="text"/>' +
+                    '   </section>' +
+                    '</form>';
+                const formTag = parser.loadHtml(undefined, html);
+                const formItem = Form.fromTag(formTag);
+                const expected = {
+                    "type": "form",
+                    "body": [
+                        {
+                            "type": "string",
+                            "name": "step1",
+                            "description": null,
+                            "header": null,
+                            "footer": null,
+                            "body": null,
+                            "value": null,
+                            "chunking_footer": null,
+                            "confirmation_label": null,
+                            "min_length": null,
+                            "min_length_error": null,
+                            "max_length": null,
+                            "max_length_error": null,
+                            "min_value": null,
+                            "min_value_error": null,
+                            "max_value": null,
+                            "max_value_error": null,
+                            "on_login_success":null,
+                            "on_login_failure":null,
+                            "on_logout_success":null,
+                            "on_logout_failure":null,
+                            "step": null,
+                            "meta": {
+                                "auto_select": false,
+                                "multi_select": false,
+                                "numbered": false
+                            },
+                            "method": null,
+                            "required": false,
+                            "default": null,
+                            "pattern": null,
+                            "status_exclude": false,
+                            "status_prepend": false,
+                            "url": null,
+                            "validate_type_error": null,
+                            "validate_type_error_footer": null,
+                            "validate_url": null
+                        }
+                    ],
+                    "method": "POST",
+                    "path": "/route",
+                    "header": null,
+                    "footer": null,
+                    "meta": {
+                        "completion_status_show": false,
+                        "completion_status_in_header": false,
+                        "skip_confirmation": false
+                    },
+                    "snackbar": {
+                        "message": "error message",
+                        "severity": "info",
+                        "action_name": null,
+                        "action_path": null,
+                        "action_method": null,
+                        "meta": {
+                            "auto_hide_duration": null
                         }
                     }
                 };
-                assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
+                assert.equal(JSON.stringify(snakecase(formItem)), JSON.stringify(expected));
             });
+
+            it('should throw error in case of subsequent snackbar tags in a form', function () {
+                const html = '' +
+                    '<form action="/route">' +
+                    '   <Snackbar message="error message" severity="warn" auto-hide-duration=8000/>' +
+                    '   <Snackbar message="another error message" />' +
+                    '   <section name="step1">' +
+                    '       <input type="text"/>' +
+                    '   </section>' +
+                    '</form>';
+                const formTag = parser.loadHtml(undefined, html);
+                function iThrow () {
+                    return Form.fromTag(formTag);
+                }
+                assert.throws(iThrow, Error, 'Only one <snackbar> tag is allowed in a <menu> or <form>');
+            });
+
         });
     });
 
@@ -944,7 +1095,8 @@ describe('Test schema', function () {
                         "completion_status_show": false,
                         "completion_status_in_header": false,
                         "skip_confirmation": true
-                    }
+                    },
+                    "snackbar": null
                 }
             };
             assert.strictEqual(response instanceof Response, true);

@@ -89,6 +89,7 @@ function SectionTag(children, attrs) {
             case 'textarea':
             case 'img':
             case 'video':
+            case 'snackbar':
                 break;
             default:
                 if (typeof child !== 'string') {

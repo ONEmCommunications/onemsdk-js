@@ -1,4 +1,5 @@
 const Tag = require('./tag').Tag;
+const { parseNumber } = require('../utils');
 
 /**
  * @typedef InputTag
@@ -61,26 +62,6 @@ InputTag.tagName = 'input';
  * @returns {InputTagAttrs}
  */
 InputTag.getAttributes = function (node) {
-
-    function parseNumber(value, type="int") {
-        if (typeof value === 'number') return value;
-        if (typeof value === 'string') {
-            let parse;
-            if (typeof type === 'string' && type.toLowerCase() === 'int') {
-                parse = parseInt;
-            } else {
-                parse = parseFloat;
-            }
-            const result = parse(value);
-            if (isNaN(result)) {
-                return undefined;
-            } else {
-                return result;
-            }
-        } else {
-            return undefined;
-        }
-    }
 
     return new InputTagAttrs(
         node.attributes.type,

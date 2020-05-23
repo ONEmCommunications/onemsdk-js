@@ -13,7 +13,8 @@ const UlTag = tags.UlTag,
     LogoutTag = tags.LogoutTag,
     TextareaTag = tags.TextareaTag,
     ImgTag = tags.ImgTag,
-    VideoTag = tags.VideoTag;
+    VideoTag = tags.VideoTag,
+    SnackbarTag = tags.SnackbarTag;
 
 
 /**
@@ -23,6 +24,7 @@ const UlTag = tags.UlTag,
  @classdesc A Form object as defined in the JSON schema
 
  @param {object} props - Properties to initialize the `Form` with
+ @param {Snackbar} [props.snackbar] - Sets {@link Snackbar}
  @param {Array<FormItem>} props.body - Sets {@link Form#body}
  @param {('GET'|'POST'|'PUT'|'PATCH'|'DELETE')} props.method='POST' - Sets {@link Form#method}
  @param {string} props.path - Sets {@link Form#path}
@@ -93,6 +95,14 @@ function Form(props) {
      @type {FormMeta}
      */
     this.meta = props.meta || null;
+
+    /**
+     Snackbar for the form.
+
+     @name Snackbar
+     @type {Snackbar}
+     */
+    this.snackbar = props.snackbar || null;
 }
 
 /**
@@ -101,9 +111,18 @@ function Form(props) {
  * @returns {Form}
  */
 Form.fromTag = function (formTag) {
-    let body = [];
-    for (const sectionTag of formTag.children) {
-        body.push(FormItem.fromTag(sectionTag));
+    let body = [], snackbar, processedSnackbar = false;
+
+    for (const tag of formTag.children) {
+        if (tag instanceof SectionTag) {
+            body.push(FormItem.fromTag(tag));
+        } else if (tag instanceof SnackbarTag) {
+            if (processedSnackbar) {
+                throw Error("Only one <snackbar> tag is allowed in a <menu> or <form>")
+            }
+            processedSnackbar = true;
+            snackbar = Snackbar.fromTag(tag);
+        }
     }
 
     return new Form({
@@ -116,7 +135,8 @@ Form.fromTag = function (formTag) {
             completionStatusShow: formTag.attrs.completionStatusShow,
             completionStatusInHeader: formTag.attrs.completionStatusInHeader,
             skipConfirmation: formTag.attrs.skipConfirmation
-        })
+        }),
+        snackbar: snackbar
     });
 };
 
@@ -836,6 +856,7 @@ MenuItemFormItem.fromTag = function (tag) {
  * a top level component that permits displaying a navigable menu or a plain text.
  *
  * @param {object} props - Properties to initialize the menu with
+ * @param {Snackbar} [props.snackbar] - Sets {@link Snackbar}
  * @param {Array<MenuItem>} props.body - Sets {@link Menu#body}
  * @param {string} [props.header] - Sets {@link Menu#header}
  * @param {string} [props.footer] - Sets {@link Menu#footer}
@@ -879,7 +900,133 @@ function Menu(props) {
      @type {MenuMeta}
      */
     this.meta = props.meta || null;
+
+    /**
+     Snackbar for the menu.
+
+     @name Snackbar
+     @type {Snackbar}
+     */
+    this.snackbar = props.snackbar || null;
 }
+
+/**
+ Instantiates a new SnackbarMeta
+
+ @class SnackbarMeta
+ @classdesc A SnackbarMeta object as defined in the JSON schema. It contains
+ configuration fields for {@link Snackbar}.
+
+ @param {object} props - Properties to initialize the snackbar meta with
+ @param {number} [props.autoHideDuration] - Sets {@link SnackbarMeta.autoHideDuration}
+ */
+function SnackbarMeta(props) {
+    /**
+     Time to wait (in ms) until the Snackbar should be automatically closed.
+    * If not supplied, zero or null, the default system value applies (usually 7s)
+
+     @name SnackbarMeta#autoHideDuration
+     @type {number}
+     */
+    this.autoHideDuration = props.autoHideDuration || null;
+}
+
+/**
+ * Instantiates a new Snackbar
+ *
+ * @class Snackbar
+ * @classdesc A snackbar component that can be used to render an error message with a given severity and action
+ * can be used in Menus or Forms.
+ *
+ * @param {object} props - Properties to initialize the snackbar with
+ * @param {string} props.message - Sets {@link Snackbar#message}
+ * @param {('info' | 'warn' | 'error' | 'success')} [props.severity='info'] - Sets {@link Snackbar#severity}
+ * @param {string} [props.actionName] - Sets {@link Snackbar#actionName}
+ * @param {string} [props.actionPath] - Sets {@link Snackbar#actionPath}
+ * @param {string} [props.actionMethod] - Sets {@link Snackbar#actionMethod}
+ * @param {SnackbarMeta} [props.meta] - Sets {@link Snackbar#meta}
+ */
+function Snackbar(props) {
+
+     /**
+     The error message text
+
+     @name Snackbar#message
+     @type {string}
+     */
+    this.message = props.message || null;
+
+    if (!this.message) {
+        throw Error('message property must be provided');
+    }
+     /**
+     The severity of the error
+
+     @name Snackbar#severity
+     @type {string}
+     @default 'info'
+     */
+    this.severity = props.severity ? String(props.severity).toLowerCase() : "info";
+
+    const supportedSeverities = [
+        'info', 'warn', 'error', 'success'
+    ];
+
+    if (supportedSeverities.indexOf(this.severity) === -1) {
+        throw Error(`Snackbar type="${this.severity}" is not supported. Supported types: ${supportedSeverities}`);
+    }
+
+     /**
+     The name of the action button
+
+     @name Snackbar#actionName
+     @type {string}
+     */
+    this.actionName = props.actionName || null;
+
+     /**
+     The callback path of the action
+
+     @name Snackbar#actionPath
+     @type {string}
+     */
+    this.actionPath = props.actionPath || null;
+
+    if (this.actionName && !this.actionPath) {
+        throw Error('actionPath must have a value when actionName is provided');
+    }
+
+    /**
+     The method of the action
+
+    @name Snackbar#actionMethod
+    @type {string}
+    */
+   this.actionMethod = props.actionMethod || null;
+
+    /**
+     Configuration fields for snackbar.
+
+     @name Snackbar#meta
+     @type {SnackbarMeta}
+     */
+    this.meta = props.meta || null;
+
+}
+
+Snackbar.fromTag = function(snackbarTag) {
+
+    return new Snackbar({
+        message: snackbarTag.attrs.message,
+        severity: snackbarTag.attrs.severity,
+        actionName: snackbarTag.attrs.actionName,
+        actionPath: snackbarTag.attrs.actionPath,
+        actionMethod: snackbarTag.attrs.actionMethod,
+        meta: new SnackbarMeta({
+            autoHideDuration: snackbarTag.attrs.autoHideDuration
+        })
+    });
+};
 
 /**
  * Creates a Menu from a SectionTag
@@ -889,7 +1036,9 @@ function Menu(props) {
 Menu.fromTag = function (sectionTag) {
     let body = [],
         header,
-        footer;
+        footer,
+        snackbar,
+        processedSnackbar = false;
 
     sectionTag.children.forEach(function (child) {
         if (child instanceof UlTag) {
@@ -900,6 +1049,12 @@ Menu.fromTag = function (sectionTag) {
             header = child.toString();
         } else if (child instanceof FooterTag) {
             footer = child.toString();
+        } else if (child instanceof SnackbarTag) {
+            if (processedSnackbar) {
+                throw Error("Only one <snackbar> tag is allowed in a <menu> or <form>");
+            }
+            snackbar = Snackbar.fromTag(child);
+            processedSnackbar = true;
         } else {
             body.push(MenuItem.fromTag(child));
         }
@@ -911,6 +1066,7 @@ Menu.fromTag = function (sectionTag) {
     });
 
     return new Menu({
+        snackbar: snackbar,
         body: body,
         header: header || sectionTag.attrs.header,
         footer: footer || sectionTag.attrs.footer,

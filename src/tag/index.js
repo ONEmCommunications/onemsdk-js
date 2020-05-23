@@ -10,6 +10,7 @@ const LoginTag = require("./login").LoginTag;
 const LogoutTag = require("./logout").LogoutTag;
 const PTag = require("./p").PTag;
 const SectionTag = require("./section").SectionTag;
+const SnackbarTag = require("./snackbar").SnackbarTag;
 const UlTag = require("./ul").UlTag;
 const TextareaTag = require("./textarea").TextareaTag;
 const ImgTag = require("./img").ImgTag;
@@ -30,6 +31,7 @@ const tagClsMap = {
     logout: LogoutTag,
     p: PTag,
     section: SectionTag,
+    snackbar: SnackbarTag,
     textarea: TextareaTag,
     ul: UlTag,
     img: ImgTag,
@@ -53,6 +55,7 @@ exports.LoginTag = LoginTag;
 exports.LogoutTag = LogoutTag;
 exports.PTag = PTag;
 exports.SectionTag = SectionTag;
+exports.SnackbarTag = SnackbarTag;
 exports.UlTag = UlTag;
 exports.TextareaTag = TextareaTag;
 exports.ImgTag = ImgTag;

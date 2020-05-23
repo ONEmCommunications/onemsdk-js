@@ -84,7 +84,8 @@ describe('Test parser', function () {
                     "footer": "a footer",
                     "meta": {
                         "auto_select": false
-                    }
+                    },
+                    "snackbar":null
                 }
             };
             assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
@@ -208,7 +209,8 @@ describe('Test parser', function () {
                     "footer": null,
                     "meta": {
                         "auto_select": false
-                    }
+                    },
+                    "snackbar":null
                 }
             };
 

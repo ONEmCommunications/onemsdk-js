@@ -1,5 +1,6 @@
 const Tag = require('./tag').Tag;
 const SectionTag = require("./section").SectionTag;
+const SnackbarTag = require("./snackbar").SnackbarTag;
 
 /**
  * @typedef FormTag
@@ -51,7 +52,7 @@ function FormTagAttrs(action, method, header, footer, completionStatusShow,
  * Instantiates a new FormTag. It is the equivalent of the HTML <form> tag and
  * it is always the root (it cannot be placed inside of another tag). The
  * FormTag is be used in all the situations where some data is expected from the
- * user. The FormTag can have only SectionTag children and each SectionTag
+ * user. The FormTag can have one SnackbarTag child followed by multiple SectionTag children and each SectionTag
  * deals with one piece of data from the user.
  * @param {Array<SectionTag>} children
  * @param {FormTagAttrs} attrs
@@ -62,13 +63,11 @@ function FormTag(children, attrs) {
         throw Error('<form> must have at least 1 child');
     }
 
-    children.forEach(function (sectionTag) {
-        if (!(sectionTag instanceof SectionTag)) {
-            throw Error('<form> can have only <section> children')
-        }
-        if (!sectionTag.attrs.name) {
-            throw Error('<form> can contain only named <section> tags. ' +
-                'Please add a unique "name" attribute in each form  section.')
+    children.forEach(function (tag) {
+        if (!(tag instanceof SectionTag || tag instanceof SnackbarTag)) {
+            throw Error('<form> can have only <section> or <snackbar> children');
+        } else if (tag instanceof SectionTag && !tag.attrs.name) {
+            throw Error('Please add a unique "name" attribute in each <section> tag');
         }
     });
 
