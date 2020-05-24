@@ -15,6 +15,13 @@ const UlTag = require("./ul").UlTag;
 const TextareaTag = require("./textarea").TextareaTag;
 const ImgTag = require("./img").ImgTag;
 const VideoTag = require("./video").VideoTag;
+const CardTag = require("./card").CardTag;
+const CardActionTag = require("./cardaction").CardActionTag;
+const CardActionsTag = require("./cardactions").CardActionsTag;
+const CardAvatarTag = require("./cardavatar").CardAvatarTag;
+const CardContentTag = require("./cardcontent").CardContentTag;
+const CardHeaderTag = require("./cardheader").CardHeaderTag;
+const CardMediaTag = require("./cardmedia").CardMediaTag;
 
 // const Tag = require("./tag").Tag;
 
@@ -35,7 +42,14 @@ const tagClsMap = {
     textarea: TextareaTag,
     ul: UlTag,
     img: ImgTag,
-    video: VideoTag
+    video: VideoTag,
+    card: CardTag,
+    cardaction: CardActionTag,
+    cardactions: CardActionsTag,
+    cardavatar: CardAvatarTag,
+    cardcontent: CardContentTag,
+    cardheader: CardHeaderTag,
+    cardmedia: CardMediaTag
 };
 
 const getTagCls = function getTagCls(tagName) {
@@ -60,5 +74,12 @@ exports.UlTag = UlTag;
 exports.TextareaTag = TextareaTag;
 exports.ImgTag = ImgTag;
 exports.VideoTag = VideoTag;
+exports.CardTag = CardTag;
+exports.CardActionTag = CardActionTag;
+exports.CardActionsTag = CardActionsTag;
+exports.CardAvatarTag = CardAvatarTag;
+exports.CardContentTag = CardContentTag;
+exports.CardHeaderTag = CardHeaderTag;
+exports.CardMediaTag = CardMediaTag;
 // exports.Tag = Tag;
 exports.getTagCls = getTagCls;

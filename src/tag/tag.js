@@ -24,7 +24,9 @@ Tag.tagName = undefined;
 
 /**
  * @param {HTMLElement} node
- * @returns {FormTag | SectionTag | SnackbarTag | UlTag | LiTag | LoginTag | LogoutTag | ATag | PTag | BrTag | HeaderTag | FooterTag | InputTag | LabelTag | TextareaTag | ImgTag | VideoTag}
+ * @returns {FormTag | CardTag | CardHeaderTag | CardAvatarTag | CardMediaTag | CardContentTag | CardActionsTag | CardActionTag | 
+ * SectionTag | SnackbarTag | UlTag | LiTag | LoginTag | LogoutTag | ATag | PTag | BrTag | 
+ * HeaderTag | FooterTag | InputTag | LabelTag | TextareaTag | ImgTag | VideoTag}
  */
 Tag.fromNode = function (node) {
     if (this.tagName !== node.tagName) {

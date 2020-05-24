@@ -2,6 +2,7 @@ const Tag = require('./tag').Tag;
 const ATag = require('./a').ATag;
 const LoginTag = require('./login').LoginTag;
 const LogoutTag = require('./logout').LogoutTag;
+const CardTag = require('./card').CardTag;
 
 /**
  * @typedef LiTag
@@ -31,10 +32,11 @@ function LiTag(children, attrs) {
         children.length !== 1 ||
         !(children[0] instanceof ATag || 
         children[0] instanceof LoginTag ||
+        children[0] instanceof CardTag ||
         children[0] instanceof LogoutTag || 
         typeof children[0] === 'string')
     ) {
-        throw Error('<li> must have 1 child (<a>, <login>, <logout> or text)')
+        throw Error('<li> must have 1 child (<a>, <card>, <login>, <logout> or text)')
     }
     this.children = children;
     this.attrs = attrs;
@@ -52,6 +54,8 @@ LiTag.getAttributes = function (node) {
 LiTag.prototype.toString = function liTagToString() {
     if (this.children[0] instanceof ATag) {
         return this.children[0].toString();
+    } else if (this.children[0] instanceof CardTag) {
+        return '';
     }
     return this.children[0];
 };

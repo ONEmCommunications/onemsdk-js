@@ -44,9 +44,13 @@ describe('Test schema', function () {
                     '       <li text-search="route 3 route3">' +
                     '           <a href="/route3">Route 3</a>' +
                     '       </li>' +
+                    '       <li>' +
+                    '           <card></card>' +
+                    '       </li>' +
                     '   </ul>' +
                     '   <login on-success="/successPath" on-failure="/failurePath" />' +
                     '   <logout on-success="/logoutSuccessPath2" on-failure="/logoutFailurePath2" />' +
+                    '   <card/>'
                     '</section>';
                 const rootTag = parser.loadHtml(undefined, html);
                 const response = Response.fromTag(rootTag);
@@ -67,7 +71,8 @@ describe('Test schema', function () {
                                 "on_logout_success":null,
                                 "path": null,
                                 "src": "/videoPath",
-                                "alt": "alt video name"
+                                "alt": "alt video name",
+                                "card": null
                             },
                             {
                                 "type": "option",
@@ -80,7 +85,8 @@ describe('Test schema', function () {
                                 "on_logout_success":null,
                                 "path": "/route1",
                                 "src": null,
-                                "alt": null
+                                "alt": null,
+                                "card": null,
                             },
                             {
                                 "type": "option",
@@ -93,7 +99,8 @@ describe('Test schema', function () {
                                 "on_logout_success":null,
                                 "path": "/route2",
                                 "src": null,
-                                "alt": null
+                                "alt": null,
+                                "card": null
                             },
                             {
                                 "type": "content",
@@ -106,7 +113,8 @@ describe('Test schema', function () {
                                 "on_logout_success":null,
                                 "path": null,
                                 "src": null,
-                                "alt": null
+                                "alt": null,
+                                "card": null
                             },
                             {
                                 "type": "option",
@@ -119,7 +127,8 @@ describe('Test schema', function () {
                                 "on_logout_success":null,
                                 "path": "/form/new/",
                                 "src": "https://placekitten.com/600/600",
-                                "alt": "alt text 2"
+                                "alt": "alt text 2",
+                                "card": null,
                             },
                             {
                                 "type": "login",
@@ -132,7 +141,8 @@ describe('Test schema', function () {
                                 "on_logout_success":null,
                                 "path": null,
                                 "src": null,
-                                "alt": null
+                                "alt": null,
+                                "card": null,
                             },
                             {
                                 "type": "logout",
@@ -145,7 +155,8 @@ describe('Test schema', function () {
                                 "on_logout_success":"/logoutSuccessPath1",
                                 "path": null,
                                 "src": null,
-                                "alt": null
+                                "alt": null,
+                                "card": null,
                             },
                             {
                                 "type": "option",
@@ -158,7 +169,31 @@ describe('Test schema', function () {
                                 "on_logout_success":null,
                                 "path": "/route3",
                                 "src": null,
-                                "alt": null
+                                "alt": null,
+                                "card": null
+                            },
+                            {
+                                "type": "card",
+                                "description": null,
+                                "text_search": null,
+                                "method": null,
+                                "on_login_failure":null,
+                                "on_login_success":null,
+                                "on_logout_failure":null,
+                                "on_logout_success":null,
+                                "path": null,
+                                "src": null,
+                                "alt": null,
+                                "card": {
+                                    "path": null,
+                                    "method": null,
+                                    "header": null,
+                                    "src": null,
+                                    "title": null,
+                                    "subtitle": null,
+                                    "description": null,
+                                    "actions": null
+                                }
                             },
                             {
                                 "type": "login",
@@ -171,7 +206,8 @@ describe('Test schema', function () {
                                 "on_logout_success":null,
                                 "path": null,
                                 "src": null,
-                                "alt": null
+                                "alt": null,
+                                "card": null
                             },
                             {
                                 "type": "logout",
@@ -184,7 +220,31 @@ describe('Test schema', function () {
                                 "on_logout_success":'/logoutSuccessPath2',
                                 "path": null,
                                 "src": null,
-                                "alt": null
+                                "alt": null,
+                                "card": null
+                            },
+                            {
+                                "type": "card",
+                                "description": null,
+                                "text_search": null,
+                                "method": null,
+                                "on_login_failure": null,
+                                "on_login_success": null,
+                                "on_logout_failure": null,
+                                "on_logout_success": null,
+                                "path": null,
+                                "src": null,
+                                "alt": null,
+                                "card": {
+                                    "path": null,
+                                    "method": null,
+                                    "header": null,
+                                    "src": null,
+                                    "title": null,
+                                    "subtitle": null,
+                                    "description": null,
+                                    "actions": null
+                                }
                             }
                         ],
                         "header": "Some header",
@@ -344,7 +404,8 @@ describe('Test schema', function () {
                                 "on_logout_success":null,
                                 "path": null,
                                 "src": null,
-                                "alt": null                                
+                                "alt": null,
+                                "card": null                            
                             },
                             {
                                 "type": "content",
@@ -357,7 +418,8 @@ describe('Test schema', function () {
                                 "on_logout_success":null,
                                 "path": null,
                                 "src": null,
-                                "alt": null
+                                "alt": null,
+                                "card": null
                             },
                             {
                                 "type": "content",
@@ -370,7 +432,8 @@ describe('Test schema', function () {
                                 "on_logout_success":null,
                                 "path": null,
                                 "src": null,
-                                "alt": null
+                                "alt": null,
+                                "card": null
                             },
                             {
                                 "type": "content",
@@ -383,7 +446,8 @@ describe('Test schema', function () {
                                 "on_logout_success":null,
                                 "path": null,
                                 "src": null,
-                                "alt": null
+                                "alt": null,
+                                "card": null
                             }
                         ],
                         "header": null,

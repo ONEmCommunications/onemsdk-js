@@ -14,8 +14,311 @@ const UlTag = tags.UlTag,
     TextareaTag = tags.TextareaTag,
     ImgTag = tags.ImgTag,
     VideoTag = tags.VideoTag,
-    SnackbarTag = tags.SnackbarTag;
+    SnackbarTag = tags.SnackbarTag,
+    CardTag = tags.CardTag,
+    CardActionTag = tags.CardActionTag,
+    CardActionsTag = tags.CardActionsTag,
+    CardAvatarTag = tags.CardAvatarTag,
+    CardContentTag = tags.CardContentTag,
+    CardHeaderTag = tags.CardHeaderTag,
+    CardMediaTag = tags.CardMediaTag;
 
+/**
+ Instantiates a new Card
+
+ @class Card
+ @classdesc A Card object as defined in the JSON schema
+
+ @param {object} props - Properties to initialize the `Card` with
+ @param {string} [props.path] - Sets {@link Card#path}
+ @param {('GET'|'POST'|'PUT'|'PATCH'|'DELETE')} [props.method='GET'] - Sets {@link Card#method}
+ @param {CardHeader} [props.header] - Sets {@link Card#header}
+ @param {string} [props.src] - Sets {@link Card#media}
+ @param {string} [props.title] - Sets {@link Card#title}
+ @param {string} [props.subtitle] - Sets {@link Card#subtitle}
+ @param {string} [props.description] - Sets {@link Card#description}
+ @param {Array<CardAction>} [props.actions] - Sets {@link Card#actions}
+ */
+function Card(props) {
+
+    /**
+     * 
+     * The callback path used if the card is "selected"
+     *
+     @name Card#path
+     @type {string}
+     */
+    this.path = props.path || null;
+
+    /**
+     * HTTP method indicating how to trigger the callback path. Defaults to `"GET"`.
+     * 
+     @name Card#method
+     @type {string}
+     */
+    if (props.path) {
+        this.method = props.method || 'GET';
+    } else {
+        this.method = null;
+    }
+
+    /**
+     * CardHeader object
+     * 
+     @name Card#header
+     @type {CardHeader}
+     */
+    this.header = props.header || null;
+
+    /**
+     Link to public url for card media (image, mp4, youtube or vimeo)
+
+     @name Card#src
+     @type {string}
+     */
+    this.src = props.src || null;
+
+    /**
+     Card title in main card body
+
+     @name Card#title
+     @type {string}
+     */
+    this.title = props.title || null;
+
+    /**
+     Card subtitle in main card body
+
+     @name Card#subtitle
+     @type {string}
+     */
+    this.subtitle = props.subtitle || null;
+
+    /**
+     Card content in main card body
+
+     @name Card#description
+     @type {string}
+     */
+    this.description = props.description || null;
+
+    /**
+     Array of card actions
+
+     @name Card#actions
+     @type {Array<CardAction>}
+     */
+    this.actions = props.actions || null;
+
+}
+
+/**
+ * Creates a Card from a CardTag
+ * @param {CardTag} cardTag
+ * @returns {Card}
+ */
+Card.fromTag = function (cardTag) {
+    let description, header, src, title, subtitle, actions;
+
+    for (const child of cardTag.children) {
+        if (child instanceof CardHeaderTag) {
+            header = child.fromTag(child);
+        } else if (child instanceof CardMediaTag) {
+            src = child.attrs.src;         
+        } else if (child instanceof CardContentTag) {
+            description = child.attrs.content
+            title = child.attrs.title;
+            subtitle = child.attrs.subtitle;
+        } else if (tag instanceof CardActionsTag && tag.children.length && !actions) {
+            actions = [];
+            tag.children.forEach(function (cardActionTag) {
+                if (cardActionTag instanceof CardActionTag) {
+                    actions.push(CardAction.fromTag(cardActionTag));
+                } else {
+                    throw Error("Unexpected tag in <cardactions>, expecting <cardaction>");
+                }
+            });
+        } else {
+            throw Error("Unexpected tag in <card>, expecting one of: <cardheader>, <cardcontent>, <cardmedia>, <cardactions>")
+        }
+    }
+
+    return new Card({
+        path: cardTag.attrs.action,
+        method: cardTag.attrs.method,
+        header: header,
+        src: src,
+        title: title,
+        subtitle: subtitle,
+        description: description,
+        actions: actions
+    });
+};
+
+/**
+ Instantiates a new CardHeader
+
+ @class CardHeader
+ @classdesc A CardHeader object as defined in the JSON schema
+
+ @param {object} props - Properties to initialize the `CardHeader` with
+ @param {string} props.title - Sets {@link CardHeader#title}
+ @param {string} [props.subtitle] - Sets {@link CardHeader#subtitle}
+ @param {CardAvatar} [props.avatar] - Sets {@link CardHeader#avatar}
+ */
+function CardHeader(props) {
+
+    /**
+     Card title of the card header
+
+     @name CardHeader#title
+     @type {string}
+     */
+    this.title = props.title;
+    if (!this.title) {
+        throw Error("CardHeader title is mandatory")
+    }
+
+    /**
+     Card subtitle in main card body
+
+     @name CardHeader#subtitle
+     @type {string}
+     */
+    this.subtitle = props.subtitle || null;
+
+    /**
+     Card subtitle in main card body
+
+     @name CardHeader#avatar
+     @type {CardAvatar}
+     */
+    this.avatar = props.avatar || null;    
+
+}
+
+/**
+ * Creates a CardHeader from a CardHeaderTag
+ * @param {CardHeaderTag} cardHeaderTag
+ * @returns {CardHeader}
+ */
+CardHeader.fromTag = function (cardHeaderTag) {
+    let src, name, processedAvatar = false;
+
+    for (const child of cardHeaderTag.children) {
+        if (child instanceof CardAvatarTag && !processedAvatar) {
+            src = child.attrs.src;
+            name = child.attrs.name;
+            processedAvatar = true;
+        } else {
+            throw Error("<cardheader> can only have one <cardavatar> child")
+        }
+    }
+
+    return new CardHeader({
+        title: cardHeaderTag.attrs.title,
+        subtitle: cardHeaderTag.attrs.subtitle,
+        avatar: new CardAvatar({
+            src: src,
+            name: name
+        })
+    });
+};
+
+/**
+ Instantiates a new CardAvatar
+
+ @class CardAvatar
+ @classdesc A CardAvatar object as defined in the JSON schema
+
+ @param {object} props - Properties to initialize the `CardAvatar with
+ @param {string} [props.src] - Sets {@link CardAvatar#src}
+ @param {string} [props.name] - Sets {@link CardAvatar#name}
+ */
+function CardAvatar(props) {
+
+    /**
+     Link to public url of avatar image
+
+     @name CardAvatar#src
+     @type {string}
+     */
+    this.src = props.src || null;
+
+    /**
+     Name of the avatar
+
+     @name CardAvatar#name
+     @type {string}
+     */
+    this.name = props.name || null;
+
+}
+
+/**
+ Instantiates a new CardAction
+
+ @class CardAction
+ @classdesc A CardAction object as defined in the JSON schema
+
+ @param {object} props - Properties to initialize the CardAction with
+ @param {string} props.name - Sets {@link CardAction#name}
+ @param {string} props.path - Sets {@link CardAction#path}
+ @param {('GET'|'POST'|'PUT'|'PATCH'|'DELETE')} props.method='GET' - Sets {@link CardAction#method}
+ */
+function CardAction(props) {
+
+    /**
+     Name of the action
+
+     @name CardAction#name
+     @type {string}
+     */
+    this.name = props.name || null;
+    if (!this.name) {
+        throw Error("name is mandatory");
+    }
+
+    /**
+     Path for the callback action
+
+     @name CardAction#path
+     @type {string}
+     */
+    this.path = props.path || null;
+    if (!this.path) {
+        throw Error("path is mandatory");
+    }
+
+    /**
+     Method to use when path is specified
+
+     @name CardAction#method
+     @type {string}
+     @default 'GET'
+     */
+    if (props.path) {
+        this.method = props.method || 'GET';
+    } else {
+        this.method = null;
+    }
+
+}
+
+/**
+ * Creates a CardAction from a CardActionTag
+ * @param {CardActionTag} cardActionTag
+ * @returns {CardAction}
+ */
+CardAction.fromTag = function (cardActionTag) {
+
+    return new CardAction({
+        name: cardActionTag.attrs.name,
+        path: cardActionTag.attrs.path,
+        method: cardActionTag.attrs.method
+    });
+    
+};
 
 /**
  Instantiates a new Form
@@ -908,6 +1211,8 @@ function Menu(props) {
      @type {Snackbar}
      */
     this.snackbar = props.snackbar || null;
+
+
 }
 
 /**
@@ -1116,6 +1421,7 @@ function MenuMeta(props) {
  @param {string} [props.onLoginSuccess] - Sets {@link MenuItem#onLoginSuccess}
  @param {string} [props.onLogoutFailure] - Sets {@link MenuItem#onLogoutFailure}
  @param {string} [props.onLogoutSuccess] - Sets {@link MenuItem#onLogoutSuccess}
+ @param {Card} [props.card] = Sets {@link Card}
  */
 function MenuItem(props) {
     /**
@@ -1132,7 +1438,7 @@ function MenuItem(props) {
     }
 
     const supportedTypes = [
-        'content', 'option', 'login', 'logout'
+        'card', 'content', 'option', 'login', 'logout'
     ];
 
     if (supportedTypes.indexOf(this.type) === -1) {
@@ -1220,6 +1526,13 @@ function MenuItem(props) {
      */
     this.alt = props.alt || null;
 
+     /**
+     Sets a card object.
+
+     @name MenuItem#card
+     @type {Card}
+     */
+    this.card = props.card || null;
 
 }
 
@@ -1239,7 +1552,8 @@ MenuItem.fromTag = function (tag) {
         onLogoutFailure = null,
         type = null,
         src = null,
-        alt = null;
+        alt = null,
+        card = null;
 
     if (typeof tag === 'string') {
         description = tag;
@@ -1255,8 +1569,9 @@ MenuItem.fromTag = function (tag) {
     
     if (tag instanceof LiTag &&
         (tag.children[0] instanceof ATag ||
-         tag.children[0] instanceof LoginTag ||
-         tag.children[0] instanceof LogoutTag)) {
+            tag.children[0] instanceof LoginTag ||
+            tag.children[0] instanceof CardTag ||
+            tag.children[0] instanceof LogoutTag)) {
         const theTag = tag.children[0];
         method = theTag.attrs.method;
         path = theTag.attrs.href;
@@ -1276,6 +1591,10 @@ MenuItem.fromTag = function (tag) {
                 theTag.children[0] instanceof VideoTag)) {
             src = theTag.children[0].attrs.src;
             alt = theTag.children[0].attrs.alt;
+        } else if (theTag instanceof CardTag) {
+            card = Card.fromTag(theTag);
+            type = "card";
+            description = null;
         } else if (theTag.children.length == 1 &&
             typeof theTag.children[0] === 'string') {
             description = theTag.children[0];
@@ -1297,10 +1616,13 @@ MenuItem.fromTag = function (tag) {
         onLogoutFailure = tag.attrs.onFailure;
         onLogoutSuccess = tag.attrs.onSuccess;
         type = "logout";
+    } else if (tag instanceof CardTag) {
+        card = Card.fromTag(tag);
+        type = "card";
+        description = null;
     }
-
     //if everything is null, return undefined
-    if (type !== 'login' && type !== 'logout' && !description && !src) {
+    if (type !== 'login' && type !== 'logout' && type !== 'card' && !description && !src) {
         return undefined;
     }
 
@@ -1315,7 +1637,8 @@ MenuItem.fromTag = function (tag) {
         onLoginFailure: onLoginFailure,
         onLoginSuccess: onLoginSuccess,
         onLogoutFailure: onLogoutFailure,
-        onLogoutSuccess: onLogoutSuccess
+        onLogoutSuccess: onLogoutSuccess,
+        card: card,
     });
 };
 
@@ -1388,6 +1711,7 @@ exports.FormItem = FormItem;
 exports.FormMeta = FormMeta;
 exports.MenuMeta = MenuMeta;
 exports.MenuFormItemMeta = MenuFormItemMeta;
+exports.Card = Card;
 
 exports.parser = require('./parser');
 exports.tags = require('./tag');

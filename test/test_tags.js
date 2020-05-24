@@ -11,7 +11,14 @@ const FormTag = tags.FormTag,
     InputTag = tags.InputTag,
     LabelTag = tags.LabelTag,
     UlTag = tags.UlTag,
-    LiTag = tags.LiTag;
+    LiTag = tags.LiTag,
+    CardTag = tags.CardTag,
+    CardHeaderTag = tags.CardHeaderTag,
+    CardMediaTag = tags.CardMediaTag,
+    CardContentTag = tags.CardContentTag,
+    CardActionsTag = tags.CardActionsTag,
+    CardActionTag = tags.CardActionTag,
+    CardAvatarTag = tags.CardAvatarTag;
 
 
 const parser = require("node-html-parser");
@@ -123,8 +130,8 @@ describe('Test tags', function () {
                 assert.throws(iThrow, Error, '<section> cannot have <li> child');
             });
 
-            it('should work with ul, p, br, input, label', function () {
-                const html = '<section name="name"><p>Para</p><br/><ul><li>li</li></ul><input name="some-name"/><label>label</label></section>';
+            it('should work with ul, p, br, input, label, card', function () {
+                const html = '<section name="name"><p>Para</p><br/><ul><li>li</li></ul><input name="some-name"/><label>label</label><card></card></section>';
                 const parsedHtml = parser.parse(html);
                 const sectionTag = SectionTag.fromNode(parsedHtml.childNodes[0]);
                 assert.equal(sectionTag instanceof SectionTag, true);
@@ -301,4 +308,150 @@ describe('Test tags', function () {
             });
         });
     });
+
+    describe('CardTag', function () {
+        describe('CardTag.fromNode()', function () {
+
+            it('should return a CardTag() object', function () {
+                let html = '' +
+                    '<card>' +
+                    '</card>';
+                const parsedHtml = parser.parse(html);
+                const card = CardTag.fromNode(parsedHtml.childNodes[0]);
+                assert.strictEqual(card instanceof CardTag, true);
+            });
+
+            it('should return a CardTag() object with valid children', function () {
+                let html = '' +
+                    '<card>' +
+                    '<cardheader/>' +
+                    '<cardmedia/>' +
+                    '<cardcontent/>' +
+                    '<cardactions>' +
+                    '<cardaction name="name"/>' +
+                    '</cardactions>' +
+                    '</card>';
+                const parsedHtml = parser.parse(html);
+                const card = CardTag.fromNode(parsedHtml.childNodes[0]);
+                assert.strictEqual(card instanceof CardTag, true);
+            });
+
+            it('should not work with some unexpected children', function () {
+                const html = '<card name="name"><p>Para</p><li>li child</li></card>';
+                const parsedHtml = parser.parse(html);
+
+                function iThrow() {
+                    return CardTag.fromNode(parsedHtml.childNodes[0]);
+                }
+                assert.throws(iThrow, Error, '<card> can have only one instance of the following children: <cardheader> <cardmedia> <cardcontent> <cardactions>');
+
+            });
+
+        });
+        describe('CardHeader.fromNode()', function () {
+
+            it('should return a CardHeaderTag() object', function () {
+                let html = '' +
+                    '<cardheader/>';
+                const parsedHtml = parser.parse(html);
+                const cardHeader = CardHeaderTag.fromNode(parsedHtml.childNodes[0]);
+                assert.strictEqual(cardHeader instanceof CardHeaderTag, true);
+            });
+
+            it('should return a CardHeaderTag() object with valid children', function () {
+                let html = '' +
+                    '<cardheader><cardavatar/></cardheader>';
+                const parsedHtml = parser.parse(html);
+                const cardHeader = CardHeaderTag.fromNode(parsedHtml.childNodes[0]);
+                assert.strictEqual(cardHeader instanceof CardHeaderTag, true);
+            });
+
+            it('should throw an error with invalid children', function () {
+                let html = '' +
+                    '<cardheader><p/></cardheader>';
+                const parsedHtml = parser.parse(html);
+
+                function iThrow() {
+                    return CardHeaderTag.fromNode(parsedHtml.childNodes[0]);
+                }
+                assert.throws(iThrow, Error, '<cardheader> can have only one instance of the following: <cardavatar>');
+             
+            });
+
+        });
+
+        describe('CardAvatar.fromNode()', function () {
+
+            it('should return a CardAvatarTag() object', function () {
+                let html = '' +
+                    '<cardavatar/>';
+                const parsedHtml = parser.parse(html);
+                const cardAvatar = CardAvatarTag.fromNode(parsedHtml.childNodes[0]);
+                assert.strictEqual(cardAvatar instanceof CardAvatarTag, true);
+            });
+
+        });
+
+        describe('CardMedia.fromNode()', function () {
+
+            it('should return a CardMediaTag() object', function () {
+                let html = '' +
+                    '<cardmedia/>';
+                const parsedHtml = parser.parse(html);
+                const cardMedia = CardMediaTag.fromNode(parsedHtml.childNodes[0]);
+                assert.strictEqual(cardMedia instanceof CardMediaTag, true);
+            });
+
+        });
+
+        describe('CardContent.fromNode()', function () {
+
+            it('should return a CardContentTag() object', function () {
+                let html = '' +
+                    '<cardcontent/>';
+                const parsedHtml = parser.parse(html);
+                const cardContent = CardContentTag.fromNode(parsedHtml.childNodes[0]);
+                assert.strictEqual(cardContent instanceof CardContentTag, true);
+            });
+
+        });
+
+        describe('CardActions.fromNode()', function () {
+
+            it('should return a CardActionsTag() object', function () {
+                let html = '' +
+                    '<cardactions><cardaction/></cardactions>';
+                const parsedHtml = parser.parse(html);
+                const cardActions = CardActionsTag.fromNode(parsedHtml.childNodes[0]);
+                assert.strictEqual(cardActions instanceof CardActionsTag, true);
+            });
+
+            it('should throw an error with invalid children', function () {
+                let html = '' +
+                    '<cardactions><p/></cardactions>';
+                const parsedHtml = parser.parse(html);
+
+                function iThrow() {
+                    return CardActionsTag.fromNode(parsedHtml.childNodes[0]);
+                }
+                assert.throws(iThrow, Error, '<cardactions> can have only <cardaction> children');
+             
+            });
+
+        });
+
+        describe('CardAction.fromNode()', function () {
+
+            it('should return a CardActionTag() object', function () {
+                let html = '' +
+                    '<cardaction/>';
+                const parsedHtml = parser.parse(html);
+                const cardAction = CardActionTag.fromNode(parsedHtml.childNodes[0]);
+                assert.strictEqual(cardAction instanceof CardActionTag, true);
+            });
+
+        });
+
+    });
+
 });

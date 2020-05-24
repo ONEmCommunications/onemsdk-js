@@ -51,7 +51,8 @@ describe('Test parser', function () {
                             "on_logout_success":null,
                             "path": null,
                             "src": null,
-                            "alt": null
+                            "alt": null,
+                            "card": null,
                         },
                         {
                             "type": "content",
@@ -64,7 +65,8 @@ describe('Test parser', function () {
                             "on_logout_success":null,
                             "path": null,
                             "src": null,
-                            "alt": null
+                            "alt": null,
+                            "card": null,
                         },
                         {
                             "type": "content",
@@ -77,7 +79,8 @@ describe('Test parser', function () {
                             "on_logout_success":null,
                             "path": null,
                             "src": null,
-                            "alt": null
+                            "alt": null,
+                            "card": null,
                         }
                     ],
                     "header": null,
@@ -137,7 +140,8 @@ describe('Test parser', function () {
                             "on_logout_success":null,
                             "path": null,
                             "src": null,
-                            "alt": null
+                            "alt": null,
+                            "card": null,
                         },
                         {
                             "type": "option",
@@ -150,7 +154,8 @@ describe('Test parser', function () {
                             "on_logout_success":null,
                             "path": "/points/",
                             "src": null,
-                            "alt": null
+                            "alt": null,
+                            "card": null,
                         },
                         {
                             "type": "option",
@@ -163,7 +168,8 @@ describe('Test parser', function () {
                             "on_logout_success":null,
                             "path": "/newsInfos/Past",
                             "src": null,
-                            "alt": null
+                            "alt": null,
+                            "card": null,
                         },
                         {
                             "type": "option",
@@ -176,7 +182,8 @@ describe('Test parser', function () {
                             "on_logout_success":null,
                             "path": "/surveys/Past",
                             "src": null,
-                            "alt": null
+                            "alt": null,
+                            "card": null,
                         },
                         {
                             "type": "option",
@@ -189,7 +196,8 @@ describe('Test parser', function () {
                             "on_logout_success":null,
                             "path": "/classifieds/Past",
                             "src": null,
-                            "alt": null
+                            "alt": null,
+                            "card": null,
                         },
                         {
                             "type": "option",
@@ -202,7 +210,8 @@ describe('Test parser', function () {
                             "on_logout_success":null,
                             "path": "/profile/",
                             "src": null,
-                            "alt": null
+                            "alt": null,
+                            "card": null,
                         }
                     ],
                     "header": "some header",

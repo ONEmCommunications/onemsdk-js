@@ -66,7 +66,7 @@ function SectionTagAttrs(props) {
  * Instantiates a new SectionTag. A SectionTag may represent a step in a form,
  * a menu or a block of text. A user will always receive the content of a
  * SectionTag at a time.
- * @param {Array<PTag | BrTag | UlTag | LabelTag | LoginTag | LogoutTag | HeaderTag | FooterTag | TextareaTag | InputTag | ImgTag | VideoTag>} children
+ * @param {Array<PTag | BrTag | UlTag | LabelTag | LoginTag | LogoutTag | HeaderTag | FooterTag | TextareaTag | InputTag | ImgTag | VideoTag | CardTag>} children
  * @param {SectionTagAttrs} attrs
  * @constructor
  */
@@ -77,6 +77,7 @@ function SectionTag(children, attrs) {
 
     children.forEach(function (child) {
         switch (child.constructor.tagName) {
+            case 'card':
             case 'p':
             case 'br':
             case 'ul':
