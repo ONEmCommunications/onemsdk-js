@@ -13,16 +13,6 @@ const CardActionTag = require("./cardaction").CardActionTag;
  * @constructor
  */
 function CardActionsTag(children) {
-    if (children.length === 0) {
-        throw Error('<cardactions> must have at least 1 child')
-    }
-    
-    children.forEach(function (child) {
-        if (!(child instanceof CardActionTag)) {
-            throw Error('<cardactions> can have only <cardaction> children')
-        }
-    });
-
     this.children = children;
 }
 

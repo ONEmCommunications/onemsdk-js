@@ -76,6 +76,7 @@ function SectionTag(children, attrs) {
     }
 
     children.forEach(function (child) {
+
         switch (child.constructor.tagName) {
             case 'card':
             case 'p':

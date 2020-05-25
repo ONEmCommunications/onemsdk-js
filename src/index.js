@@ -122,16 +122,16 @@ Card.fromTag = function (cardTag) {
 
     for (const child of cardTag.children) {
         if (child instanceof CardHeaderTag) {
-            header = child.fromTag(child);
+            header = CardHeader.fromTag(child);
         } else if (child instanceof CardMediaTag) {
             src = child.attrs.src;         
         } else if (child instanceof CardContentTag) {
             description = child.attrs.content
             title = child.attrs.title;
             subtitle = child.attrs.subtitle;
-        } else if (tag instanceof CardActionsTag && tag.children.length && !actions) {
+        } else if (child instanceof CardActionsTag && child.children.length && !actions) {
             actions = [];
-            tag.children.forEach(function (cardActionTag) {
+            child.children.forEach(function (cardActionTag) {
                 if (cardActionTag instanceof CardActionTag) {
                     actions.push(CardAction.fromTag(cardActionTag));
                 } else {

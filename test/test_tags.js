@@ -366,18 +366,6 @@ describe('Test tags', function () {
                 assert.strictEqual(cardHeader instanceof CardHeaderTag, true);
             });
 
-            it('should throw an error with invalid children', function () {
-                let html = '' +
-                    '<cardheader><p/></cardheader>';
-                const parsedHtml = parser.parse(html);
-
-                function iThrow() {
-                    return CardHeaderTag.fromNode(parsedHtml.childNodes[0]);
-                }
-                assert.throws(iThrow, Error, '<cardheader> can have only one instance of the following: <cardavatar>');
-             
-            });
-
         });
 
         describe('CardAvatar.fromNode()', function () {
@@ -424,18 +412,6 @@ describe('Test tags', function () {
                 const parsedHtml = parser.parse(html);
                 const cardActions = CardActionsTag.fromNode(parsedHtml.childNodes[0]);
                 assert.strictEqual(cardActions instanceof CardActionsTag, true);
-            });
-
-            it('should throw an error with invalid children', function () {
-                let html = '' +
-                    '<cardactions><p/></cardactions>';
-                const parsedHtml = parser.parse(html);
-
-                function iThrow() {
-                    return CardActionsTag.fromNode(parsedHtml.childNodes[0]);
-                }
-                assert.throws(iThrow, Error, '<cardactions> can have only <cardaction> children');
-             
             });
 
         });

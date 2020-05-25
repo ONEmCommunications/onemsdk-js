@@ -25,19 +25,6 @@ function CardHeaderTagAttrs(title, subtitle) {
  * @constructor
  */
 function CardHeaderTag(children, attrs) {
-
-	let cardAvatar = false;
-
-	if (children) {
-		children.forEach(function (tag) {
-			if (tag instanceof CardAvatarTag && !cardAvatar) {
-				cardAvatar = true;
-			} else {
-				throw Error('<cardheader> can have only one instance of the following: <cardavatar>');
-			}
-		});
-	}
-
     this.children = children;
     this.attrs = attrs;
 }

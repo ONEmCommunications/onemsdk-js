@@ -1,8 +1,8 @@
 const assert = require("chai").assert;
 
 const tags = require("../src/tag");
-const FormTag = tags.FormTag,
-    SectionTag = tags.SectionTag;
+const FormTag = tags.FormTag;
+const SectionTag = tags.SectionTag;
 const Response = require('../src/index').Response;
 const parser = require("../src/parser");
 const config = require("../src/config");
