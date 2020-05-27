@@ -1,0 +1,67 @@
+form(action="/todoAdd", method="post")
+    Snackbar(message="error" name="ok" path="/" method="GET" auto-hide-duration=7000)
+    section(name="field5", multi-select default="faq" required="true")
+        header Multi-select
+        p Multi-select
+        ul
+            li(value="contact") Contact form
+            li(value="faq") Frequently asked questions
+            li(value="appointments") Books appointments
+            li(value="event") Events management
+            li(value="other") Something else
+            li(value="contact1") Contact form1
+            li(value="faq1") Frequently asked questions1
+            li(value="appointments1") Books appointments1
+            li(value="event1") Events management1
+            li(value="other1") Something else1
+            li(value="contact2") Contact form2
+            li(value="faq2") Frequently asked questions2
+            li(value="appointments2") Books appointments2
+            li(value="event2") Events management2
+            li(value="other2") Something else2
+            li(value="contact3") Contact form3
+            li(value="faq3") Frequently asked questions3
+            li(value="appointments3") Books appointments3
+            li(value="event3") Events management3
+            li(value="other3") Something else3
+    section(name="field1" required="true")
+        header Text
+        p Provide text
+        input(type="text")
+        footer Reply with text
+    section(name="field2" required="true")
+        header Text
+        p Provide textarea
+        input(type="textarea")
+        footer Reply with text
+    section(name="field3"  required="true")
+        header Range
+        p Provide a range
+        input(type="range" min="-1000" max=900000 step=1000)
+        footer Reply with range
+    section(name="field4" required="true")
+        header Date
+        p Provide date
+        input(type="date")
+        footer Reply with date
+    section(name="field6", default="faq" required="true")
+        header Single-select
+        p Single-select
+        ul
+            li(value="contact") Contact form
+            li(value="faq") Frequently asked questions
+            li(value="appointments") Books appointments
+            li(value="event") Events management
+            li(value="other") Something else
+    section(name="field7", required="true")
+        header Phone
+        p Provide phone number
+        input(type="phone")
+    section(name="field8",  required="true")
+        header Email
+        p Provide email address
+        input(type="email")
+    section(name="field9", required="true")
+        header Url
+        p Provide web site
+        input(type="url")
