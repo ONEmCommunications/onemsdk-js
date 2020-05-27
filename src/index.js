@@ -30,8 +30,6 @@ const UlTag = tags.UlTag,
  @classdesc A Card object as defined in the JSON schema
 
  @param {object} props - Properties to initialize the `Card` with
- @param {string} [props.path] - Sets {@link Card#path}
- @param {('GET'|'POST'|'PUT'|'PATCH'|'DELETE')} [props.method='GET'] - Sets {@link Card#method}
  @param {CardHeader} [props.header] - Sets {@link Card#header}
  @param {string} [props.src] - Sets {@link Card#media}
  @param {string} [props.title] - Sets {@link Card#title}
@@ -40,27 +38,6 @@ const UlTag = tags.UlTag,
  @param {Array<CardAction>} [props.actions] - Sets {@link Card#actions}
  */
 function Card(props) {
-
-    /**
-     * 
-     * The callback path used if the card is "selected"
-     *
-     @name Card#path
-     @type {string}
-     */
-    this.path = props.path || null;
-
-    /**
-     * HTTP method indicating how to trigger the callback path. Defaults to `"GET"`.
-     * 
-     @name Card#method
-     @type {string}
-     */
-    if (props.path) {
-        this.method = props.method || 'GET';
-    } else {
-        this.method = null;
-    }
 
     /**
      * CardHeader object
@@ -144,8 +121,6 @@ Card.fromTag = function (cardTag) {
     }
 
     return new Card({
-        path: cardTag.attrs.action,
-        method: cardTag.attrs.method,
         header: header,
         src: src,
         title: title,
@@ -203,12 +178,15 @@ function CardHeader(props) {
  * @returns {CardHeader}
  */
 CardHeader.fromTag = function (cardHeaderTag) {
-    let src, name, processedAvatar = false;
+    let processedAvatar = false;
+    let avatar = null;
 
     for (const child of cardHeaderTag.children) {
         if (child instanceof CardAvatarTag && !processedAvatar) {
-            src = child.attrs.src;
-            name = child.attrs.name;
+            avatar = new CardAvatar({
+                src: child.attrs.src, 
+                name: child.attrs.name
+            });
             processedAvatar = true;
         } else {
             throw Error("<cardheader> can only have one <cardavatar> child")
@@ -218,10 +196,7 @@ CardHeader.fromTag = function (cardHeaderTag) {
     return new CardHeader({
         title: cardHeaderTag.attrs.title,
         subtitle: cardHeaderTag.attrs.subtitle,
-        avatar: new CardAvatar({
-            src: src,
-            name: name
-        })
+        avatar: avatar
     });
 };
 
@@ -231,7 +206,7 @@ CardHeader.fromTag = function (cardHeaderTag) {
  @class CardAvatar
  @classdesc A CardAvatar object as defined in the JSON schema
 
- @param {object} props - Properties to initialize the `CardAvatar with
+ @param {object} [props] - Properties to initialize the `CardAvatar with
  @param {string} [props.src] - Sets {@link CardAvatar#src}
  @param {string} [props.name] - Sets {@link CardAvatar#name}
  */
@@ -243,7 +218,7 @@ function CardAvatar(props) {
      @name CardAvatar#src
      @type {string}
      */
-    this.src = props.src || null;
+    this.src = typeof props === 'object' ? props.src : null;
 
     /**
      Name of the avatar
@@ -251,7 +226,7 @@ function CardAvatar(props) {
      @name CardAvatar#name
      @type {string}
      */
-    this.name = props.name || null;
+    this.name = typeof props === 'object' ? props.name : null;
 
 }
 
@@ -1246,9 +1221,9 @@ function SnackbarMeta(props) {
  * @param {object} props - Properties to initialize the snackbar with
  * @param {string} props.message - Sets {@link Snackbar#message}
  * @param {('info' | 'warn' | 'error' | 'success')} [props.severity='info'] - Sets {@link Snackbar#severity}
- * @param {string} [props.actionName] - Sets {@link Snackbar#actionName}
- * @param {string} [props.actionPath] - Sets {@link Snackbar#actionPath}
- * @param {string} [props.actionMethod] - Sets {@link Snackbar#actionMethod}
+ * @param {string} [props.name] - Sets {@link Snackbar#name}
+ * @param {string} [props.path] - Sets {@link Snackbar#path}
+ * @param {string} [props.method] - Sets {@link Snackbar#method}
  * @param {SnackbarMeta} [props.meta] - Sets {@link Snackbar#meta}
  */
 function Snackbar(props) {
@@ -1284,30 +1259,30 @@ function Snackbar(props) {
      /**
      The name of the action button
 
-     @name Snackbar#actionName
+     @name Snackbar#name
      @type {string}
      */
-    this.actionName = props.actionName || null;
+    this.name = props.name || null;
 
      /**
      The callback path of the action
 
-     @name Snackbar#actionPath
+     @name Snackbar#path
      @type {string}
      */
-    this.actionPath = props.actionPath || null;
+    this.path = props.path || null;
 
-    if (this.actionName && !this.actionPath) {
-        throw Error('actionPath must have a value when actionName is provided');
+    if (this.name && !this.path) {
+        throw Error('path must have a value when name is provided');
     }
 
     /**
      The method of the action
 
-    @name Snackbar#actionMethod
+    @name Snackbar#method
     @type {string}
     */
-   this.actionMethod = props.actionMethod || null;
+   this.method = props.method || null;
 
     /**
      Configuration fields for snackbar.
@@ -1324,9 +1299,9 @@ Snackbar.fromTag = function(snackbarTag) {
     return new Snackbar({
         message: snackbarTag.attrs.message,
         severity: snackbarTag.attrs.severity,
-        actionName: snackbarTag.attrs.actionName,
-        actionPath: snackbarTag.attrs.actionPath,
-        actionMethod: snackbarTag.attrs.actionMethod,
+        name: snackbarTag.attrs.name,
+        path: snackbarTag.attrs.path,
+        method: snackbarTag.attrs.method,
         meta: new SnackbarMeta({
             autoHideDuration: snackbarTag.attrs.autoHideDuration
         })
@@ -1438,7 +1413,7 @@ function MenuItem(props) {
     }
 
     const supportedTypes = [
-        'card', 'content', 'option', 'login', 'logout'
+        'content', 'option', 'login', 'logout'
     ];
 
     if (supportedTypes.indexOf(this.type) === -1) {
@@ -1477,7 +1452,7 @@ function MenuItem(props) {
      */
     this.onLoginFailure = props.onLoginFailure || null;
 
-        /**
+    /**
      Optional path to call on login success, used when type='login'.
 
      @name MenuItem#onLoginSuccess
@@ -1493,7 +1468,7 @@ function MenuItem(props) {
      */
     this.onLogoutFailure = props.onLogoutFailure || null;
 
-        /**
+    /**
      Optional path to call on logout success, used when type='login'.
 
      @name MenuItem#onLogoutSuccess
@@ -1593,7 +1568,9 @@ MenuItem.fromTag = function (tag) {
             alt = theTag.children[0].attrs.alt;
         } else if (theTag instanceof CardTag) {
             card = Card.fromTag(theTag);
-            type = "card";
+            type = theTag.attrs.action ? 'option' : 'content';
+            method = theTag.attrs.method && type === 'option' ? theTag.attrs.method || 'GET' : null;
+            path = theTag.attrs.action;
             description = null;
         } else if (theTag.children.length == 1 &&
             typeof theTag.children[0] === 'string') {
@@ -1618,11 +1595,13 @@ MenuItem.fromTag = function (tag) {
         type = "logout";
     } else if (tag instanceof CardTag) {
         card = Card.fromTag(tag);
-        type = "card";
+        type = tag.attrs.action ? 'option' : 'content';
+        method = tag.attrs.method && type === 'option' ? tag.attrs.method || 'GET' : null;
+        path = tag.attrs.action;
         description = null;
     }
     //if everything is null, return undefined
-    if (type !== 'login' && type !== 'logout' && type !== 'card' && !description && !src) {
+    if (type !== 'login' && type !== 'logout' && !description && !src && !card) {
         return undefined;
     }
 

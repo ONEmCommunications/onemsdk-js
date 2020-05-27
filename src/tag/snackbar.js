@@ -14,12 +14,12 @@ const { parseNumber } = require('../utils');
  * @param {string} [severity]
  * @constructor
  */
-function SnackbarTagAttrs(message, severity, actionName, actionPath, actionMethod, autoHideDuration) {
+function SnackbarTagAttrs(message, severity, name, path, method, autoHideDuration) {
     this.message = message;
     this.severity = severity;
-    this.actionName = actionName;
-    this.actionPath = actionPath;
-    this.actionMethod = actionMethod;
+    this.name = name;
+    this.path = path;
+    this.method = method;
     this.autoHideDuration = autoHideDuration;
 }
 
@@ -45,9 +45,9 @@ SnackbarTag.getAttributes = function (node) {
     return new SnackbarTagAttrs(
         node.attributes.message,
         node.attributes.severity,
-        node.attributes['action-name'],
-        node.attributes['action-path'],
-        node.attributes['action-method'],
+        node.attributes.name,
+        node.attributes.path,
+        node.attributes.method,
         parseNumber(node.attributes['auto-hide-duration'],'int')
     );
 };

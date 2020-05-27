@@ -15,7 +15,6 @@ describe('Test schema', function () {
     });
 
     describe('Menu', function () {
-
         describe('Menu.fromTag', function () {
             it('should return a navigable Menu', function () {
                 const html = '' +
@@ -48,8 +47,8 @@ describe('Test schema', function () {
                     '   </ul>' +
                     '   <login on-success="/successPath" on-failure="/failurePath" />' +
                     '   <logout on-success="/logoutSuccessPath2" on-failure="/logoutFailurePath2" />' +
-                    '   <card/>'
-                '</section>';
+                    '   <card/>' +
+                    '</section>';
                 const rootTag = parser.loadHtml(undefined, html);
                 const response = Response.fromTag(rootTag);
 
@@ -84,7 +83,7 @@ describe('Test schema', function () {
                                 path: '/route1',
                                 src: null,
                                 alt: null,
-                                card: null,
+                                card: null
                             },
                             {
                                 type: 'option',
@@ -126,7 +125,7 @@ describe('Test schema', function () {
                                 path: '/form/new/',
                                 src: 'https://placekitten.com/600/600',
                                 alt: 'alt text 2',
-                                card: null,
+                                card: null
                             },
                             {
                                 type: 'login',
@@ -140,7 +139,7 @@ describe('Test schema', function () {
                                 path: null,
                                 src: null,
                                 alt: null,
-                                card: null,
+                                card: null
                             },
                             {
                                 type: 'logout',
@@ -154,7 +153,7 @@ describe('Test schema', function () {
                                 path: null,
                                 src: null,
                                 alt: null,
-                                card: null,
+                                card: null
                             },
                             {
                                 type: 'option',
@@ -171,7 +170,7 @@ describe('Test schema', function () {
                                 card: null
                             },
                             {
-                                type: 'card',
+                                type: 'content',
                                 description: null,
                                 text_search: null,
                                 method: null,
@@ -183,8 +182,6 @@ describe('Test schema', function () {
                                 src: null,
                                 alt: null,
                                 card: {
-                                    path: null,
-                                    method: null,
                                     header: null,
                                     src: null,
                                     title: null,
@@ -222,7 +219,7 @@ describe('Test schema', function () {
                                 card: null
                             },
                             {
-                                type: 'card',
+                                type: 'content',
                                 description: null,
                                 text_search: null,
                                 method: null,
@@ -234,8 +231,6 @@ describe('Test schema', function () {
                                 src: null,
                                 alt: null,
                                 card: {
-                                    path: null,
-                                    method: null,
                                     header: null,
                                     src: null,
                                     title: null,
@@ -302,13 +297,13 @@ describe('Test schema', function () {
             });
 
             it('should ignore attr header/footer if they are present in children', function () {
-                let html = '' +
+                const html = '' +
                     '<section header="header attr" footer="footer attr">' +
                     '   <header>header child</header>' +
                     '</section>';
-                let rootTag = parser.loadHtml(undefined, html);
-                let response = Response.fromTag(rootTag);
-                let expected = {
+                const rootTag = parser.loadHtml(undefined, html);
+                const response = Response.fromTag(rootTag);
+                const expected = {
                     content_type: 'menu',
                     content: {
                         type: 'menu',
@@ -324,17 +319,16 @@ describe('Test schema', function () {
                 assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
             });
         });
-        
-        describe('Menu Snackbar.fromTag', function () {
 
+        describe('Menu Snackbar.fromTag', function () {
             it('should recognize a snackbar in a menu', function () {
-                let html = '' +
+                const html = '' +
                     '<section>' +
-                    '   <Snackbar message="error message" action-name="action" action-path="/path" auto-hide-duration=1000 action-method="post"/>' +
+                    '   <Snackbar message="error message" name="action" path="/path" auto-hide-duration=1000 method="post"/>' +
                     '</section>';
-                let rootTag = parser.loadHtml(undefined, html);
-                let response = Response.fromTag(rootTag);
-                let expected = {
+                const rootTag = parser.loadHtml(undefined, html);
+                const response = Response.fromTag(rootTag);
+                const expected = {
                     content_type: 'menu',
                     content: {
                         type: 'menu',
@@ -347,9 +341,9 @@ describe('Test schema', function () {
                         snackbar: {
                             message: 'error message',
                             severity: 'info',
-                            action_name: 'action',
-                            action_path: '/path',
-                            action_method: 'post',
+                            name: 'action',
+                            path: '/path',
+                            method: 'post',
                             meta: {
                                 auto_hide_duration: 1000
                             }
@@ -360,25 +354,24 @@ describe('Test schema', function () {
             });
 
             it('should throw error in case of subsequent snackbar tags in a menu', function () {
-                let html = '' +
+                const html = '' +
                     '<section>' +
                     '   <Snackbar message="error message" severity="warn" auto-hide-duration=8000/>' +
                     '   <Snackbar message="another error message" />' +
                     '</section>';
-                let rootTag = parser.loadHtml(undefined, html);
+                const rootTag = parser.loadHtml(undefined, html);
                 function iThrow () {
                     return Response.fromTag(rootTag);
                 }
                 assert.throws(iThrow, Error, 'Only one <snackbar> tag is allowed in a <menu> or <form>');
             });
-
         });
 
         describe('Card.fromTag', function () {
             it('should render a populated card as a section child in an html menu', function () {
                 const html = '' +
                     '<section name="name">' +
-                    '   <card action="/card/1234" method="get">' +
+                    '   <card action="/card/1234" method="post">' +
                     '       <cardheader title="card title" subtitle="some subtitle">' +
                     '           <cardavatar src="https://image.png" name="chris horn"/>' +
                     '       </cardheader>' +
@@ -391,27 +384,25 @@ describe('Test schema', function () {
                     '   </card>' +
                     '</section>';
                 const rootTag = parser.loadHtml(undefined, html);
-                const response = Response.fromTag(rootTag);     
+                const response = Response.fromTag(rootTag);
                 const expected = {
                     content_type: 'menu',
                     content: {
                         type: 'menu',
                         body: [
                             {
-                                type: 'card',
+                                type: 'option',
                                 description: null,
                                 text_search: null,
-                                method: null,
+                                method: 'post',
                                 on_login_failure: null,
                                 on_login_success: null,
                                 on_logout_failure: null,
                                 on_logout_success: null,
-                                path: null,
+                                path: '/card/1234',
                                 src: null,
                                 alt: null,
                                 card: {
-                                    path: '/card/1234',
-                                    method: 'get',
                                     header: {
                                         title: 'card title',
                                         subtitle: 'some subtitle',
@@ -495,7 +486,6 @@ describe('Test schema', function () {
         });
 
         describe('Menu pug', function () {
-
             it('should render the correct response form pug section file', function () {
                 const data = {
                     NewsInfos: {
@@ -505,8 +495,8 @@ describe('Test schema', function () {
                         article: 'This is the article'
                     }
                 };
-                let rootTag = parser.loadTemplate('section_example_2.pug', data);
-                let response = Response.fromTag(rootTag);
+                const rootTag = parser.loadTemplate('section_example_2.pug', data);
+                const response = Response.fromTag(rootTag);
                 const expected = {
                     content_type: 'menu',
                     content: {
@@ -524,7 +514,7 @@ describe('Test schema', function () {
                                 path: null,
                                 src: null,
                                 alt: null,
-                                card: null                            
+                                card: null
                             },
                             {
                                 type: 'content',
@@ -578,10 +568,8 @@ describe('Test schema', function () {
                     }
                 };
                 assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
-            })
-
+            });
         });
-
     });
 
     describe('Form', function () {
@@ -807,7 +795,7 @@ describe('Test schema', function () {
                                 validate_type_error: null,
                                 validate_type_error_footer: null,
                                 validate_url: null
-                            },
+                            }
                         ],
                         method: 'POST',
                         path: '/route',
@@ -819,6 +807,267 @@ describe('Test schema', function () {
                             skip_confirmation: false
                         },
                         snackbar: null
+                    }
+                };
+
+                assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
+            });
+
+            it('should return expected Response from pug file form', function () {
+                const rootTag = parser.loadTemplate('formBig.pug');
+                const response = Response.fromTag(rootTag);
+                const expected = {
+                    content_type: 'form',
+                    content: {
+                        type: 'form',
+                        body: [{
+                            type: 'form-menu',
+                            name: 'field5',
+                            description: null,
+                            header: 'Multi-select',
+                            footer: null,
+                            body: [{
+                                type: 'content',
+                                description: 'Multi-select',
+                                value: null,
+                                text_search: null
+                            }, {
+                                type: 'option',
+                                description: 'Contact form',
+                                value: 'contact',
+                                text_search: null
+                            }, { type: 'option', description: 'Frequently asked questions', value: 'faq', text_search: null }, { type: 'option', description: 'Books appointments', value: 'appointments', text_search: null }, { type: 'option', description: 'Events management', value: 'event', text_search: null }, { type: 'option', description: 'Something else', value: 'other', text_search: null }, { type: 'option', description: 'Contact form1', value: 'contact1', text_search: null }, { type: 'option', description: 'Frequently asked questions1', value: 'faq1', text_search: null }, { type: 'option', description: 'Books appointments1', value: 'appointments1', text_search: null }, { type: 'option', description: 'Events management1', value: 'event1', text_search: null }, { type: 'option', description: 'Something else1', value: 'other1', text_search: null }, { type: 'option', description: 'Contact form2', value: 'contact2', text_search: null }, { type: 'option', description: 'Frequently asked questions2', value: 'faq2', text_search: null }, { type: 'option', description: 'Books appointments2', value: 'appointments2', text_search: null }, { type: 'option', description: 'Events management2', value: 'event2', text_search: null }, { type: 'option', description: 'Something else2', value: 'other2', text_search: null }, { type: 'option', description: 'Contact form3', value: 'contact3', text_search: null }, { type: 'option', description: 'Frequently asked questions3', value: 'faq3', text_search: null }, { type: 'option', description: 'Books appointments3', value: 'appointments3', text_search: null }, { type: 'option', description: 'Events management3', value: 'event3', text_search: null }, { type: 'option', description: 'Something else3', value: 'other3', text_search: null }],
+                            value: null,
+                            chunking_footer: null,
+                            confirmation_label: null,
+                            min_length: null,
+                            min_length_error: null,
+                            max_length: null,
+                            max_length_error: null,
+                            min_value: null,
+                            min_value_error: null,
+                            max_value: null,
+                            max_value_error: null,
+                            on_login_success: null,
+                            on_login_failure: null,
+                            on_logout_success: null,
+                            on_logout_failure: null,
+                            step: null,
+                            meta: {
+                                auto_select: false,
+                                multi_select: true,
+                                numbered: false
+                            },
+                            method: null,
+                            required: true,
+                            default: 'faq',
+                            pattern: null,
+                            status_exclude: false,
+                            status_prepend: false,
+                            url: null,
+                            validate_type_error: null,
+                            validate_type_error_footer: null,
+                            validate_url: null
+                        }, {
+                            type: 'string',
+                            name: 'field1',
+                            description: 'Provide text',
+                            header: 'Text',
+                            footer: 'Reply with text',
+                            body: null,
+                            value: null,
+                            chunking_footer: null,
+                            confirmation_label: null,
+                            min_length: null,
+                            min_length_error: null,
+                            max_length: null,
+                            max_length_error: null,
+                            min_value: null,
+                            min_value_error: null,
+                            max_value: null,
+                            max_value_error: null,
+                            on_login_success: null,
+                            on_login_failure: null,
+                            on_logout_success: null,
+                            on_logout_failure: null,
+                            step: null,
+                            meta: {
+                                auto_select: false,
+                                multi_select: false,
+                                numbered: false
+                            },
+                            method: null,
+                            required: true,
+                            default: null,
+                            pattern: null,
+                            status_exclude: false,
+                            status_prepend: false,
+                            url: null,
+                            validate_type_error: null,
+                            validate_type_error_footer: null,
+                            validate_url: null
+                        }, {
+                            type: 'textarea',
+                            name: 'field2',
+                            description: 'Provide textarea',
+                            header: 'Text',
+                            footer: 'Reply with text',
+                            body: null,
+                            value: null,
+                            chunking_footer: null,
+                            confirmation_label: null,
+                            min_length: null,
+                            min_length_error: null,
+                            max_length: null,
+                            max_length_error: null,
+                            min_value: null,
+                            min_value_error: null,
+                            max_value: null,
+                            max_value_error: null,
+                            on_login_success: null,
+                            on_login_failure: null,
+                            on_logout_success: null,
+                            on_logout_failure: null,
+                            step: null,
+                            meta: {
+                                auto_select: false,
+                                multi_select: false,
+                                numbered: false
+                            },
+                            method: null,
+                            required: true,
+                            default: null,
+                            pattern: null,
+                            status_exclude: false,
+                            status_prepend: false,
+                            url: null,
+                            validate_type_error: null,
+                            validate_type_error_footer: null,
+                            validate_url: null
+                        }, {
+                            type: 'range',
+                            name: 'field3',
+                            description: 'Provide a range',
+                            header: 'Range',
+                            footer: 'Reply with range',
+                            body: null,
+                            value: null,
+                            chunking_footer: null,
+                            confirmation_label: null,
+                            min_length: null,
+                            min_length_error: null,
+                            max_length: null,
+                            max_length_error: null,
+                            min_value: -1000,
+                            min_value_error: null,
+                            max_value: 900000,
+                            max_value_error: null,
+                            on_login_success: null,
+                            on_login_failure: null,
+                            on_logout_success: null,
+                            on_logout_failure: null,
+                            step: 1000,
+                            meta: {
+                                auto_select: false,
+                                multi_select: false,
+                                numbered: false
+                            },
+                            method: null,
+                            required: true,
+                            default: null,
+                            pattern: null,
+                            status_exclude: false,
+                            status_prepend: false,
+                            url: null,
+                            validate_type_error: null,
+                            validate_type_error_footer: null,
+                            validate_url: null
+                        }, {
+                            type: 'date',
+                            name: 'field4',
+                            description: 'Provide date',
+                            header: 'Date',
+                            footer: 'Reply with date',
+                            body: null,
+                            value: null,
+                            chunking_footer: null,
+                            confirmation_label: null,
+                            min_length: null,
+                            min_length_error: null,
+                            max_length: null,
+                            max_length_error: null,
+                            min_value: null,
+                            min_value_error: null,
+                            max_value: null,
+                            max_value_error: null,
+                            on_login_success: null,
+                            on_login_failure: null,
+                            on_logout_success: null,
+                            on_logout_failure: null,
+                            step: null,
+                            meta: { auto_select: false, multi_select: false, numbered: false },
+                            method: null,
+                            required: true,
+                            default: null,
+                            pattern: null,
+                            status_exclude: false,
+                            status_prepend: false,
+                            url: null,
+                            validate_type_error: null,
+                            validate_type_error_footer: null,
+                            validate_url: null
+                        }, {
+                            type: 'form-menu',
+                            name: 'field6',
+                            description: null,
+                            header: 'Single-select',
+                            footer: null,
+                            body: [{ type: 'content', description: 'Single-select', value: null, text_search: null }, { type: 'option', description: 'Contact form', value: 'contact', text_search: null }, { type: 'option', description: 'Frequently asked questions', value: 'faq', text_search: null }, { type: 'option', description: 'Books appointments', value: 'appointments', text_search: null }, { type: 'option', description: 'Events management', value: 'event', text_search: null }, { type: 'option', description: 'Something else', value: 'other', text_search: null }],
+                            value: null,
+                            chunking_footer: null,
+                            confirmation_label: null,
+                            min_length: null,
+                            min_length_error: null,
+                            max_length: null,
+                            max_length_error: null,
+                            min_value: null,
+                            min_value_error: null,
+                            max_value: null,
+                            max_value_error: null,
+                            on_login_success: null,
+                            on_login_failure: null,
+                            on_logout_success: null,
+                            on_logout_failure: null,
+                            step: null,
+                            meta: { auto_select: false, multi_select: false, numbered: false },
+                            method: null,
+                            required: true,
+                            default: 'faq',
+                            pattern: null,
+                            status_exclude: false,
+                            status_prepend: false,
+                            url: null,
+                            validate_type_error: null,
+                            validate_type_error_footer: null,
+                            validate_url: null
+                        }, { type: 'phone', name: 'field7', description: 'Provide phone number', header: 'Phone', footer: null, body: null, value: null, chunking_footer: null, confirmation_label: null, min_length: null, min_length_error: null, max_length: null, max_length_error: null, min_value: null, min_value_error: null, max_value: null, max_value_error: null, on_login_success: null, on_login_failure: null, on_logout_success: null, on_logout_failure: null, step: null, meta: { auto_select: false, multi_select: false, numbered: false }, method: null, required: true, default: null, pattern: null, status_exclude: false, status_prepend: false, url: null, validate_type_error: null, validate_type_error_footer: null, validate_url: null }, { type: 'email', name: 'field8', description: 'Provide email address', header: 'Email', footer: null, body: null, value: null, chunking_footer: null, confirmation_label: null, min_length: null, min_length_error: null, max_length: null, max_length_error: null, min_value: null, min_value_error: null, max_value: null, max_value_error: null, on_login_success: null, on_login_failure: null, on_logout_success: null, on_logout_failure: null, step: null, meta: { auto_select: false, multi_select: false, numbered: false }, method: null, required: true, default: null, pattern: null, status_exclude: false, status_prepend: false, url: null, validate_type_error: null, validate_type_error_footer: null, validate_url: null }, { type: 'url', name: 'field9', description: 'Provide web site', header: 'Url', footer: null, body: null, value: null, chunking_footer: null, confirmation_label: null, min_length: null, min_length_error: null, max_length: null, max_length_error: null, min_value: null, min_value_error: null, max_value: null, max_value_error: null, on_login_success: null, on_login_failure: null, on_logout_success: null, on_logout_failure: null, step: null, meta: { auto_select: false, multi_select: false, numbered: false }, method: null, required: true, default: null, pattern: null, status_exclude: false, status_prepend: false, url: null, validate_type_error: null, validate_type_error_footer: null, validate_url: null }],
+                        method: 'post',
+                        path: '/todoAdd',
+                        header: null,
+                        footer: null,
+                        meta: {
+                            completion_status_show: false,
+                            completion_status_in_header: false,
+                            skip_confirmation: false
+                        },
+                        snackbar: {
+                            message: 'error',
+                            severity: 'info',
+                            name: 'ok',
+                            path: '/',
+                            method: 'GET',
+                            meta: { auto_hide_duration: 7000 }
+                        }
                     }
                 };
 
@@ -890,9 +1139,9 @@ describe('Test schema', function () {
                     snackbar: {
                         message: 'error message',
                         severity: 'info',
-                        action_name: null,
-                        action_path: null,
-                        action_method: null,
+                        name: null,
+                        path: null,
+                        method: null,
                         meta: {
                             auto_hide_duration: null
                         }
@@ -916,7 +1165,6 @@ describe('Test schema', function () {
                 }
                 assert.throws(iThrow, Error, 'Only one <snackbar> tag is allowed in a <menu> or <form>');
             });
-
         });
     });
 
@@ -929,7 +1177,7 @@ describe('Test schema', function () {
                     '</section>';
                 const sectionTag = parser.loadHtml(undefined, html);
 
-                function iThrow() {
+                function iThrow () {
                     return FormItem.fromTag(sectionTag);
                 }
 
@@ -1006,13 +1254,13 @@ describe('Test schema', function () {
             });
 
             it('should handle null and zero values for numeric fields', function () {
-                let html = '' +
+                const html = '' +
                     '<section name="step1" required>' +
                     '    <input type="number" name="test" min="0" value="0" step=0 minlength=0 max=null/>' +
                     '</section>';
-                let sectionTag = parser.loadHtml(undefined, html);
+                const sectionTag = parser.loadHtml(undefined, html);
 
-                let response = FormItem.fromTag(sectionTag);
+                const response = FormItem.fromTag(sectionTag);
                 const expected = {
                     type: 'float',
                     name: 'step1',
@@ -1054,7 +1302,6 @@ describe('Test schema', function () {
                 };
 
                 assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
-
             });
 
             it('should throw error for type="hidden" and no value', function () {
@@ -1064,7 +1311,7 @@ describe('Test schema', function () {
                     '</section>';
                 const sectionTag = parser.loadHtml(undefined, html);
 
-                function iThrow() {
+                function iThrow () {
                     return FormItem.fromTag(sectionTag);
                 }
 
@@ -1138,23 +1385,22 @@ describe('Test schema', function () {
                 };
 
                 assert.equal(JSON.stringify(snakecase(formItem)), JSON.stringify(expected));
-            })
+            });
         });
 
         describe('FormItem.constructor', function () {
             it('should raise error for invalid type in constructor', function () {
-                function iThrow() {
-                    return new FormItem({type: 'blabla'});
+                function iThrow () {
+                    return new FormItem({ type: 'blabla' });
                 }
 
                 assert.throws(iThrow, Error, 'FormItem type="blabla" is not supported. Supported types: date,datetime,email,form-menu,float,hidden,int,location,login,logout,range,regex,string,tel,phone,url,textarea');
-            })
-        })
+            });
+        });
     });
 
     describe('Response', function () {
         it('should return the correct Response object', function () {
-
             const html = '<form header="Form header" skip-confirmation method="PATCH" action="/route">' +
                 '<section name="step1" numbered required auto-select>' +
                 '   <p></p>' +
@@ -1286,6 +1532,6 @@ describe('Test schema', function () {
             };
             assert.strictEqual(response instanceof Response, true);
             assert.strictEqual(JSON.stringify(response), JSON.stringify(snakecase(expected)));
-        })
+        });
     });
 });
