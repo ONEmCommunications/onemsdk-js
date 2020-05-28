@@ -7,6 +7,32 @@
 <dd></dd>
 <dt><a href="#BrTag">BrTag</a></dt>
 <dd></dd>
+<dt><a href="#CardTagAttrs">CardTagAttrs</a></dt>
+<dd></dd>
+<dt><a href="#CardTag">CardTag</a></dt>
+<dd></dd>
+<dt><a href="#CardActionTagAttrs">CardActionTagAttrs</a></dt>
+<dd></dd>
+<dt><a href="#CardActionTag">CardActionTag</a></dt>
+<dd></dd>
+<dt><a href="#CardActionsTag">CardActionsTag</a></dt>
+<dd></dd>
+<dt><a href="#CardAvatarTagAttrs">CardAvatarTagAttrs</a></dt>
+<dd></dd>
+<dt><a href="#CardAvatarTag">CardAvatarTag</a></dt>
+<dd></dd>
+<dt><a href="#CardContentTagAttrs">CardContentTagAttrs</a></dt>
+<dd></dd>
+<dt><a href="#CardContentTag">CardContentTag</a></dt>
+<dd></dd>
+<dt><a href="#CardHeaderTagAttrs">CardHeaderTagAttrs</a></dt>
+<dd></dd>
+<dt><a href="#CardHeaderTag">CardHeaderTag</a></dt>
+<dd></dd>
+<dt><a href="#CardMediaTagAttrs">CardMediaTagAttrs</a></dt>
+<dd></dd>
+<dt><a href="#CardMediaTag">CardMediaTag</a></dt>
+<dd></dd>
 <dt><a href="#FooterTag">FooterTag</a></dt>
 <dd></dd>
 <dt><a href="#FormTagAttrs">FormTagAttrs</a></dt>
@@ -41,6 +67,10 @@
 <dd></dd>
 <dt><a href="#SectionTag">SectionTag</a></dt>
 <dd></dd>
+<dt><a href="#SnackbarTagAttrs">SnackbarTagAttrs</a></dt>
+<dd></dd>
+<dt><a href="#SnackbarTag">SnackbarTag</a></dt>
+<dd></dd>
 <dt><a href="#Tag">Tag</a></dt>
 <dd></dd>
 <dt><a href="#TextareaTag">TextareaTag</a></dt>
@@ -59,6 +89,20 @@
 <dt><a href="#ATag">ATag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
 <dd></dd>
 <dt><a href="#BrTag">BrTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
+<dd></dd>
+<dt><a href="#CardTag">CardTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
+<dd></dd>
+<dt><a href="#CardActionTag">CardActionTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
+<dd></dd>
+<dt><a href="#CardActionsTag">CardActionsTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
+<dd></dd>
+<dt><a href="#CardAvatarTag">CardAvatarTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
+<dd></dd>
+<dt><a href="#CardContentTag">CardContentTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
+<dd></dd>
+<dt><a href="#CardHeaderTag">CardHeaderTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
+<dd></dd>
+<dt><a href="#CardMediaTag">CardMediaTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
 <dd></dd>
 <dt><a href="#FooterTag">FooterTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
 <dd></dd>
@@ -81,6 +125,8 @@
 <dt><a href="#PTag">PTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
 <dd></dd>
 <dt><a href="#SectionTag">SectionTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
+<dd></dd>
+<dt><a href="#SnackbarTag">SnackbarTag</a> ⇐ <code><a href="#Tag">Tag</a></code></dt>
 <dd></dd>
 <dt><a href="#Tag">Tag</a></dt>
 <dd></dd>
@@ -136,6 +182,270 @@
 
 ## BrTag
 **Kind**: global class  
+<a name="CardTagAttrs"></a>
+
+## CardTagAttrs
+**Kind**: global class  
+<a name="new_CardTagAttrs_new"></a>
+
+### new CardTagAttrs([action], [method])
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [action] | <code>string</code> |  | Optional path to call when the card is selected |
+| [method] | <code>string</code> | <code>&quot;\&quot;GET\&quot;&quot;</code> | Optional method associated with the action |
+
+<a name="CardTag"></a>
+
+## CardTag
+**Kind**: global class  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| children | <code>Array.&lt;(CardHeaderTag\|CardMediaTag\|CardContentTag\|CardActionsTag)&gt;</code> | 
+
+
+* [CardTag](#CardTag)
+    * [new CardTag(attrs)](#new_CardTag_new)
+    * [.getAttributes(node)](#CardTag.getAttributes) ⇒ [<code>CardTagAttrs</code>](#CardTagAttrs)
+
+<a name="new_CardTag_new"></a>
+
+### new CardTag(attrs)
+
+| Param | Type |
+| --- | --- |
+| attrs | [<code>CardTagAttrs</code>](#CardTagAttrs) | 
+
+<a name="CardTag.getAttributes"></a>
+
+### CardTag.getAttributes(node) ⇒ [<code>CardTagAttrs</code>](#CardTagAttrs)
+**Kind**: static method of [<code>CardTag</code>](#CardTag)  
+
+| Param | Type |
+| --- | --- |
+| node | <code>HTMLElement</code> | 
+
+<a name="CardActionTagAttrs"></a>
+
+## CardActionTagAttrs
+**Kind**: global class  
+<a name="new_CardActionTagAttrs_new"></a>
+
+### new CardActionTagAttrs(name, path, method)
+
+| Param | Type | Description |
+| --- | --- | --- |
+| name | <code>string</code> | name of the card action button |
+| path | <code>string</code> | path for the callback when the card action is selected |
+| method | <code>string</code> | to use for the callback |
+
+<a name="CardActionTag"></a>
+
+## CardActionTag
+**Kind**: global class  
+
+* [CardActionTag](#CardActionTag)
+    * [new CardActionTag(children, attrs)](#new_CardActionTag_new)
+    * [.getAttributes(node)](#CardActionTag.getAttributes) ⇒ [<code>CardActionTagAttrs</code>](#CardActionTagAttrs)
+
+<a name="new_CardActionTag_new"></a>
+
+### new CardActionTag(children, attrs)
+
+| Param | Type |
+| --- | --- |
+| children | <code>undefined</code> | 
+| attrs | [<code>CardActionTagAttrs</code>](#CardActionTagAttrs) | 
+
+<a name="CardActionTag.getAttributes"></a>
+
+### CardActionTag.getAttributes(node) ⇒ [<code>CardActionTagAttrs</code>](#CardActionTagAttrs)
+**Kind**: static method of [<code>CardActionTag</code>](#CardActionTag)  
+
+| Param | Type |
+| --- | --- |
+| node | <code>HTMLElement</code> | 
+
+<a name="CardActionsTag"></a>
+
+## CardActionsTag
+**Kind**: global class  
+<a name="new_CardActionsTag_new"></a>
+
+### new CardActionsTag(children)
+
+| Param | Type |
+| --- | --- |
+| children | [<code>Array.&lt;CardActionTag&gt;</code>](#CardActionTag) | 
+
+<a name="CardAvatarTagAttrs"></a>
+
+## CardAvatarTagAttrs
+**Kind**: global class  
+<a name="new_CardAvatarTagAttrs_new"></a>
+
+### new CardAvatarTagAttrs([src], [name])
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [src] | <code>string</code> | public url of the avatar png image |
+| [name] | <code>string</code> | name of the avatar |
+
+<a name="CardAvatarTag"></a>
+
+## CardAvatarTag
+**Kind**: global class  
+
+* [CardAvatarTag](#CardAvatarTag)
+    * [new CardAvatarTag(children, attrs)](#new_CardAvatarTag_new)
+    * [.getAttributes(node)](#CardAvatarTag.getAttributes) ⇒ [<code>CardAvatarTagAttrs</code>](#CardAvatarTagAttrs)
+
+<a name="new_CardAvatarTag_new"></a>
+
+### new CardAvatarTag(children, attrs)
+
+| Param | Type |
+| --- | --- |
+| children | <code>undefined</code> | 
+| attrs | [<code>CardAvatarTagAttrs</code>](#CardAvatarTagAttrs) | 
+
+<a name="CardAvatarTag.getAttributes"></a>
+
+### CardAvatarTag.getAttributes(node) ⇒ [<code>CardAvatarTagAttrs</code>](#CardAvatarTagAttrs)
+**Kind**: static method of [<code>CardAvatarTag</code>](#CardAvatarTag)  
+
+| Param | Type |
+| --- | --- |
+| node | <code>HTMLElement</code> | 
+
+<a name="CardContentTagAttrs"></a>
+
+## CardContentTagAttrs
+**Kind**: global class  
+<a name="new_CardContentTagAttrs_new"></a>
+
+### new CardContentTagAttrs([title], [subtitle], [content])
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [title] | <code>string</code> | title of the card |
+| [subtitle] | <code>string</code> | subtitle of the card |
+| [content] | <code>string</code> | text content to be displayed |
+
+<a name="CardContentTag"></a>
+
+## CardContentTag
+**Kind**: global class  
+
+* [CardContentTag](#CardContentTag)
+    * [new CardContentTag(children, attrs)](#new_CardContentTag_new)
+    * [.getAttributes(node)](#CardContentTag.getAttributes) ⇒ [<code>CardContentTagAttrs</code>](#CardContentTagAttrs)
+
+<a name="new_CardContentTag_new"></a>
+
+### new CardContentTag(children, attrs)
+
+| Param | Type |
+| --- | --- |
+| children | <code>undefined</code> | 
+| attrs | [<code>CardContentTagAttrs</code>](#CardContentTagAttrs) | 
+
+<a name="CardContentTag.getAttributes"></a>
+
+### CardContentTag.getAttributes(node) ⇒ [<code>CardContentTagAttrs</code>](#CardContentTagAttrs)
+**Kind**: static method of [<code>CardContentTag</code>](#CardContentTag)  
+
+| Param | Type |
+| --- | --- |
+| node | <code>HTMLElement</code> | 
+
+<a name="CardHeaderTagAttrs"></a>
+
+## CardHeaderTagAttrs
+**Kind**: global class  
+<a name="new_CardHeaderTagAttrs_new"></a>
+
+### new CardHeaderTagAttrs(title, [subtitle])
+
+| Param | Type | Description |
+| --- | --- | --- |
+| title | <code>string</code> | Title text |
+| [subtitle] | <code>string</code> | Optional subtitle text |
+
+<a name="CardHeaderTag"></a>
+
+## CardHeaderTag
+**Kind**: global class  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| [children] | [<code>Array.&lt;CardAvatarTag&gt;</code>](#CardAvatarTag) | 
+
+
+* [CardHeaderTag](#CardHeaderTag)
+    * [new CardHeaderTag(attrs)](#new_CardHeaderTag_new)
+    * [.getAttributes(node)](#CardHeaderTag.getAttributes) ⇒ [<code>CardHeaderTagAttrs</code>](#CardHeaderTagAttrs)
+
+<a name="new_CardHeaderTag_new"></a>
+
+### new CardHeaderTag(attrs)
+
+| Param | Type |
+| --- | --- |
+| attrs | [<code>CardHeaderTagAttrs</code>](#CardHeaderTagAttrs) | 
+
+<a name="CardHeaderTag.getAttributes"></a>
+
+### CardHeaderTag.getAttributes(node) ⇒ [<code>CardHeaderTagAttrs</code>](#CardHeaderTagAttrs)
+**Kind**: static method of [<code>CardHeaderTag</code>](#CardHeaderTag)  
+
+| Param | Type |
+| --- | --- |
+| node | <code>HTMLElement</code> | 
+
+<a name="CardMediaTagAttrs"></a>
+
+## CardMediaTagAttrs
+**Kind**: global class  
+<a name="new_CardMediaTagAttrs_new"></a>
+
+### new CardMediaTagAttrs([src], [avatarName])
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [src] | <code>string</code> | public url of the avatar png image |
+| [avatarName] | <code>string</code> | name of the avatar |
+
+<a name="CardMediaTag"></a>
+
+## CardMediaTag
+**Kind**: global class  
+
+* [CardMediaTag](#CardMediaTag)
+    * [new CardMediaTag(children, attrs)](#new_CardMediaTag_new)
+    * [.getAttributes(node)](#CardMediaTag.getAttributes) ⇒ [<code>CardMediaTagAttrs</code>](#CardMediaTagAttrs)
+
+<a name="new_CardMediaTag_new"></a>
+
+### new CardMediaTag(children, attrs)
+
+| Param | Type |
+| --- | --- |
+| children | <code>undefined</code> | 
+| attrs | [<code>CardMediaTagAttrs</code>](#CardMediaTagAttrs) | 
+
+<a name="CardMediaTag.getAttributes"></a>
+
+### CardMediaTag.getAttributes(node) ⇒ [<code>CardMediaTagAttrs</code>](#CardMediaTagAttrs)
+**Kind**: static method of [<code>CardMediaTag</code>](#CardMediaTag)  
+
+| Param | Type |
+| --- | --- |
+| node | <code>HTMLElement</code> | 
+
 <a name="FooterTag"></a>
 
 ## FooterTag
@@ -180,7 +490,7 @@ Instantiates a new FormTagAttrs
 Instantiates a new FormTag. It is the equivalent of the HTML <form> tag and
 it is always the root (it cannot be placed inside of another tag). The
 FormTag is be used in all the situations where some data is expected from the
-user. The FormTag can have only SectionTag children and each SectionTag
+user. The FormTag can have one SnackbarTag child followed by multiple SectionTag children and each SectionTag
 deals with one piece of data from the user.
 
 
@@ -456,8 +766,48 @@ SectionTag at a time.
 
 | Param | Type |
 | --- | --- |
-| children | <code>Array.&lt;(PTag\|BrTag\|UlTag\|LabelTag\|LoginTag\|LogoutTag\|HeaderTag\|FooterTag\|TextareaTag\|InputTag\|ImgTag\|VideoTag)&gt;</code> | 
+| children | <code>Array.&lt;(PTag\|BrTag\|UlTag\|LabelTag\|LoginTag\|LogoutTag\|HeaderTag\|FooterTag\|TextareaTag\|InputTag\|ImgTag\|VideoTag\|CardTag)&gt;</code> | 
 | attrs | [<code>SectionTagAttrs</code>](#SectionTagAttrs) | 
+
+<a name="SnackbarTagAttrs"></a>
+
+## SnackbarTagAttrs
+**Kind**: global class  
+<a name="new_SnackbarTagAttrs_new"></a>
+
+### new SnackbarTagAttrs([message], [severity])
+
+| Param | Type |
+| --- | --- |
+| [message] | <code>string</code> | 
+| [severity] | <code>string</code> | 
+
+<a name="SnackbarTag"></a>
+
+## SnackbarTag
+**Kind**: global class  
+
+* [SnackbarTag](#SnackbarTag)
+    * [new SnackbarTag(children, attrs)](#new_SnackbarTag_new)
+    * [.getAttributes(node)](#SnackbarTag.getAttributes) ⇒ [<code>SnackbarTagAttrs</code>](#SnackbarTagAttrs)
+
+<a name="new_SnackbarTag_new"></a>
+
+### new SnackbarTag(children, attrs)
+
+| Param | Type |
+| --- | --- |
+| children | <code>undefined</code> | 
+| attrs | [<code>SnackbarTagAttrs</code>](#SnackbarTagAttrs) | 
+
+<a name="SnackbarTag.getAttributes"></a>
+
+### SnackbarTag.getAttributes(node) ⇒ [<code>SnackbarTagAttrs</code>](#SnackbarTagAttrs)
+**Kind**: static method of [<code>SnackbarTag</code>](#SnackbarTag)  
+
+| Param | Type |
+| --- | --- |
+| node | <code>HTMLElement</code> | 
 
 <a name="Tag"></a>
 
@@ -466,7 +816,7 @@ SectionTag at a time.
 
 * [Tag](#Tag)
     * [new Tag(children, attrs)](#new_Tag_new)
-    * [.fromNode(node)](#Tag.fromNode) ⇒ [<code>FormTag</code>](#FormTag) \| [<code>SectionTag</code>](#SectionTag) \| [<code>UlTag</code>](#UlTag) \| [<code>LiTag</code>](#LiTag) \| [<code>LoginTag</code>](#LoginTag) \| [<code>LogoutTag</code>](#LogoutTag) \| [<code>ATag</code>](#ATag) \| [<code>PTag</code>](#PTag) \| [<code>BrTag</code>](#BrTag) \| [<code>HeaderTag</code>](#HeaderTag) \| [<code>FooterTag</code>](#FooterTag) \| [<code>InputTag</code>](#InputTag) \| [<code>LabelTag</code>](#LabelTag) \| [<code>TextareaTag</code>](#TextareaTag) \| [<code>ImgTag</code>](#ImgTag) \| [<code>VideoTag</code>](#VideoTag)
+    * [.fromNode(node)](#Tag.fromNode) ⇒ [<code>FormTag</code>](#FormTag) \| [<code>CardTag</code>](#CardTag) \| [<code>CardHeaderTag</code>](#CardHeaderTag) \| [<code>CardAvatarTag</code>](#CardAvatarTag) \| [<code>CardMediaTag</code>](#CardMediaTag) \| [<code>CardContentTag</code>](#CardContentTag) \| [<code>CardActionsTag</code>](#CardActionsTag) \| [<code>CardActionTag</code>](#CardActionTag) \| [<code>SectionTag</code>](#SectionTag) \| [<code>SnackbarTag</code>](#SnackbarTag) \| [<code>UlTag</code>](#UlTag) \| [<code>LiTag</code>](#LiTag) \| [<code>LoginTag</code>](#LoginTag) \| [<code>LogoutTag</code>](#LogoutTag) \| [<code>ATag</code>](#ATag) \| [<code>PTag</code>](#PTag) \| [<code>BrTag</code>](#BrTag) \| [<code>HeaderTag</code>](#HeaderTag) \| [<code>FooterTag</code>](#FooterTag) \| [<code>InputTag</code>](#InputTag) \| [<code>LabelTag</code>](#LabelTag) \| [<code>TextareaTag</code>](#TextareaTag) \| [<code>ImgTag</code>](#ImgTag) \| [<code>VideoTag</code>](#VideoTag)
     * [.getAttributes(node)](#Tag.getAttributes) ⇒ <code>Object</code> \| <code>undefined</code>
 
 <a name="new_Tag_new"></a>
@@ -482,7 +832,7 @@ Instantiates a Tag
 
 <a name="Tag.fromNode"></a>
 
-### Tag.fromNode(node) ⇒ [<code>FormTag</code>](#FormTag) \| [<code>SectionTag</code>](#SectionTag) \| [<code>UlTag</code>](#UlTag) \| [<code>LiTag</code>](#LiTag) \| [<code>LoginTag</code>](#LoginTag) \| [<code>LogoutTag</code>](#LogoutTag) \| [<code>ATag</code>](#ATag) \| [<code>PTag</code>](#PTag) \| [<code>BrTag</code>](#BrTag) \| [<code>HeaderTag</code>](#HeaderTag) \| [<code>FooterTag</code>](#FooterTag) \| [<code>InputTag</code>](#InputTag) \| [<code>LabelTag</code>](#LabelTag) \| [<code>TextareaTag</code>](#TextareaTag) \| [<code>ImgTag</code>](#ImgTag) \| [<code>VideoTag</code>](#VideoTag)
+### Tag.fromNode(node) ⇒ [<code>FormTag</code>](#FormTag) \| [<code>CardTag</code>](#CardTag) \| [<code>CardHeaderTag</code>](#CardHeaderTag) \| [<code>CardAvatarTag</code>](#CardAvatarTag) \| [<code>CardMediaTag</code>](#CardMediaTag) \| [<code>CardContentTag</code>](#CardContentTag) \| [<code>CardActionsTag</code>](#CardActionsTag) \| [<code>CardActionTag</code>](#CardActionTag) \| [<code>SectionTag</code>](#SectionTag) \| [<code>SnackbarTag</code>](#SnackbarTag) \| [<code>UlTag</code>](#UlTag) \| [<code>LiTag</code>](#LiTag) \| [<code>LoginTag</code>](#LoginTag) \| [<code>LogoutTag</code>](#LogoutTag) \| [<code>ATag</code>](#ATag) \| [<code>PTag</code>](#PTag) \| [<code>BrTag</code>](#BrTag) \| [<code>HeaderTag</code>](#HeaderTag) \| [<code>FooterTag</code>](#FooterTag) \| [<code>InputTag</code>](#InputTag) \| [<code>LabelTag</code>](#LabelTag) \| [<code>TextareaTag</code>](#TextareaTag) \| [<code>ImgTag</code>](#ImgTag) \| [<code>VideoTag</code>](#VideoTag)
 **Kind**: static method of [<code>Tag</code>](#Tag)  
 
 | Param | Type |
@@ -611,6 +961,234 @@ Returns the attributes specific to a certain tag
 | children | <code>undefined</code> | 
 | attrs | <code>undefined</code> | 
 
+<a name="CardTag"></a>
+
+## CardTag ⇐ [<code>Tag</code>](#Tag)
+**Kind**: global typedef  
+**Extends**: [<code>Tag</code>](#Tag)  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| children | <code>Array.&lt;(CardHeaderTag\|CardMediaTag\|CardContentTag\|CardActionsTag)&gt;</code> | 
+| attrs | [<code>CardTagAttrs</code>](#CardTagAttrs) | 
+
+
+* [CardTag](#CardTag) ⇐ [<code>Tag</code>](#Tag)
+    * [new CardTag(attrs)](#new_CardTag_new)
+    * [.getAttributes(node)](#CardTag.getAttributes) ⇒ [<code>CardTagAttrs</code>](#CardTagAttrs)
+
+<a name="new_CardTag_new"></a>
+
+### new CardTag(attrs)
+
+| Param | Type |
+| --- | --- |
+| attrs | [<code>CardTagAttrs</code>](#CardTagAttrs) | 
+
+<a name="CardTag.getAttributes"></a>
+
+### CardTag.getAttributes(node) ⇒ [<code>CardTagAttrs</code>](#CardTagAttrs)
+**Kind**: static method of [<code>CardTag</code>](#CardTag)  
+
+| Param | Type |
+| --- | --- |
+| node | <code>HTMLElement</code> | 
+
+<a name="CardActionTag"></a>
+
+## CardActionTag ⇐ [<code>Tag</code>](#Tag)
+**Kind**: global typedef  
+**Extends**: [<code>Tag</code>](#Tag)  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| children | <code>undefined</code> | 
+| attrs | [<code>CardActionTagAttrs</code>](#CardActionTagAttrs) | 
+
+
+* [CardActionTag](#CardActionTag) ⇐ [<code>Tag</code>](#Tag)
+    * [new CardActionTag(children, attrs)](#new_CardActionTag_new)
+    * [.getAttributes(node)](#CardActionTag.getAttributes) ⇒ [<code>CardActionTagAttrs</code>](#CardActionTagAttrs)
+
+<a name="new_CardActionTag_new"></a>
+
+### new CardActionTag(children, attrs)
+
+| Param | Type |
+| --- | --- |
+| children | <code>undefined</code> | 
+| attrs | [<code>CardActionTagAttrs</code>](#CardActionTagAttrs) | 
+
+<a name="CardActionTag.getAttributes"></a>
+
+### CardActionTag.getAttributes(node) ⇒ [<code>CardActionTagAttrs</code>](#CardActionTagAttrs)
+**Kind**: static method of [<code>CardActionTag</code>](#CardActionTag)  
+
+| Param | Type |
+| --- | --- |
+| node | <code>HTMLElement</code> | 
+
+<a name="CardActionsTag"></a>
+
+## CardActionsTag ⇐ [<code>Tag</code>](#Tag)
+**Kind**: global typedef  
+**Extends**: [<code>Tag</code>](#Tag)  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| children | [<code>Array.&lt;CardActionTag&gt;</code>](#CardActionTag) | 
+| attrs | <code>undefined</code> | 
+
+<a name="new_CardActionsTag_new"></a>
+
+### new CardActionsTag(children)
+
+| Param | Type |
+| --- | --- |
+| children | [<code>Array.&lt;CardActionTag&gt;</code>](#CardActionTag) | 
+
+<a name="CardAvatarTag"></a>
+
+## CardAvatarTag ⇐ [<code>Tag</code>](#Tag)
+**Kind**: global typedef  
+**Extends**: [<code>Tag</code>](#Tag)  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| children | <code>undefined</code> | 
+| attrs | [<code>CardAvatarTagAttrs</code>](#CardAvatarTagAttrs) | 
+
+
+* [CardAvatarTag](#CardAvatarTag) ⇐ [<code>Tag</code>](#Tag)
+    * [new CardAvatarTag(children, attrs)](#new_CardAvatarTag_new)
+    * [.getAttributes(node)](#CardAvatarTag.getAttributes) ⇒ [<code>CardAvatarTagAttrs</code>](#CardAvatarTagAttrs)
+
+<a name="new_CardAvatarTag_new"></a>
+
+### new CardAvatarTag(children, attrs)
+
+| Param | Type |
+| --- | --- |
+| children | <code>undefined</code> | 
+| attrs | [<code>CardAvatarTagAttrs</code>](#CardAvatarTagAttrs) | 
+
+<a name="CardAvatarTag.getAttributes"></a>
+
+### CardAvatarTag.getAttributes(node) ⇒ [<code>CardAvatarTagAttrs</code>](#CardAvatarTagAttrs)
+**Kind**: static method of [<code>CardAvatarTag</code>](#CardAvatarTag)  
+
+| Param | Type |
+| --- | --- |
+| node | <code>HTMLElement</code> | 
+
+<a name="CardContentTag"></a>
+
+## CardContentTag ⇐ [<code>Tag</code>](#Tag)
+**Kind**: global typedef  
+**Extends**: [<code>Tag</code>](#Tag)  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| children | <code>undefined</code> | 
+| attrs | [<code>CardContentTagAttrs</code>](#CardContentTagAttrs) | 
+
+
+* [CardContentTag](#CardContentTag) ⇐ [<code>Tag</code>](#Tag)
+    * [new CardContentTag(children, attrs)](#new_CardContentTag_new)
+    * [.getAttributes(node)](#CardContentTag.getAttributes) ⇒ [<code>CardContentTagAttrs</code>](#CardContentTagAttrs)
+
+<a name="new_CardContentTag_new"></a>
+
+### new CardContentTag(children, attrs)
+
+| Param | Type |
+| --- | --- |
+| children | <code>undefined</code> | 
+| attrs | [<code>CardContentTagAttrs</code>](#CardContentTagAttrs) | 
+
+<a name="CardContentTag.getAttributes"></a>
+
+### CardContentTag.getAttributes(node) ⇒ [<code>CardContentTagAttrs</code>](#CardContentTagAttrs)
+**Kind**: static method of [<code>CardContentTag</code>](#CardContentTag)  
+
+| Param | Type |
+| --- | --- |
+| node | <code>HTMLElement</code> | 
+
+<a name="CardHeaderTag"></a>
+
+## CardHeaderTag ⇐ [<code>Tag</code>](#Tag)
+**Kind**: global typedef  
+**Extends**: [<code>Tag</code>](#Tag)  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| [children] | [<code>Array.&lt;CardAvatarTag&gt;</code>](#CardAvatarTag) | 
+| attrs | [<code>CardHeaderTagAttrs</code>](#CardHeaderTagAttrs) | 
+
+
+* [CardHeaderTag](#CardHeaderTag) ⇐ [<code>Tag</code>](#Tag)
+    * [new CardHeaderTag(attrs)](#new_CardHeaderTag_new)
+    * [.getAttributes(node)](#CardHeaderTag.getAttributes) ⇒ [<code>CardHeaderTagAttrs</code>](#CardHeaderTagAttrs)
+
+<a name="new_CardHeaderTag_new"></a>
+
+### new CardHeaderTag(attrs)
+
+| Param | Type |
+| --- | --- |
+| attrs | [<code>CardHeaderTagAttrs</code>](#CardHeaderTagAttrs) | 
+
+<a name="CardHeaderTag.getAttributes"></a>
+
+### CardHeaderTag.getAttributes(node) ⇒ [<code>CardHeaderTagAttrs</code>](#CardHeaderTagAttrs)
+**Kind**: static method of [<code>CardHeaderTag</code>](#CardHeaderTag)  
+
+| Param | Type |
+| --- | --- |
+| node | <code>HTMLElement</code> | 
+
+<a name="CardMediaTag"></a>
+
+## CardMediaTag ⇐ [<code>Tag</code>](#Tag)
+**Kind**: global typedef  
+**Extends**: [<code>Tag</code>](#Tag)  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| children | <code>undefined</code> | 
+| attrs | [<code>CardMediaTagAttrs</code>](#CardMediaTagAttrs) | 
+
+
+* [CardMediaTag](#CardMediaTag) ⇐ [<code>Tag</code>](#Tag)
+    * [new CardMediaTag(children, attrs)](#new_CardMediaTag_new)
+    * [.getAttributes(node)](#CardMediaTag.getAttributes) ⇒ [<code>CardMediaTagAttrs</code>](#CardMediaTagAttrs)
+
+<a name="new_CardMediaTag_new"></a>
+
+### new CardMediaTag(children, attrs)
+
+| Param | Type |
+| --- | --- |
+| children | <code>undefined</code> | 
+| attrs | [<code>CardMediaTagAttrs</code>](#CardMediaTagAttrs) | 
+
+<a name="CardMediaTag.getAttributes"></a>
+
+### CardMediaTag.getAttributes(node) ⇒ [<code>CardMediaTagAttrs</code>](#CardMediaTagAttrs)
+**Kind**: static method of [<code>CardMediaTag</code>](#CardMediaTag)  
+
+| Param | Type |
+| --- | --- |
+| node | <code>HTMLElement</code> | 
+
 <a name="FooterTag"></a>
 
 ## FooterTag ⇐ [<code>Tag</code>](#Tag)
@@ -651,7 +1229,7 @@ Instantiates a new FooterTag
 Instantiates a new FormTag. It is the equivalent of the HTML <form> tag and
 it is always the root (it cannot be placed inside of another tag). The
 FormTag is be used in all the situations where some data is expected from the
-user. The FormTag can have only SectionTag children and each SectionTag
+user. The FormTag can have one SnackbarTag child followed by multiple SectionTag children and each SectionTag
 deals with one piece of data from the user.
 
 
@@ -897,8 +1475,43 @@ SectionTag at a time.
 
 | Param | Type |
 | --- | --- |
-| children | <code>Array.&lt;(PTag\|BrTag\|UlTag\|LabelTag\|LoginTag\|LogoutTag\|HeaderTag\|FooterTag\|TextareaTag\|InputTag\|ImgTag\|VideoTag)&gt;</code> | 
+| children | <code>Array.&lt;(PTag\|BrTag\|UlTag\|LabelTag\|LoginTag\|LogoutTag\|HeaderTag\|FooterTag\|TextareaTag\|InputTag\|ImgTag\|VideoTag\|CardTag)&gt;</code> | 
 | attrs | [<code>SectionTagAttrs</code>](#SectionTagAttrs) | 
+
+<a name="SnackbarTag"></a>
+
+## SnackbarTag ⇐ [<code>Tag</code>](#Tag)
+**Kind**: global typedef  
+**Extends**: [<code>Tag</code>](#Tag)  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| children | <code>undefined</code> | 
+| attrs | [<code>SnackbarTagAttrs</code>](#SnackbarTagAttrs) | 
+
+
+* [SnackbarTag](#SnackbarTag) ⇐ [<code>Tag</code>](#Tag)
+    * [new SnackbarTag(children, attrs)](#new_SnackbarTag_new)
+    * [.getAttributes(node)](#SnackbarTag.getAttributes) ⇒ [<code>SnackbarTagAttrs</code>](#SnackbarTagAttrs)
+
+<a name="new_SnackbarTag_new"></a>
+
+### new SnackbarTag(children, attrs)
+
+| Param | Type |
+| --- | --- |
+| children | <code>undefined</code> | 
+| attrs | [<code>SnackbarTagAttrs</code>](#SnackbarTagAttrs) | 
+
+<a name="SnackbarTag.getAttributes"></a>
+
+### SnackbarTag.getAttributes(node) ⇒ [<code>SnackbarTagAttrs</code>](#SnackbarTagAttrs)
+**Kind**: static method of [<code>SnackbarTag</code>](#SnackbarTag)  
+
+| Param | Type |
+| --- | --- |
+| node | <code>HTMLElement</code> | 
 
 <a name="Tag"></a>
 
@@ -915,7 +1528,7 @@ SectionTag at a time.
 
 * [Tag](#Tag)
     * [new Tag(children, attrs)](#new_Tag_new)
-    * [.fromNode(node)](#Tag.fromNode) ⇒ [<code>FormTag</code>](#FormTag) \| [<code>SectionTag</code>](#SectionTag) \| [<code>UlTag</code>](#UlTag) \| [<code>LiTag</code>](#LiTag) \| [<code>LoginTag</code>](#LoginTag) \| [<code>LogoutTag</code>](#LogoutTag) \| [<code>ATag</code>](#ATag) \| [<code>PTag</code>](#PTag) \| [<code>BrTag</code>](#BrTag) \| [<code>HeaderTag</code>](#HeaderTag) \| [<code>FooterTag</code>](#FooterTag) \| [<code>InputTag</code>](#InputTag) \| [<code>LabelTag</code>](#LabelTag) \| [<code>TextareaTag</code>](#TextareaTag) \| [<code>ImgTag</code>](#ImgTag) \| [<code>VideoTag</code>](#VideoTag)
+    * [.fromNode(node)](#Tag.fromNode) ⇒ [<code>FormTag</code>](#FormTag) \| [<code>CardTag</code>](#CardTag) \| [<code>CardHeaderTag</code>](#CardHeaderTag) \| [<code>CardAvatarTag</code>](#CardAvatarTag) \| [<code>CardMediaTag</code>](#CardMediaTag) \| [<code>CardContentTag</code>](#CardContentTag) \| [<code>CardActionsTag</code>](#CardActionsTag) \| [<code>CardActionTag</code>](#CardActionTag) \| [<code>SectionTag</code>](#SectionTag) \| [<code>SnackbarTag</code>](#SnackbarTag) \| [<code>UlTag</code>](#UlTag) \| [<code>LiTag</code>](#LiTag) \| [<code>LoginTag</code>](#LoginTag) \| [<code>LogoutTag</code>](#LogoutTag) \| [<code>ATag</code>](#ATag) \| [<code>PTag</code>](#PTag) \| [<code>BrTag</code>](#BrTag) \| [<code>HeaderTag</code>](#HeaderTag) \| [<code>FooterTag</code>](#FooterTag) \| [<code>InputTag</code>](#InputTag) \| [<code>LabelTag</code>](#LabelTag) \| [<code>TextareaTag</code>](#TextareaTag) \| [<code>ImgTag</code>](#ImgTag) \| [<code>VideoTag</code>](#VideoTag)
     * [.getAttributes(node)](#Tag.getAttributes) ⇒ <code>Object</code> \| <code>undefined</code>
 
 <a name="new_Tag_new"></a>
@@ -931,7 +1544,7 @@ Instantiates a Tag
 
 <a name="Tag.fromNode"></a>
 
-### Tag.fromNode(node) ⇒ [<code>FormTag</code>](#FormTag) \| [<code>SectionTag</code>](#SectionTag) \| [<code>UlTag</code>](#UlTag) \| [<code>LiTag</code>](#LiTag) \| [<code>LoginTag</code>](#LoginTag) \| [<code>LogoutTag</code>](#LogoutTag) \| [<code>ATag</code>](#ATag) \| [<code>PTag</code>](#PTag) \| [<code>BrTag</code>](#BrTag) \| [<code>HeaderTag</code>](#HeaderTag) \| [<code>FooterTag</code>](#FooterTag) \| [<code>InputTag</code>](#InputTag) \| [<code>LabelTag</code>](#LabelTag) \| [<code>TextareaTag</code>](#TextareaTag) \| [<code>ImgTag</code>](#ImgTag) \| [<code>VideoTag</code>](#VideoTag)
+### Tag.fromNode(node) ⇒ [<code>FormTag</code>](#FormTag) \| [<code>CardTag</code>](#CardTag) \| [<code>CardHeaderTag</code>](#CardHeaderTag) \| [<code>CardAvatarTag</code>](#CardAvatarTag) \| [<code>CardMediaTag</code>](#CardMediaTag) \| [<code>CardContentTag</code>](#CardContentTag) \| [<code>CardActionsTag</code>](#CardActionsTag) \| [<code>CardActionTag</code>](#CardActionTag) \| [<code>SectionTag</code>](#SectionTag) \| [<code>SnackbarTag</code>](#SnackbarTag) \| [<code>UlTag</code>](#UlTag) \| [<code>LiTag</code>](#LiTag) \| [<code>LoginTag</code>](#LoginTag) \| [<code>LogoutTag</code>](#LogoutTag) \| [<code>ATag</code>](#ATag) \| [<code>PTag</code>](#PTag) \| [<code>BrTag</code>](#BrTag) \| [<code>HeaderTag</code>](#HeaderTag) \| [<code>FooterTag</code>](#FooterTag) \| [<code>InputTag</code>](#InputTag) \| [<code>LabelTag</code>](#LabelTag) \| [<code>TextareaTag</code>](#TextareaTag) \| [<code>ImgTag</code>](#ImgTag) \| [<code>VideoTag</code>](#VideoTag)
 **Kind**: static method of [<code>Tag</code>](#Tag)  
 
 | Param | Type |

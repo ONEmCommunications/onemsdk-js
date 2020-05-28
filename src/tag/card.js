@@ -7,7 +7,7 @@ const CardActionsTag = require("./cardactions").CardActionsTag;
 /**
  * @typedef CardTag
  * @extends Tag
- * @property {Array<CardHeaderTag|CardMediaTag|CardContentTag|CardActionsTag|>} children
+ * @property {Array<CardHeaderTag|CardMediaTag|CardContentTag|CardActionsTag>} children
  * @property {CardTagAttrs} attrs
  */
 
@@ -24,7 +24,7 @@ function CardTagAttrs(action, actionLabel, method) {
 }
 
 /**
- * @property {Array<CardHeaderTag|CardMediaTag|CardContentTag|CardActionsTag|>} children
+ * @property {Array<CardHeaderTag|CardMediaTag|CardContentTag|CardActionsTag>} children
  * @param {CardTagAttrs} attrs
  * @constructor
  */

@@ -1,6 +1,9 @@
 # History
 
 ---
+## 0.18.0
+  - Added snackbar and various card constructors & tags
+---
 ## 0.17.0
   - Support type float for step
 ---
