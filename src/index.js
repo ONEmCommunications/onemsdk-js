@@ -36,6 +36,7 @@ const UlTag = tags.UlTag,
  @param {string} [props.subtitle] - Sets {@link Card#subtitle}
  @param {string} [props.description] - Sets {@link Card#description}
  @param {Array<CardAction>} [props.actions] - Sets {@link Card#actions}
+ @param {string} [props.actionLael] - Sets {@link Card#actionLabel}
  */
 function Card(props) {
 
@@ -87,6 +88,15 @@ function Card(props) {
      */
     this.actions = props.actions || null;
 
+    /**
+     Label for the select option on SMS
+
+     @name Card#actionLabel
+     @type {string}
+     @default 'Select'
+     */
+    this.actionLabel = props.actionLabel || 'Select';
+
 }
 
 /**
@@ -101,7 +111,7 @@ Card.fromTag = function (cardTag) {
         if (child instanceof CardHeaderTag) {
             header = CardHeader.fromTag(child);
         } else if (child instanceof CardMediaTag) {
-            src = child.attrs.src;         
+            src = child.attrs.src;
         } else if (child instanceof CardContentTag) {
             description = child.attrs.content
             title = child.attrs.title;
@@ -126,7 +136,8 @@ Card.fromTag = function (cardTag) {
         title: title,
         subtitle: subtitle,
         description: description,
-        actions: actions
+        actions: actions,
+        actionLabel: cardTag.attrs.actionLabel
     });
 };
 

@@ -17,9 +17,10 @@ const CardActionsTag = require("./cardactions").CardActionsTag;
  * @param {string} [method="GET"] Optional method associated with the action
  * @constructor
  */
-function CardTagAttrs(action, method) {
+function CardTagAttrs(action, actionLabel, method) {
     this.action = action;
-    this.method = method;
+	this.actionLabel = actionLabel;
+	this.method = method;
 }
 
 /**
@@ -62,6 +63,7 @@ CardTag.tagName = 'card';
 CardTag.getAttributes = function (node) {
     return new CardTagAttrs(
         node.attributes.action,
+        node.attributes['action-label'],
         node.attributes.method
     );
 };

@@ -47,7 +47,7 @@ describe('Test schema', function () {
                     '   </ul>' +
                     '   <login on-success="/successPath" on-failure="/failurePath" />' +
                     '   <logout on-success="/logoutSuccessPath2" on-failure="/logoutFailurePath2" />' +
-                    '   <card/>' +
+                    '   <card action-label="Choose"/>' +
                     '</section>';
                 const rootTag = parser.loadHtml(undefined, html);
                 const response = Response.fromTag(rootTag);
@@ -187,7 +187,8 @@ describe('Test schema', function () {
                                     title: null,
                                     subtitle: null,
                                     description: null,
-                                    actions: null
+                                    actions: null,
+                                    action_label: 'Select'
                                 }
                             },
                             {
@@ -236,7 +237,8 @@ describe('Test schema', function () {
                                     title: null,
                                     subtitle: null,
                                     description: null,
-                                    actions: null
+                                    actions: null,
+                                    action_label: 'Choose'
                                 }
                             }
                         ],
@@ -423,7 +425,8 @@ describe('Test schema', function () {
                                         name: 'Some action',
                                         path: '/path/some/action',
                                         method: 'post'
-                                    }]
+                                    }],
+                                    action_label: 'Select'
                                 }
                             }
                         ],
