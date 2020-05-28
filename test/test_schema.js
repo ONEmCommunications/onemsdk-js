@@ -370,10 +370,21 @@ describe('Test schema', function () {
         });
 
         describe('Card.fromTag', function () {
-            it('should render a populated card as a section child in an html menu', function () {
+            it('should render a populated cards as a section children in an html menu', function () {
                 const html = '' +
                     '<section name="name">' +
                     '   <card action="/card/1234" method="post">' +
+                    '       <cardheader title="card title" subtitle="some subtitle">' +
+                    '           <cardavatar src="https://image.png" name="chris horn"/>' +
+                    '       </cardheader>' +
+                    '       <cardmedia src="https://some.mp4"/>' +
+                    '       <cardcontent title="content title" subtitle="content subtitle" content="some content"/>' +
+                    '       <cardactions>' +
+                    '           <cardaction name="Read more" method="get" path="/path/read/more"/>' +
+                    '           <cardaction name="Some action" method="post" path="/path/some/action"/>' +
+                    '       </cardactions>' +
+                    '   </card>' +
+                    '   <card>' +
                     '       <cardheader title="card title" subtitle="some subtitle">' +
                     '           <cardavatar src="https://image.png" name="chris horn"/>' +
                     '       </cardheader>' +
@@ -402,6 +413,43 @@ describe('Test schema', function () {
                                 on_logout_failure: null,
                                 on_logout_success: null,
                                 path: '/card/1234',
+                                src: null,
+                                alt: null,
+                                card: {
+                                    header: {
+                                        title: 'card title',
+                                        subtitle: 'some subtitle',
+                                        avatar: {
+                                            src: 'https://image.png',
+                                            name: 'chris horn'
+                                        }
+                                    },
+                                    src: 'https://some.mp4',
+                                    title: 'content title',
+                                    subtitle: 'content subtitle',
+                                    description: 'some content',
+                                    actions: [{
+                                        name: 'Read more',
+                                        path: '/path/read/more',
+                                        method: 'get'
+                                    }, {
+                                        name: 'Some action',
+                                        path: '/path/some/action',
+                                        method: 'post'
+                                    }],
+                                    action_label: 'Select'
+                                }
+                            },
+                            {
+                                type: 'content',
+                                description: null,
+                                text_search: null,
+                                method: null,
+                                on_login_failure: null,
+                                on_login_success: null,
+                                on_logout_failure: null,
+                                on_logout_success: null,
+                                path: null,
                                 src: null,
                                 alt: null,
                                 card: {
