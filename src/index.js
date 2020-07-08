@@ -36,7 +36,7 @@ const UlTag = tags.UlTag,
  @param {string} [props.subtitle] - Sets {@link Card#subtitle}
  @param {string} [props.description] - Sets {@link Card#description}
  @param {Array<CardAction>} [props.actions] - Sets {@link Card#actions}
- @param {string} [props.actionLael] - Sets {@link Card#actionLabel}
+ @param {string} [props.actionLabel] - Sets {@link Card#actionLabel}
  */
 function Card(props) {
 
@@ -166,7 +166,7 @@ function CardHeader(props) {
     }
 
     /**
-     Card subtitle in main card body
+     Card subtitle of the card header
 
      @name CardHeader#subtitle
      @type {string}

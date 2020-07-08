@@ -253,6 +253,51 @@ describe('Test schema', function () {
                 assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
             });
 
+            it('should handle an empty link description', function () {
+                const html = '' +
+                    '<section name="some-name">' +
+                    '   <ul>' +
+                    '       <li>' +
+                    '           <a href="/route1" method="POST">' +
+                    '               <img src="image" /></a>' +
+                    '       </li>' +
+                    '   </ul>' +
+                    '</section>';
+                const rootTag = parser.loadHtml(undefined, html);
+                const response = Response.fromTag(rootTag);
+
+                const expected = {
+                    content_type: 'menu',
+                    content: {
+                        type: 'menu',
+                        body: [
+                            {
+                                type: 'option',
+                                description: null,
+                                text_search: null,
+                                method: 'POST',
+                                on_login_failure: null,
+                                on_login_success: null,
+                                on_logout_failure: null,
+                                on_logout_success: null,
+                                path: '/route1',
+                                src: 'image',
+                                alt: null,
+                                card: null
+                            },
+                        ],
+                        header: null,
+                        footer: null,
+                        meta: {
+                            auto_select: false
+                        },
+                        snackbar: null
+                    }
+                };
+                assert.strictEqual(JSON.stringify(response), JSON.stringify(expected));
+            });
+
+
             it('should recognize header/footer as attrs and as children', function () {
                 let html = '' +
                     '<section header="header attr" footer="footer attr">' +

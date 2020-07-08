@@ -50,7 +50,10 @@ ATag.__proto__ = Tag;
 ATag.tagName = 'a';
 
 ATag.prototype.toString = function aTagToString() {
-    return this.children[0];
+    if (typeof this.children[0] === 'string') {
+        return this.children[0];
+    }
+    return null;
 };
 
 

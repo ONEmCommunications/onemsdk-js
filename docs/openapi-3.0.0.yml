@@ -1,0 +1,524 @@
+openapi: 3.0.0
+info:
+  title: ONEm JSON response schema
+  version: "v1.1"
+servers:
+# Added by API Auto Mocking Plugin
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/chris73/onem-json-response/1.0
+- url: https://virtserver.swaggerhub.com/chris73/onem-json-response/v1
+  description: SwaggerHub API Auto Mocking
+paths: {}
+components:
+  schemas:
+    Card:
+      title: Card
+      type: object
+      description: A Card object as defined in the JSON schema
+      properties:
+        header:
+          $ref: '#/components/schemas/CardHeader'
+        src:
+          title: Src
+          type: string
+          description: Link to public url for card media (image, mp4, youtube or vimeo)
+        title:
+          title: Title
+          type: string
+          description: Card title in main card body
+        subtitle:
+          title: Subitle
+          type: string
+          description: Card subtitle in main card body  
+        description:
+          title: Description
+          type: string
+          description: Card content in main card body
+        actions:
+          $ref: '#/components/schemas/CardAction'
+        action_label:
+          title: Action_label
+          type: string
+          description: Label for the select option on SMS
+    CardHeader:
+      title: CardHeader
+      type: object
+      description: A CardHeader object as defined in the JSON schema
+      required:
+      - title
+      properties:
+        title:
+          title: Title
+          type: string
+          description: Card title of the card header
+        subtitle:
+          title: Subtitle
+          type: string
+          description: Card subtitle of the card header
+        avatar:
+          $ref: '#/components/schemas/CardAvatar'
+    CardAvatar:
+      title: CardAvatar
+      type: object
+      description: A CardAvatar object as defined in the JSON schema
+      properties:
+        src:
+          title: Src
+          type: string
+          description: Link to public url of avatar image
+        name:
+          title: Name
+          type: string
+          description: Name of the avatar
+    CardAction:
+      title: CardAction
+      type: object
+      description: A CardAction object as defined in the JSON schema
+      properties:
+        name:
+          title: Name
+          type: string
+          description: Name of the action
+        path:
+          title: Path
+          type: string
+          description: Path for the callback action
+        method:
+          title: Method
+          type: string
+          default: 'GET'
+          description: Method to use when path is specified
+    SnackbarMeta:
+      title: SnackbarMeta
+      type: object
+      properties:
+        auto_hide_duration:
+          title: Auto_hide_duration
+          type: number
+          description: Time to wait (in ms) until the Snackbar should be automatically closed. If not supplied, zero or null, the default system value applies (usually 7s)
+    Snackbar:
+      title: Snackbar
+      required:
+      - message
+      type: object
+      properties:
+        message:
+          title: Message
+          type: string
+          description: The error message text
+        severity:
+          title: Severity
+          type: string
+          description: The severity of the error
+          enum:
+          - info
+          - warn
+          - error
+          - success
+          default: 'info'
+        name:
+          title: Name
+          type: string
+          description: The name of the action button
+        path:
+          title: Path
+          type: string
+          description: The callback path of the action
+        method:
+          title: Method
+          type: string
+          description: The method of the action
+    MenuItem:
+      title: MenuItem
+      required:
+      - description
+      - type
+      type: object
+      properties:
+        type:
+          title: Type
+          type: string
+          description: The type of the menu item.
+          enum:
+          - option
+          - content
+          - login
+          - logout
+        description:
+          title: Description
+          type: string
+          description: The displayed text of a menu item.
+        text_search:
+          title: Text_Search
+          type: string
+          description: Field to add more context for searching in options
+        method:
+          title: Method
+          type: string
+          description: The HTTP method called when the menu item is selected.
+          enum:
+          - GET
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+          - HEAD
+          - OPTIONS
+          - TRACE
+        path:
+          title: Path
+          type: string
+          description: The path called when the menu item is selected.
+        src:
+          title: Src
+          type: string
+          description: Fully qualified public path to a media file.
+        alt:
+          title: Alt
+          type: string
+          description: Alt text to use for media files, meaningful only when src is provided.
+        card:
+          $ref: '#/components/schemas/Card'
+          
+      description: An item in a menu. Depending on its type, a menu item can be either
+        an option (type=option) or an option separator (type=content)
+    MenuMeta:
+      title: MenuMeta
+      type: object
+      properties:
+        auto_select:
+          title: Auto_Select
+          type: boolean
+          description: If the `Menu` has only one option, it is automatically selected,
+            without asking the user for selection
+          default: false
+      description: Configuration fields for `Menu`
+    Menu:
+      title: Menu
+      required:
+      - body
+      type: object
+      properties:
+        type:
+          title: Type
+          type: string
+          description: The type of the Menu object is always "menu"
+        body:
+          title: Body
+          type: array
+          description: The body/content of the menu
+          items:
+            $ref: '#/components/schemas/MenuItem'
+        header:
+          title: Header
+          type: string
+          description: The header of the menu.
+        footer:
+          title: Footer
+          type: string
+          description: The header of the menu.
+        snackbar:
+          $ref: '#/components/schemas/Snackbar'
+        meta:
+          title: Meta
+          description: Configuration fields for `Menu`
+          allOf:
+          - $ref: '#/components/schemas/MenuMeta'
+      description: A top level component that permits displaying a navigable menu
+        or a plain text.
+    MenuItemFormItem:
+      title: MenuItemFormItem
+      required:
+      - description
+      - type
+      type: object
+      properties:
+        type:
+          title: Type
+          type: string
+          description: The type of a menu item inside a form
+          enum:
+          - option
+          - content
+        description:
+          title: Description
+          type: string
+          description: The description of this MenuItemFormItem
+        value:
+          title: Value
+          type: string
+          description: The value of this MenuItemFormItem, used in form serialization
+        text_search:
+          title: Text_Search
+          type: string
+          description: Field to add more context for searching in options
+      description: An item in a form's menu
+    MenuFormItemMeta:
+      title: MenuFormItemMeta
+      type: object
+      properties:
+        auto_select:
+          title: Auto_Select
+          type: boolean
+          description: Will be automatically selected if set to true and in case of
+            a single option in the menu
+          default: false
+        multi_select:
+          title: Multi_Select
+          type: boolean
+          description: It allows multiple options to be selected
+          default: false
+        numbered:
+          title: Numbered
+          type: boolean
+          description: Display numbers instead of letter option markers
+          default: false
+      description: Configuration fields for a `FormItem`
+    FormItem:
+      title: FormItem
+      required:
+      - description
+      - name
+      - type
+      type: object
+      properties:
+        type:
+          title: Type
+          type: string
+          description: The type of data expected from the user
+          enum:
+          - string
+          - date
+          - datetime
+          - hidden
+          - int
+          - float
+          - form-menu
+          - email
+          - url
+          - location
+          - tel
+          - phone
+          - range
+          - textarea
+        name:
+          title: Name
+          type: string
+          description: The name of this FormItem, used in form serialization
+        description:
+          title: Description
+          type: string
+          description: The description of this FormItem
+        header:
+          title: Header
+          type: string
+          description: If provided will overwrite the Form.header
+        footer:
+          title: Footer
+          type: string
+          description: If provided will overwrite the Form.footer
+        body:
+          title: Body
+          type: array
+          description: Required only for type=form-menu
+          items:
+            $ref: '#/components/schemas/MenuItemFormItem'
+        value:
+          title: Value
+          type: string
+          description: Required for type=hidden
+        chunking_footer:
+          title: Chunking_Footer
+          type: string
+          description: Shown in the footer of the sms chunks
+        confirmation_label:
+          title: Confirmation_Label
+          type: string
+          description: Shown in the confirmation menu
+        min_length:
+          title: Min_Length
+          type: integer
+          description: Validates the user input - for type=string
+        min_length_error:
+          title: Min_Length_Error
+          type: string
+          description: Message to be shown on min_length error
+        max_length:
+          title: Max_Length
+          type: integer
+          description: Validates the user input - for type=string
+        max_length_error:
+          title: Max_Length_Error
+          type: string
+          description: Message to be shown on max_length error
+        min_value:
+          title: Min_Value
+          type: number
+          description: Validates the user input - for type=int|float
+        min_value_error:
+          title: Min_Value_Error
+          type: string
+          description: Message to be shown on min_value error
+        max_value:
+          title: Max_Value
+          type: number
+          description: Validates the user input - for type=int|float
+        max_value_error:
+          title: Max_Value_Error
+          type: string
+          description: Message to be shown on max_value error
+        meta:
+          title: Meta
+          description: Applies only for type=form-menu
+          allOf:
+          - $ref: '#/components/schemas/MenuFormItemMeta'
+        method:
+          title: Method
+          type: string
+          description: http method, how the callback url should be triggered
+          enum:
+          - GET
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+          - HEAD
+          - OPTIONS
+          - TRACE
+        required:
+          title: Required
+          type: boolean
+          description: Can be skipped if set to false
+          default: false
+        status_exclude:
+          title: Status_Exclude
+          type: boolean
+          description: If true this step will be excluded from the form completion
+            status
+          default: false
+        status_prepend:
+          title: Status_Prepend
+          type: boolean
+          description: If true this step will be prepended to the body pre of the
+            response - appended otherwise
+          default: false
+        url:
+          title: Url
+          type: string
+          description: Callback url triggered right after the choice has been set
+            for this form item
+        validate_type_error:
+          title: Validate_Type_Error
+          type: string
+          description: An error message to be shown on basic type validation
+        validate_type_error_footer:
+          title: Validate_Type_Error_Footer
+          type: string
+          description: Shown in the error message footer
+        validate_url:
+          title: Validate_Url
+          type: string
+          description: 'the callback url path (GET) triggered to validate user input
+            with query string ?name=user_input - url must return json content {"valid":
+            True/False, "error": "Some validation error message"}'
+      description: Component used to ask a user for a certain type of free input
+    FormMeta:
+      title: FormMeta
+      type: object
+      properties:
+        completion_status_show:
+          title: Show completion status
+          type: boolean
+          description: Whether to display the completions status
+          default: false
+        completion_status_in_header:
+          title: Show completion status in header
+          type: boolean
+          description: Whether to display the completion status in header
+          default: false
+        confirmation_needed:
+          title: Confirmation needed
+          type: boolean
+          description: Whether to add an additional item at the end of the form for
+            confirmation
+          default: false
+      description: Configuration fields for a Form
+    Form:
+      title: Form
+      required:
+      - body
+      - path
+      type: object
+      properties:
+        type:
+          title: Type
+          type: string
+          description: The type of a form is always form
+        body:
+          title: Body
+          type: array
+          description: Sequence of components used to acquire the pieces of data needed
+            from user
+          items:
+            $ref: '#/components/schemas/FormItem'
+        method:
+          title: Method
+          type: string
+          description: The HTTP method used to send the form data
+          default: POST
+          enum:
+          - GET
+          - POST
+          - PUT
+          - PATCH
+          - DELETE
+          - HEAD
+          - OPTIONS
+          - TRACE
+        path:
+          title: Path
+          type: string
+          description: The path used to send the form data
+        header:
+          title: Header
+          type: string
+          description: The header of the form. It can be overwritten by each body
+            component
+        footer:
+          title: Footer
+          type: string
+          description: The footer of the form. It can be overwritten by each body
+            component
+        snackbar:
+          $ref: '#/components/schemas/Snackbar'
+        meta:
+          title: Meta
+          description: Contains configuration flags
+          allOf:
+          - $ref: '#/components/schemas/FormMeta'
+      description: A top level component used to acquire information from user
+    Response:
+      title: Response
+      required:
+      - content
+      - content_type
+      type: object
+      properties:
+        content_type:
+          title: Content type
+          type: string
+          description: The type of the content of the response
+          enum:
+          - form
+          - menu
+        content:
+          title: Content
+          description: The content of the response
+          anyOf:
+          - allOf:
+            - $ref: '#/components/schemas/Form'
+          - allOf:
+            - $ref: '#/components/schemas/Menu'
+      description: A JSON-serialized instance of Response must be sent as response
+        to the ONEm platform. It can be built only from a top level object (Menu,
+        Form).
